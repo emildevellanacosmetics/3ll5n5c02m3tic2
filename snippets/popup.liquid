@@ -1,0 +1,147 @@
+<!-- filename: popup.liquid -->
+
+<script>
+  $(document).ready(function(){
+        $('.close').on("click", function(e) {
+          e.preventDefault();
+        $('#popup, #overlay').hide();
+        Cookies.set('foo_bar', 1, { expires: 1 })
+      }); 
+    
+       if (document.cookie.indexOf("foo_bar") < 0) {
+
+        $("<div>",{ id : "overlay" }).insertBefore("#popup");
+        setTimeout(
+         function() 
+          {
+           // $("#overlay").fadeIn(1000).show();
+           // $("#popup").fadeIn(1000).show();
+          }, 2500);
+       }
+  });
+</script>
+
+<div id="popup">
+    <div class="close">X</div>
+    <div class="pop-container">
+		<p class="pop-title">ORDER TODAY</p>
+        <p>Delivery to Metro Manila in 3 - 7 days.</p>
+        <p>Free Shipping at ₱1500</p>
+        <p>COD available!</p>
+        <h5>ECQ advisory and Standard Terms and Conditions Apply.</h5>
+    </div>
+</div>
+
+<style>
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0%;
+      left: 0%;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      z-index: 0;
+      -moz-opacity: 0.75;
+      opacity: .75;
+      filter: alpha(opacity=75);
+    }
+    
+    #popup {
+      display: none;
+      position: fixed; 
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      min-width: 260px;
+      max-width: 768px;
+      min-height: 375px;
+      max-height: 375px;
+      padding: 0px 0px 0px 0px;
+      box-shadow: 0px 1px 10px rgba(0,0,0,0.5);
+      background-color: white;
+      z-index: 0;
+      text-align: center;
+    }
+
+    .donatebuttonred {
+      cursor: pointer;
+      color: #fff;
+      font: normal 20px 'Open Sans';
+      font-weight: bold;
+      border-radius: 0px;
+      background: rgba(210, 0, 0, 1);
+      width: 175px;
+      padding: 5px 5px 10px 5px !important;
+      height: 20px;
+      position: relative;
+      top: 0%;
+      margin: 47px 0px 0px 0px !important;
+      left: 50%;
+      /* bring your own prefixes */
+      transform: translate(-50%, -50%);
+      box-shadow: 0px 5px 5px 0px #aaa;
+      text-align: center;
+      border: 1px solid #700;
+
+    }
+
+    #popup .close {
+      cursor: pointer;
+      color: #000;
+      font: normal 20px 'Open Sans';
+      font-weight: bold;
+      float: right;
+      margin: 5px 10px 0px 0px;
+      border-radius: 5px;
+      width: 20px;
+      padding: 1px 0px 8px 8px;
+      height: 20px;
+    }
+
+    #popup .pop-title {
+      font-family: 'helvetica';
+      color: #EF614F;
+      text-align: center;
+      padding: 0;
+      margin-top: 40px;
+      font-weight: bold;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+      font-size: 66px;
+      font-weight: 900;
+        
+    }
+    
+    @media only screen and (max-width:480px) {
+      #popup .pop-title {
+          font-size: 42px;
+      }
+    }
+    #popup p {
+      font-size: 28px;
+      line-height: 1.3em;
+      font-weight: 100;
+      
+    }
+    
+    @media only screen and (max-width:480px){
+      #popup p {
+          font-size: 18px;
+      }
+      #popup {
+          min-height: 313px;
+          max-height: 313px;
+          margin: auto 10px;
+    }
+    
+    #popup button {
+      text-align: center;
+    }
+      
+      .pop-container {
+        margin: 5px;
+      }
+</style>

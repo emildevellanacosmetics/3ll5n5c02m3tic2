@@ -1,0 +1,83 @@
+<!-- filename: wishlist-collection-non-logged.liquid -->
+
+
+<div class="wishlist-collection">
+{% if customer %}
+
+  {%- capture wish_handle_final -%}
+      {%- assign wish_handle = customer.metafields.wish_list.get_product | split: ',' -%}
+      {%- for tag_wish in wish_handle -%}
+          {{tag_wish}}<br>
+      {%- endfor -%}
+  {%- endcapture -%}
+
+  {%- assign wish_meta = customer.metafields.wish_list.get_product | split: ',' -%}
+  {%- for tag_handle in wish_meta limit:1 -%}
+    {%- assign handle_first = tag_handle -%}
+  {%- endfor -%}
+
+  {% for tag_one in wish_meta %}
+    {% assign tag_loop = forloop.index %}
+  {% endfor %}
+
+  {% assign wish_true = false %}
+  {% if product.handle == handle_first %}
+    {% assign wish_true = true %}
+  {% endif %}
+
+  {% assign new_handle_first = handle_first | append: ',' %}
+  {% assign new_pro_handle = product.handle | prepend: ',' %}
+ <div class="onlinewish">
+  {% if wish_handle_final contains product.handle %}
+    <form action="/a/custmeta" method="POST" class="custmeta_wish">
+      <input type="hidden" name="customer[id]" value="{{ customer.id }}" />
+      <input type="hidden" name="metafield[wish_list.get_product]" value="{% if wish_true == true %}{% if tag_loop == 1 %}{% else %}{{customer.metafields.wish_list.get_product | remove: new_handle_first }}{% endif %}{% else %}{{customer.metafields.wish_list.get_product | remove: new_pro_handle }}{% endif %}">
+      {% comment %} <input type="submit" value="&#xf004 Remove from Wishlist" class="save-btn save-btn-act" /> {% endcomment %}
+      <button type="submit" class="save-btn save-btn-act">
+        <img src="{{ 'heart-fill.png' | asset_url }}">
+      </button>
+    </form>
+  {% else %}
+    
+      
+ 	<form action="/a/custmeta" method="POST" class="custmeta_wish">
+      <input type="hidden" name="customer[id]" value="{{ customer.id }}" />
+      <input type="hidden" name="metafield[wish_list.get_product]" value="{%- if customer.metafields.wish_list.get_product != blank -%}{{customer.metafields.wish_list.get_product}},{{product.handle}}{%- else -%}{{product.handle}}{%- endif -%}">
+      {% comment %} <input type="submit" value="Add to Wishlist" class="save-btn save-btn-act" /> {% endcomment %}
+      <button type="submit" class="save-btn save-btn-act">
+        <img src="{{ 'heart-nofill.png' | asset_url }}">
+      </button>
+    </form>
+   
+  {% endif %}
+ </div> 
+   <!--
+    <div class="onlinewish">
+      <input type="hidden" name="customer[id]" value="{{ customer.id }}" class="custid"/>
+        <input type="hidden" name="metafield[wish_list.get_product]" value="{% if wish_true == true %}{% if tag_loop == 1 %}{% else %}{{customer.metafields.wish_list.get_product | remove: new_handle_first }}{% endif %}{% else %}{{customer.metafields.wish_list.get_product | remove: new_pro_handle }}{% endif %}">
+        {% comment %} 
+      <input type="submit" value="&#xf004 Remove from Wishlist" class="save-btn" /> {% endcomment %}
+      <button class="heart-def2">
+          <i class="fa fa-heart-o" aria-hidden="true"></i>
+      </button>
+      <button class="heart-act2">
+          <i class="fa fa-heart" aria-hidden="true"></i>
+      </button>
+  </div> -->
+  
+{% else %}
+	<button class="heart-def">
+		<i class="fa fa-heart-o" aria-hidden="true"></i>
+	</button>
+	<button class="heart-act">
+		<i class="fa fa-heart" aria-hidden="true"></i>
+    </button>
+{% endif %}
+</div>
+
+
+
+<script>
+  
+ 
+</script>

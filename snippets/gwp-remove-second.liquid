@@ -1,0 +1,38 @@
+<!-- filename: gwp-remove-second.liquid -->
+{% for product in collections.free-gift-second.products %}
+  {% assign idsec =  product.variants.first.id  %}
+{% endfor %}
+
+
+<script>
+  
+Shopify.Cart = Shopify.Cart || {};
+
+Shopify.Cart.GiftWrap = {};
+
+
+Shopify.Cart.GiftWrap.remove = function() {
+  jQuery.ajax({
+    type: 'POST',
+    url: '/cart/update.js', 
+    data: { updates: { 
+             {{ idsec }}: 0 
+            }
+          }, 
+    dataType: 'json',
+    success: window.onload = function() {
+    if(!window.location.hash) {
+        window.location = window.location + '#removegwp2';
+        window.location.reload();
+    }
+}
+  });
+}
+
+
+
+jQuery(function() {
+  Shopify.Cart.GiftWrap.remove();
+});
+
+</script>

@@ -1,0 +1,42 @@
+<!-- filename: removegwp.liquid -->
+<script>
+function removeGwps(items) {
+  
+  var itemsArray = items.split(',');
+  var qty = 0;
+  var data = { updates: {} };
+ 
+  for (i = 0; i < itemsArray.length; i++) {
+     data.updates[itemsArray[i]] = qty;
+  }
+
+  jQuery.ajax({
+    type: 'POST',
+    url: '/cart/update.js',
+    data: data,
+    dataType: 'json',
+    success: function() { 
+      setTimeout(function() {
+            	window.location.reload();
+            }, 1000);
+    }
+  });
+
+}
+</script>
+
+{% assign gwp_id = "" %}
+{% for item in cart.items %}
+{% if item.product.tags contains 'gwp' or item.product.tags contains 'GWP'  %}
+	{% capture link_span %}{{ item.variant.id }}{% endcapture %}
+    {% capture gwp_id %}{% unless gwp_id == blank %}{{ gwp_id }},{% endunless %}{{ link_span }}{% endcapture %}
+
+{% endif %}
+{% endfor %}
+
+
+<div style="position: relative; width: 100%; clear: both;">
+   <a onclick="removeGwps('{{ gwp_id }}')"  id="remove-free" class="cart__remove uppercase lighten" href="#removegwp">
+        <small>Remove freebie/s - I have a Discount Code</small>
+   </a>
+</div>

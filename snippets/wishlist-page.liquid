@@ -1,0 +1,106 @@
+<!-- filename: wishlish-page.liquid -->
+{% if customer %}
+	{% assign count = 0 %}
+	{%- assign wish_meta = customer.metafields.wish_list.get_product | split: ',' -%}
+	{%- for tag_handle in wish_meta limit:1 -%}
+		{%- assign handle_first = tag_handle -%}
+	{%- endfor -%}
+	{% for tag_one in wish_meta %}
+		{% assign tag_loop = forloop.index %}
+	{% endfor %}
+	{% assign new_handle_first = handle_first | append: ',' %}
+	<div class="sixteen columns">
+	   {%- for product in wish_meta -%}
+			   {%- assign sold_out = true -%}
+			   {%- if all_products[product].available -%}
+					{%- assign sold_out = false -%}
+			   {%- endif -%}
+			{% unless all_products[product] == empty %}
+				{% assign count = count | plus: 1 %}
+			   <div class="
+				  four columns alpha
+				  medium-down--one-half
+				  small-down--one-whole
+				  ">
+				  <div class="wishlist-item thumbnail">
+						<a href="{{ all_products[product].url }}">
+							<div class="image">
+							   {% for image in all_products[product].images %}
+								   {% if forloop.first == true %}
+										<img src="{{ image.src | img_url: 'master' }}" />
+								   {% endif %}
+							   {% endfor %}
+							</div>
+							<div class="title">{{ all_products[product].title }}</div>
+						</a>
+						<div class="shopify-reviews reviewsVisibility--{{settings.enable_shopify_review_comments}}">
+						   <span class="shopify-product-reviews-badge" data-id="{{ all_products[product].id }}"></span>
+						</div>
+						<span class="price {% if all_products[product].compare_at_price_max > all_products[product].price %}sale{% endif %}">
+						   {% unless all_products[product].available == false and settings.display_price == false %}
+						   <span class="current_price">
+							  {% if all_products[product].price_varies and all_products[product].price_min > 0 and item.compare_at_price_min > 0 %}
+								{{ 'products.general.from' | t }}
+							  {% endif %}
+							  {% if all_products[product].compare_at_price_max > 0 %}
+								  {% if all_products[product].price_min > 0 %}
+									<span class="money">{{ all_products[product].price_min | money }}</span>{% if all_products[product].price_varies %} to <span class="money">{{ all_products[product].price_max | money }}</span> {% endif %}
+								  {% else %}
+									{{ settings.free_price_text }}
+								  {% endif %}
+							  {% else %}          
+								  {% if product.price_varies %}          			
+								  <span class="sale">{{ all_products[product].price_min | money }} to {{ all_products[product].price_max | money }}</span>                                      
+								  {% else %}
+								  <span class="money non-discounted" style="color:#8c8b8b">{{ all_products[product].price_min | money }}</span>
+								  <style>
+									 .non-discounted span{color:#8c8b8b !important}
+								  </style>
+								  {% endif %}          
+							  {% endif %}
+						   </span>
+						   {% assign variant =  all_products[product].selected_or_first_available_variant %}
+						   <span class="was_price">
+						   {% if variant.price < variant.compare_at_price %}
+						   <span class="money">{{ variant.compare_at_price | money }}</span>
+						   {% endif %}
+						   </span>
+						   {% endunless %}
+						</span>
+						<div class="sold-out">
+							{% if sold_out %}
+								 <a href="{{ all_products[product].url | within: collection | capitalize }}">
+								 <p class="btn uppercase addToCart disabled">{{ 'products.product.sold_out' | t }}</p>
+								 </a>
+							{% endif %}
+						</div>
+					 {% assign new_pro_handle = all_products[product].handle | prepend: ',' %}
+						 <form action="/a/custmeta" method="POST" class="custmeta_wish">
+							<input type="hidden" name="customer[id]" value="{{ customer.id }}" />
+							<input type="hidden" name="metafield[wish_list.get_product]" value="{% if all_products[product].handle == handle_first %}{% if tag_loop == 1 %}{% else %}{{customer.metafields.wish_list.get_product | remove: new_handle_first }}{% endif %}{% else %}{{customer.metafields.wish_list.get_product | remove: new_pro_handle }}{% endif %}">
+							{% comment %} <input type="submit" value="Remove from Wishlist" class="save-btn" /> {% endcomment %}
+							<button type="submit" class="save-btn">
+							<img src="{{ 'heart-fill.png' | asset_url }}"> Remove from Wishlist
+							</button>
+						 </form>
+					</div>
+			   </div>
+			   {% endunless %}
+	   {% endfor %}
+	</div> <!-- main column -->
+      {% if count == 0 %}
+                 <div class="grid__item large--one-whole">
+                   <p>No wishlist yet? <a href="https://www.ellanacosmetics.com/collections/deals">Shop our deals!</a></p>
+                 </div>
+      {% endif %}	
+{% else %}
+		   <div class="grid__item large--one-whole">
+			  <p>No wishlist yet? <a href="https://www.ellanacosmetics.com/collections/deals">Shop our deals!</a></p>
+		   </div>
+{% endif %}	
+<style>
+   .four.columns{
+   min-height:500px;
+   }
+</style>
+

@@ -1,0 +1,111 @@
+<!-- filename: giftship.liquid -->
+<script>
+
+  if (typeof(GIST) == 'undefined') {
+    window.GIST = GIST = {};
+  }
+  if (typeof(GIST.f) == 'undefined') {
+    GIST.f = {};
+  }
+
+  GIST.f._isEmpty = function(obj){
+
+    for(var prop in obj) {
+      if(obj.hasOwnProperty(prop)) {
+        return false;
+      }
+    }
+
+    return JSON.stringify(obj) === JSON.stringify({});
+  };
+
+  GIST.bundles = [];
+  GIST.remove  = {};
+
+  {% assign multishipping = 'false' %}
+  {% assign giftship_cart_price = cart.total_price %}
+  {% assign hasBundle = "false" %}
+
+  {% for item in cart.items %}
+
+    {% if template.name == 'cart' %}
+
+      {% for p in item.properties %}
+
+      {% if p.first == 'Address' %}
+      {% assign multishipping = 'true' %}
+      {% endif %}
+
+      {% endfor %}
+
+    {% endif %}
+
+    {% if item.properties._gs_bundle_prices and item.properties._gs_bundle_ids and item.product.type != "GIST_HIDDEN_PRODUCT" %}
+
+      {% assign hasBundle = "true" %}
+
+      {% for id in item.properties._gs_bundle_ids %}
+      GIST.bundles.push({
+        variant_id: {{ id }},
+        quantity: {{ item.quantity }},
+        product_name: "{{ item.product.title }}"
+      });
+      {% endfor %}
+
+    {% endif %}
+
+    {% if item.properties._gs_bundle_item %}
+    GIST.remove['{{ item.key }}'] = 0;
+    {% endif %}
+
+  {% endfor %}
+
+  {% if hasBundle == "true" %}
+  GIST._bundleCart = true;
+  {% else %}
+  GIST._bundleCart = false;
+  {% endif %}
+
+  {% comment %}
+   Remove any hidden products that are in the cart.
+  {% endcomment %}
+
+  if (GIST.remove && !GIST.f._isEmpty(GIST.remove) ) {
+
+    GIST.xhr = new XMLHttpRequest();
+    GIST.xhr.open('POST', '/cart/update.js');
+    GIST.xhr.setRequestHeader('Content-Type', 'application/json');
+    GIST.xhr.onload = function() {
+      if (GIST.xhr.status === 200) {
+       var userInfo = JSON.parse(GIST.xhr.responseText);
+      }
+    };
+    GIST.xhr.send(JSON.stringify({updates:GIST.remove}));
+
+  }
+
+</script>
+
+{% if multishipping == 'true' and template.name == 'cart' %}
+<script type="text/javascript">
+  window.location = 'https://{{ request.host }}/a/gs/cart/';
+</script>
+<meta http-equiv="refresh" content="0;URL=https://{{ request.host }}/a/gs/cart/" />
+{% endif %}
+
+
+
+{% if template.name == 'cart' or template.name == "product" %}
+<script type="text/javascript" src="https://99418-1398787-raikfcquaxqncofqfm.stackpathdns.com/assets/js/giftship.js"></script>
+<link rel="stylesheet" type="text/css" href="https://99418-1398787-raikfcquaxqncofqfm.stackpathdns.com/assets/css/giftship.global.css">
+{% endif %}
+<script>
+$(function(){
+
+  $('.gs__save-attributes').click(function(){
+     var giftTo = $('#to_message').val();
+     localStorage.setItem('giftTo', giftTo);
+  });
+
+});
+</script>  

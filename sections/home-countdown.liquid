@@ -1,0 +1,372 @@
+<!-- filename: sections/home-cuntdown.liquid -->
+<div class="container top-padder" style="padding-bottom:0;">
+
+<div class="container countdown"  style="padding-bottom:0">
+  <h1 class="fancygray-mobile"><a href="{% if section.settings.link %}{{ section.settings.link }}{% else %}#{% endif %}">{{ section.settings.title }}</a></h1>
+    
+   <div class="vertical-container">
+    <div class="countdown-title vertical" style="text-align:center"> 
+      <h1 class="fancygray-desktop"><a href="{% if section.settings.link %}{{ section.settings.link }}{% else %}#{% endif %}">{{ section.settings.title }}</a></h1> 
+      <h1 class="fancyred-mobile">{{ section.settings.endsin }}</h1>
+    </div>
+    <div class="countdown-timer vertical"> 
+      <h1 class="fancyred-desktop">{{ section.settings.endsin }}</h1>
+      <ul>
+        {% if section.settings.days %}
+        	<li class="time"><span id="days"></span>days</li>
+        {% else %}
+        	<li class="time" style="display:none;"><span id="days"></span>days</li>
+        {% endif %}
+        <li class="time"><span id="hours"></span>Hours</li> 
+    	<li class="time"><span id="minutes"></span>Minutes</li> 
+        {% if section.settings.days %}
+        	<li class="time" style="display:none;"><span id="seconds"></span>Seconds</li>
+        {% else %}
+        	<li class="time"><span id="seconds"></span>Seconds</li>
+        {% endif %}
+      </ul>
+    </div>
+
+    <div class="countdown-botton vertical">
+    <div class="dropdown">
+      <button onclick="myFunction()" class="dropbtn">Remind Me</button>
+      <div id="myDropdown" class="dropdown-content">
+        <a target="_blank" href="https://calndr.link/d/event?service=apple&title=Choose%20Better%20Beauty%20with%20ELLANA%20Cosmetics&description=Experience%20how%20beauty%20does%20more%20with%20Ellana%27s%20skin-first%2C%20%23BetterForYou%20makeup%20and%20skincare%20lines.%20Visit%20www.ellanacosmetics.com.%0A%0AAlso%20on%20August%2012th%2C%20watch%20out%20for%20limited-time%20deals%20and%20special%20new%20offers%21&location=www.ellanacosmetics.com&start=2020-08-12%2000%3A00&end=2020-08-16%2023%3A59&timezone=Asia%2FSingapore">Apple Calendar</a>
+        <a target="_blank" href="https://calndr.link/d/event?service=google&title=Choose%20Better%20Beauty%20with%20ELLANA%20Cosmetics&description=Experience%20how%20beauty%20does%20more%20with%20Ellana%27s%20skin-first%2C%20%23BetterForYou%20makeup%20and%20skincare%20lines.%20Visit%20www.ellanacosmetics.com.%0A%0AAlso%20on%20August%2012th%2C%20watch%20out%20for%20limited-time%20deals%20and%20special%20new%20offers%21&location=www.ellanacosmetics.com&start=2020-08-12%2000%3A00&end=2020-08-16%2023%3A59&timezone=Asia%2FSingapore">Google Calendar</a>
+        <a target="_blank" href="https://calndr.link/d/event?service=outlook&title=Choose%20Better%20Beauty%20with%20ELLANA%20Cosmetics&description=Experience%20how%20beauty%20does%20more%20with%20Ellana%27s%20skin-first%2C%20%23BetterForYou%20makeup%20and%20skincare%20lines.%20Visit%20www.ellanacosmetics.com.%0A%0AAlso%20on%20August%2012th%2C%20watch%20out%20for%20limited-time%20deals%20and%20special%20new%20offers%21&location=www.ellanacosmetics.com&start=2020-08-12%2000%3A00&end=2020-08-16%2023%3A59&timezone=Asia%2FSingapore">Outlook Calendar</a>
+        <a target="_blank" href="https://calndr.link/d/event?service=yahoo&title=Choose%20Better%20Beauty%20with%20ELLANA%20Cosmetics&description=Experience%20how%20beauty%20does%20more%20with%20Ellana%27s%20skin-first%2C%20%23BetterForYou%20makeup%20and%20skincare%20lines.%20Visit%20www.ellanacosmetics.com.%0A%0AAlso%20on%20August%2012th%2C%20watch%20out%20for%20limited-time%20deals%20and%20special%20new%20offers%21&location=www.ellanacosmetics.com&start=2020-08-12%2000%3A00&end=2020-08-16%2023%3A59&timezone=Asia%2FSingapore">Yahoo Calendar</a>
+
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .container.countdown{margin-top:-22px}
+  .fancygray-mobile{display:none;text-align:center;text-transform:none;text-transform:none !important;}
+  .fancygray-desktop{text-transform:none !important;}
+  .fancyred-desktop{ display:block;text-transform:none;}
+  .fancyred-mobile{ display:none;color:#d3725d  !important;}
+  .fancyred-desktop{
+        display:block;
+        color:#d3725d !important;position:relative;top:20px !important;
+      }  
+  @media only screen and (max-width:480px){
+    .fancyred-desktop{
+    	display:none;
+    }
+    .fancygray-desktop{
+    	display:none;text-transform:none !important;
+    }
+	.fancyred-mobile{
+    	display:block;
+   }
+	.fancygray-mobile{
+    	display:block;text-transform:none !important;
+   }
+  }
+  
+  @media only screen and (max-width:480px){
+    .top-padder{padding-top:0px !important;}
+  }
+  .countdown .top-padder{}
+  .countdown .vertical-container{ width: 80%; margin: 0 auto; }  
+  @media only screen and (max-width:480px){
+  .countdown .vertical-container{ width: 80%; margin: -20px auto 20px; }  
+  }
+  .countdown-title {width: 54%;}  
+  .countdown-botton {width: 20%; text-align: right;display:none !important;}  
+  .countdown-timer {width: 37%;text-align: center;} 
+  
+.countdown .vertical-container {
+  display:flex;  
+}
+  @media only screen and (max-width:480px){
+    .countdown .vertical-container {
+       // display:block;  
+      }
+    .vertical-container .vertical {        
+        display: block;
+      	text-align:center;
+      	width:100%;
+     }
+  }
+  
+.time {
+  display: inline-block;
+  /* font-size: 1.5em; */
+font-size: 0.8em;
+  list-style-type: none;
+  padding: 15px;
+  text-transform: uppercase;
+  text-align: center
+  margin-bottom: 0;
+}
+
+.time span {
+  display: block;
+  font-size: 2rem; 
+  line-height: 1;
+  text-align: center;
+}
+ 
+.countdown h1 {
+    color: #6b6b6b;
+    font-weight: bold;
+    text-transform: capitilize;
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+    line-height: 21px;
+    margin: 0;
+    padding: 0;
+  	position:relative;
+  	top:-4px;
+}
+     .countdown-title.vertical br{
+  		/* display:none !important; */
+  	}
+  
+.countdown-title.vertical {
+    display: flex;
+    justify-content: flex-end;
+  	
+    align-content: center;
+    flex-wrap: wrap;
+}
+  @media only screen and (max-width:480px){
+     .countdown-title.vertical {
+        display: flex;
+        justify-content: center;
+
+        align-content: center;
+        flex-wrap: wrap;
+        flex: 0 0 40%;
+    } 
+         .countdown-title.vertical br{
+  		display:block !important;
+  	}
+    .countdown{margin-top:20px !important;}
+  }
+  .countdown-timer.vertical ul{
+      width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left:0;
+  }
+  
+@media only screen and (max-width: 480px) {
+  .time {
+    font-size: 12px;
+    margin-bottom: 0;
+    margin-top: 10px;
+    padding: 5px;
+  }
+ .countdown h1 {
+  line-height:35px;
+    font-size:18px !important;
+    width:100%;
+} 
+  .time span {
+    display: block;
+    font-size: 22px;
+    line-height: 1;
+    text-align: center;
+  }
+  .countdown .vertical-container {
+    width: 100%;
+  }
+  .countdown-timer ul {
+    padding: 0;
+    text-align: center;
+  }
+  .dropbtn {
+    font-size: 12px!important;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 0;
+    // left: -77px!important;
+  
+    width:100%;
+   
+}
+}
+  
+</style>
+  
+  
+
+<script>
+const second = 1000,
+      minute = second * 60,
+      hour = minute * 60,
+      day = hour * 24;
+
+let countDown = new Date('{{ section.settings.enddate }}').getTime(),
+    x = setInterval(function() {    
+
+      let now = new Date().getTime(),
+          distance = countDown - now;
+
+document.getElementById('days').innerText = Math.floor(distance / (day)),
+        {% if section.settings.days  %}
+        	document.getElementById('hours').innerText = Math.floor(((distance % (day)) / (hour))),
+        {% else %}
+        	document.getElementById('hours').innerText = Math.floor(((distance % (day)) / (hour))) + (24 * Math.floor(distance / (day))),
+        {% endif %}
+        document.getElementById('minutes').innerText = Math.floor((distance % (hour)) / (minute)),
+        document.getElementById('seconds').innerText = Math.floor((distance % (minute)) / second);
+
+      //do something later when date is reached
+      //if (distance < 0) {
+      //  clearInterval(x);
+      //  'IT'S MY BIRTHDAY!;
+      //}
+
+    }, second)
+</script>
+
+
+
+
+
+
+<style>
+  @media only screen and (max-width:480px){
+    #shopify-section-1597928677754 {
+        margin-top: -7px !important;
+    }
+  }
+ 
+.dropbtn {
+  background-color: #a9c0fe;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  display:none;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  opacity: 0.7;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  right: 0;
+    left: 0;
+    //margin: 0 20px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+</style>
+
+
+
+
+<script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+
+            
+</script>
+
+
+
+
+
+
+</div>
+
+
+
+{% schema %}
+{
+  "name": "Countdown on homepage",
+  "class": "countdown-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Countdown"
+    },
+    {
+      "type": "text",
+      "id": "endsin",
+      "label": "Ends in text",
+      "default": "Ends in"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"      
+    },
+    {
+      "type": "checkbox",
+      "id": "days",
+      "label": "Days, No Seconds",
+      "default": true
+    },
+	{
+      "type": "text",
+      "id": "enddate",
+      "label": "Deal End date",
+  	  "default": "Jul 22, 2020 21:00:00"
+    }
+  ],
+  "presets": [{
+    "name": "Countdown",
+    "category": "Layout",
+    "settings": {
+    }
+  }]
+}
+{% endschema %}

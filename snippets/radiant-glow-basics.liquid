@@ -1,0 +1,47 @@
+<!-- filename: radiant-glow-basics.liquid -->
+{% assign products_per_row = section.settings.rv_per %}
+{% assign products_limit = block.settings.sidebar_rv_per | minus: 1 %}
+
+
+<div class="recently-viewed__title">
+  <h4 class="toggle">FEATURED PRODUCTS</h4>
+</div>
+
+<div class="clearfix rv-container">
+  <div class="product-list clearfix recently-viewed-list">
+   {% for product in collections.radiant-glow-basics.products limit: 4 %}
+      <div class="medium-down--one-half small-down--one-half thumbnail
+        {% cycle collection_group_mobile: 'even', 'odd' %}
+        {% if settings.quick_shop_enabled %}
+          quick-shop-style--{{ settings.quick_shop_style }}
+        {% endif %}
+        product-{{ product.id }}">
+
+            <div class="product-wrap">
+              <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                <a href="{{ product.url | within: collection }}">
+                  <div class="image__container">
+                    {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                  </div>
+                    {% if settings.collection_secondary_image != blank %}
+                      <div class="image__container">
+                        <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                        class="secondary lazyload"
+                        alt="{{ alt_text | escape }}"
+                        />
+                      </div>
+                    {% endif %}
+                  </a>
+                {% include "product-details" %}
+              </div>
+              <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                {% include "product-info" %}
+              </a>
+            </div>
+
+        </div>
+	{% endfor %}   
+  </div>
+</div>
+
+

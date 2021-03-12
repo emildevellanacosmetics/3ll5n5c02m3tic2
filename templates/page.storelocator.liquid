@@ -1,0 +1,22 @@
+<a name="pagecontent" id="pagecontent"></a>
+
+<div class="clearfix">
+  
+  <div>
+    {% section 'page-storelocator' %}
+  </div>
+  <div class="e-container">
+  {% render 'page-multi-column', content: page.content %}
+  </div>
+</div>
+
+<style>
+  .e-container{
+      position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  @media only screen and (max-width:480px){
+    .e-container{padding:20px;}
+  }
+</style>

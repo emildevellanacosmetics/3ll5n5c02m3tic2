@@ -1,0 +1,171 @@
+<!-- filename: bundle-container.liquid -->
+{{ "option_selection.js" | shopify_asset_url | script_tag }} 
+{{ "shopify_common.js" | shopify_asset_url | script_tag }} 
+
+      {% for item in cart.items %}
+        {% if item.product.tags contains 'bundlehandle' %}
+          {% if item.variant.compare_at_price > item.variant.price %}
+            {% assign saving = item.variant.compare_at_price | minus: item.variant.price | times: item.quantity %}
+            {% assign total_saving = saving | plus: total_saving %}
+          {% endif %}
+
+          <div class="section clearfix cart__item" data-cart-item data-line-id="{{ forloop.index }}" data-variant-id="{{ item.id }}">
+            
+            {% if customer %}
+                <input type="hidden" class="custid" value="{{ customer.id }}">
+                <input type="hidden" class="custmeta" value="12120283611223">
+                <input type="hidden" class="producthandle" value="{{ item.product.handle }}">                
+        		<input type="hidden" class="metafield" value="{{ customer.metafields.wish_list.get_product }}">
+            {% endif %}
+
+            <div class="five columns small-down--two-fifths alpha cart__item--image">
+              <a href="{{ item.url }}" title="{{ item.title | escape  }}" class="cart_page_image">
+                {% include 'image-element', image: item, alt: item.title, object_fit: settings.align_height, max_height: settings.collection_height %}
+              </a>
+            </div>
+
+            <div class="eleven columns small-down--three-fifths omega cart_content_info cart__item--content">
+             {% if item.product.tags contains 'gwp' or item.product.title == gwp_title or item.product.title == gwp_title_second or item.product.title == gwp_title_third %}
+             {% else %}
+              {% if item.line_level_discount_allocations.size > 0 %}
+                {% for discount_allocation in item.line_level_discount_allocations %}
+                 <h3 class="cart__item--title" style="font-size: 14px; font-weight: normal; color: #6b6b6b;"> 
+                   <!-- <span class="label">{{ 'cart.general.discount' | t }}:</span> -->
+                    
+                 </h3>
+                  
+                {% endfor %}
+              {% endif %}
+              {% endif %}
+              <h3 class="cart__item--title" style="font-size: 17px; ">
+                <a href="{{ item.url }}" style="color: #6b6b6b;">{{ item.product.title | replace:'*','' | replace:'@','' }}</a>
+              </h3>
+			  {% if item.product.tags contains "noatc" %}
+              {% else %}
+              {% unless item.product.has_only_default_variant or item.variant.title contains "Title" %}
+                <p class="meta">
+                  {% for option in item.product.options %}
+                    <span class="label">{{ option }}:</span> <span>{{ item.variant.options[forloop.index0] }}</span><br />
+                  {% endfor %}
+                </p>
+            
+              {% endunless %}
+			 {% endif %}
+             <div style="width: 100%;">
+            <p class="meta">
+              <a class="label" id="openbundle">
+                What's Inside:
+              </a>
+            </p>
+              <div class="inside-bundle">
+              </div>
+            </div>
+			
+              
+              <p class="price_total">
+                {{ 'cart.general.total' | t }}:
+                {% if item.line_level_discount_allocations.size > 0 %}
+                  <span class="money" style="color: #d54d4d;">
+                    {{ item.original_line_price | money }}
+                  </span>
+                {% endif %}
+                <span class="money {% if item.line_level_discount_allocations.size > 0 %}was_price{% endif %}">
+                  {% if item.price == item.variant.compare_at_price %}
+                  {% else %}
+                  {{ item.variant.compare_at_price | money }}
+                  {% endif %}
+                </span>
+              </p>
+             {% assign removeables = "" %}
+              {% for item in cart.items %}
+              {% if item.product.tags contains 'bundlehandle' or item.product.tags contains 'bundlechild'  %}
+                {% capture link_span_gwp %}{{ item.variant.id }}{% endcapture %}
+                {% capture removeables %}{% unless removeables == blank %}{{ removeables }},{% endunless %}{{ link_span_gwp }}{% endcapture %}
+                {% endif %}
+              {% endfor %}
+              
+              
+
+              <a onclick="removeItems('{{ removeables }}')" class="cart__remove-btn" ><span class="remove-text">{{ 'cart.general.remove' | t }}</span> <span class="remove-icon"></span></a>
+            </div>
+          </div>
+{% endif %}
+{% endfor %}
+
+<ul id="inside-bundle" class="meta">
+{% for item in cart.items %}
+ {% if item.product.tags contains 'bundlechild' %}
+  
+<li class="mini-cart__item clearfix" style="margin-bottom: 0;"> 
+  <a href=""> 
+    <div class="cart_image mini-cart__item-image" style="max-width: 65px!important; min-width: 65px!important;"> 
+      {% include 'image-element', image: item, alt: item.title, object_fit: settings.align_height, max_height: settings.collection_height %}
+    </div>
+  </a> 
+  <div class="mini-cart__item--content" style="position: relative;
+    top: 10px;"> 
+    <div class="item_title" style="font-size: 12px; color: #000;">
+         {{ item.product.title | replace:'*','' | replace:'@','' }} | {{ item.variant.title }}
+    </div> 
+  </div>
+</li>
+ {% endif %}
+{% endfor %}
+</ul>
+
+<script>
+  $("#inside-bundle").insertAfter( $( ".inside-bundle" ) );
+  
+  
+$("#openbundle").click(function(){
+  $("#inside-bundle").slideToggle();
+});
+</script>
+
+<style>
+  ul#inside-bundle {
+  	display: none;
+    padding-left: 0;
+  }
+  a#openbundle  {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #f08d80;
+  }
+  
+</style>
+
+{% for item in cart.items %}
+  {% if item.product.tags contains 'bundlehandle' or item.product.tags contains 'bundlechild'  %}
+   <div class="cartItemBundle">
+	<input type="hidden" value="{{ item.variant.id }}">
+   </div>
+  {% endif %}
+{% endfor %}
+
+
+<script>
+function removeItems(items) {
+  
+  var itemsArray = items.split(',');
+  var qty = 0;
+  var data = { updates: {} };
+ 
+  for (i = 0; i < itemsArray.length; i++) {
+     data.updates[itemsArray[i]] = qty;
+  }
+
+  jQuery.ajax({
+    type: 'POST',
+    url: '/cart/update.js',
+    data: data,
+    dataType: 'json',
+    success: function() { 
+      setTimeout(function() {
+            	window.location.reload();
+            }, 5000);
+    }
+  });
+
+}
+</script>

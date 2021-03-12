@@ -1,0 +1,25 @@
+<!-- filename: add-two.liquid -->
+{% for product in collections.free-gift-second.products %}
+  {% assign id =  product.variants.first.id  %}
+{% endfor %}
+
+
+<script>
+jQuery(document).ready(function(){
+	jQuery.ajax({
+        type: 'POST',
+        url: '/cart/update.js',
+        data: {
+           	quantity: 2,
+            id: {{ id }}
+        },
+        dataType: 'json',
+        success: window.onload = function() {
+            if(!window.location.hash) {
+                window.location = window.location + '#loadeds';
+                window.location.reload();
+            }
+	    }  
+    });
+});
+</script>

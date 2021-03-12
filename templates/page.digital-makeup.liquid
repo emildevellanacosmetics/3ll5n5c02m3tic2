@@ -1,0 +1,32 @@
+<script>// <![CDATA[
+$( document ).ready(function() {
+(function (d,k) {
+    var s = d.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = 'https://plugins-media.perfectcorp.com/smb/sdk.js?apiKey=' + k;
+    var x = d.getElementsByTagName('script')[0];
+    x.parentNode.insertBefore(s, x);
+})(document, 'SMB-Ojo6MjcxNzE=');
+});
+// ]]></script>
+
+<script>// <![CDATA[
+$( document ).ready(function() {  
+window.ymkAsyncInit = function() {
+    YMK.open()
+}
+});
+// ]]></script>
+<a name="pagecontent" id="pagecontent"></a>
+
+<div class="sixteen columns page clearfix">
+  <h1>
+    {{ page.title }}
+  </h1>
+  <div class="feature_divider"></div>
+
+  <div>
+    {% include 'page-multi-column', content: page.content %}
+  </div>
+</div>

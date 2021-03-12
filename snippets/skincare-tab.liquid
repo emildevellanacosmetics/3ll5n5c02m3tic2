@@ -1,0 +1,489 @@
+<!-- filename: skincare-tab.liquid -->
+<div class="collection tab collection-tab">
+  
+<style>
+    .grid{
+  
+  }
+  .collection .collection-product{  	
+    width:49%;
+      float:left;
+    	height: 429px;
+  }
+ 
+  .tab h3.sub_title, .tab .h3.sub_title{
+  	color: #d3725d !important;
+  }
+  
+      .sale_holder{
+      z-index:1;
+    }
+  @media only screen and (min-width:481px){
+	.grid{
+  		display:block !important;
+    
+  	}
+  .collection .collection-product{
+      width:24% !important;
+      float:left !important;
+      margin-bottom:20px;
+     height:450px;
+    	
+    }
+  }
+  @media only screen and (max-width:480px){
+  .product-list{
+    display:block;
+    width:100%;
+    position:relative;
+    .grid{
+        display:flex;
+      	flex-wrap:wrap;
+        width:100%;
+        position:relative;
+      .collection-product{
+			flex: 0 0 50%;
+        	position:static;
+        	transform:none;
+        	height:auto !important;
+        	
+      }
+    }
+  }
+}
+</style>
+  
+  
+<style>
+  .collection-tab{
+  	margin-top:40px;
+    
+  }
+
+    @media only screen and (max-width:480px){ 
+  	.collection-tab{
+  		margin-top:20px;
+      	margin-bottom:40px;
+  	}
+
+  }
+  
+  
+  #sorts label{
+    	font-weight:400;
+        
+    }
+  #sorts option{
+  		font-family: Montserrat, sans-serif;
+    	font-size:16px;
+    	font-weight:400;
+    	color:#5f6a7d;
+  }
+  @media only screen and (min-width:480px){ 
+  	#sorts{
+    	width:16%;
+      	float:right;
+    }
+  }
+  
+  
+  
+  .cont {
+  	margin-top: 0!important;
+    padding-top: 0!important;
+    margin-bottom: 25px!important;
+  }
+  .content-container {
+    background: {{ section.settings.custom_background_color }};
+    border-radius: 5px;
+  }
+  .custom-text {
+    color: {{ section.settings.text-color }};
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .content-container .customer-button {
+    background-color: {{ section.settings.button-color }};
+    color: {{ section.settings.button-text-color }};
+    border: soild 1px {{ section.settings.button-text-color }};
+  }
+  .content-container .sub_title {
+    color: {{ section.settings.text-color }}!important;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  .content_excerpt {
+    margin-top: 25px;
+  }
+  .custom-sub-title {
+  	margin-bottom: 0!important;
+    margin-top: 10px!Important;
+    border: solid 1px;
+    padding: 15px!important;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    font-size: 14px!important;
+  }
+  
+  .custom-sub-title a {
+    color: {{ section.settings.header-text-color }}!important;
+   }
+  .image-content img {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .centered {
+  	text-align: center;
+  }
+  
+  .cont a.active h3 {
+  	background: #d3725d!important;
+    color: #fff!important;
+  }
+  
+  
+</style>
+
+<script>
+   var currentTab = '{{ collection.handle }}';
+    function capitalizeFirstLetter(string) {
+    return string[0].toUpperCase() + string.slice(1);
+}
+    function ucfirst(str,force){
+          str=force ? str.toLowerCase() : str;
+          return str.replace(/(\b)([a-zA-Z])/,
+                   function(firstLetter){
+                      return   firstLetter.toUpperCase();
+                   });
+     } 
+$(function() {  
+  var handle = '{{ collection.handle }}'
+
+   currentTab = handle
+  $('.collection-tabs a[data-title]').click(function(event) {
+    event.preventDefault();
+    var handle = $(this).attr('data-handle');
+    var title = $(this).attr('data-title');
+    var href = $(this).attr('href');
+    var ltitle = $(this).attr('data-ltitle');
+    filterProducts(handle, title, ltitle, href, false)
+        currentTab = handle;
+
+        $('.collection-product[data-collection=' + handle + ']').show();  
+    $('.collection-product[data-collection=' + handle + ']').addClass("filtered")
+  });
+
+  
+  /* 
+    $("#pricesort").change(function(){
+    
+  	   $selectedCountry = $(this).children("option:selected").val();
+       
+       switch($selectedCountry) {
+        case "onsale":
+          	
+            $('.collection-product[data-collection=' + currentTab + ']').addClass("filtered")
+           	$('.collection-product[data-collection=' + currentTab + '].notsale').hide();           
+          break;           
+        default:
+                    
+       } 
+  })
+    
+*/ 
+  
+  $(window).bind('popstate', function(e){
+    if(e.originalEvent.state !== null)
+      console.log(e.originalEvent.state)
+      filterProducts(e.originalEvent.state.handle, e.originalEvent.state.title,e.originalEvent.state.ltitle, e.originalEvent.state.href, e.originalEvent.state.pstate);
+  });
+
+  
+  function filterProducts(handle, title, ltitle, href, pstate){
+    if (handle == currentTab) {
+      $('.collection-product').hide();
+      $('.collection_description').hide();
+      $('.collection-product[data-collection="'+handle+'"]').show();
+      $('[data-collection="'+handle+'"].collection_description').show();
+    }
+    else {
+      $('.collection-product').hide();
+      $('.collection_description').hide();
+      $('.collection-product[data-collection="'+handle+'"]').show();
+      $('[data-collection="'+handle+'"].collection_description').show();
+    }
+
+    // 
+
+    $('#breadcrumb__collection-title').html(title);
+    $('.collection-tabs a[data-title]').removeClass('active');
+    $('.collection-tabs a[data-handle="'+handle+'"]').addClass('active');
+    $('#collectionTitle').html(title);
+
+    
+    if(!pstate){
+      window.history.pushState({handle: handle, title: title, ltitle: ltitle, pstate: true,},  null, href);
+    }
+
+    document.title = title;
+  }
+
+});
+  
+$(document).ready(function(){
+  $('.collection-tabs a[data-title].active').trigger('click');
+});  
+  
+</script>
+
+
+
+
+<div class="container cont" style="margin-top:20px">
+   <div class="section clearfix homepage_content collection-tabs">
+      <div class="six-per-row column medium-down--one-half small-down--one-half text-center content-container ">
+         <a href="/collections/calm-skin-balancing" data-ltitle="" data-title="Calm Skin Balancing Skin Care Line" data-handle="calm-skin-balancing" class=" ">
+            <h3 class="sub_title custom-sub-title" data-live-text-setting="section.collection-tabs-makeup.block.d94b14f3-e063-46c8-abdf-a762501cac2b.title">
+               Calm Skin
+            </h3>
+         </a>
+      </div>
+      <div class="six-per-row column medium-down--one-half small-down--one-half text-center content-container ">
+         <a href="/collections/clear-skin-clarifying-skin-care-line" data-ltitle="" data-title="Clear Skin Clarifying Skin Care Line" data-handle="clear-skin-clarifying-skin-care-line" class=" ">
+            <h3 class="sub_title custom-sub-title" data-live-text-setting="section.collection-tabs-makeup.block.654c0917-f3e0-4494-8514-d2d0db919f65.title">
+               Clear Skin
+            </h3>
+         </a>
+      </div>
+      <div class="six-per-row column medium-down--one-half small-down--one-half text-center content-container ">
+         <a href="/collections/even-skin-pore-refining-skin-care-line" data-ltitle="" data-title="Even Skin Pore-Refining Skin Care Line" data-handle="even-skin-pore-refining-skin-care-line" class=" ">
+            <h3 class="sub_title custom-sub-title" data-live-text-setting="section.collection-tabs-makeup.block.8c41d49b-faa1-476d-86e1-b1ed1ca9410e.title">
+               Even Skin
+            </h3>
+         </a>
+      </div>
+      <div class="six-per-row column medium-down--one-half small-down--one-half text-center content-container ">
+         <a href="/collections/glass-c-skin-brightening-skin-care-line" data-ltitle="" data-title="Glass C Skin Brightening Skin Care Line" data-handle="glass-c-skin-brightening-skin-care-line" class=" ">
+            <h3 class="sub_title custom-sub-title" data-live-text-setting="section.collection-tabs-makeup.block.beecc12a-03ac-4d32-9089-de2d5657a032.title">
+               Glass C Skin
+            </h3>
+         </a>
+      </div>
+      <div class="six-per-row column medium-down--one-half small-down--one-half text-center content-container ">
+         <a href="/collections/cream-skin-hydrating-skin-care-line" data-ltitle="" data-title="Cream Skin Hydrating Skin Care Line" data-handle="cream-skin-hydrating-skin-care-line" class=" ">
+            <h3 class="sub_title custom-sub-title" data-live-text-setting="section.collection-tabs-makeup.block.4847d503-ceac-455b-b775-cb556c190056.title">
+               Cream Skin
+            </h3>
+         </a>
+      </div>
+      <div class="six-per-row column medium-down--one-half small-down--one-half text-center content-container ">
+         <a href="https://www.ellanacosmetics.com/collections/treat-your-troubles" data-ltitle="" data-title="Treat Your Troubles" data-handle="treat-your-troubles" class=" ">
+            <h3 class="sub_title custom-sub-title" data-live-text-setting="section.collection-tabs-makeup.block.0879e6ad-93f2-49ae-a261-4adc1d34d1fb.title">
+               Treat Your Troubles
+            </h3>
+         </a>
+      </div>
+   </div>
+</div>
+
+
+
+<style>
+  .six-per-row{
+  	width:14.5%;
+    float:left;
+  }
+  @media only screen and (max-width:480px){
+    .six-per-row{
+      width:42%;
+      float:left;
+    }
+  }
+</style>
+<script>
+  $(document).ready(function(){
+  
+    $(".collection-product").hide()
+  	$(".collection-product[data-collection='calm-skin-balancing']").show()  
+  })  
+</script>
+
+<div class="container product-list collection-matrix clearfix equal-columns--clear equal-columns--outside-trim">
+  <div style="width: 100%;" class="clearfix grid"> 
+      {% assign category = "calm-skin-balancing" %}
+      {% for product in collections[category].products %}      
+
+            {% if product.available %}
+            {% unless product.tags contains 'hiddenoncollections' %}
+            {% if product.id != skip_product.id %}
+
+              {% include 'product-thumbnail-tabs', sidebar: sidebar %}
+
+
+            {% endif %}
+            {% endunless %}
+            {% endif %}
+          {% endfor %}
+            {% for product in all_products  %}
+            {% unless product.available %}
+            {% unless product.tags contains 'hiddenoncollections' %}
+            {% if product.id != skip_product.id %}
+
+              {% include 'product-thumbnail-tabs', sidebar: sidebar %}
+
+
+            {% endif %}
+            {% endunless %}
+            {% endunless %}
+     
+          
+      {% endfor %}
+   
+        {% assign category = "clear-skin-clarifying-skin-care-line" %}
+      {% for product in collections[category].products %}      
+
+            {% if product.available %}
+            {% unless product.tags contains 'hiddenoncollections' %}
+            {% if product.id != skip_product.id %}
+
+              {% include 'product-thumbnail-tabs', sidebar: sidebar %}
+            {% endif %}
+            {% endunless %}
+            {% endif %}
+          {% endfor %}
+            {% for product in all_products  %}
+            {% unless product.available %}
+            {% unless product.tags contains 'hiddenoncollections' %}
+            {% if product.id != skip_product.id %}
+
+              {% include 'product-thumbnail-tabs', sidebar: sidebar %}
+
+
+            {% endif %}
+            {% endunless %}
+            {% endunless %}
+     
+         
+      {% endfor %}
+        {% assign category = "even-skin-pore-refining-skin-care-line" %}
+      {% for product in collections[category].products %}      
+
+            {% if product.available %}
+            {% unless product.tags contains 'hiddenoncollections' %}
+            {% if product.id != skip_product.id %}
+
+              {% include 'product-thumbnail-tabs', sidebar: sidebar %}
+
+
+            {% endif %}
+            {% endunless %}
+            {% endif %}
+          {% endfor %}
+            {% for product in all_products  %}
+            {% unless product.available %}
+            {% unless product.tags contains 'hiddenoncollections' %}
+            {% if product.id != skip_product.id %}
+
+              {% include 'product-thumbnail-tabs', sidebar: sidebar %}
+
+
+            {% endif %}
+            {% endunless %}
+            {% endunless %}
+     
+        
+      {% endfor %}
+      {% assign category = "glass-c-skin-brightening-skin-care-line" %}
+      {% for product in collections[category].products %}      
+
+            {% if product.available %}
+            {% unless product.tags contains 'hiddenoncollections' %}
+            {% if product.id != skip_product.id %}
+
+              {% include 'product-thumbnail-tabs', sidebar: sidebar %}
+
+
+            {% endif %}
+            {% endunless %}
+            {% endif %}
+          {% endfor %}
+            {% for product in all_products  %}
+            {% unless product.available %}
+            {% unless product.tags contains 'hiddenoncollections' %}
+            {% if product.id != skip_product.id %}
+
+              {% include 'product-thumbnail-tabs', sidebar: sidebar %}
+
+
+            {% endif %}
+            {% endunless %}
+            {% endunless %}
+     
+     
+      {% endfor %}
+      {% assign category = "cream-skin-hydrating-skin-care-line" %}
+      {% for product in collections[category].products %}      
+
+            {% if product.available %}
+            {% unless product.tags contains 'hiddenoncollections' %}
+            {% if product.id != skip_product.id %}
+
+              {% include 'product-thumbnail-tabs', sidebar: sidebar %}
+
+
+            {% endif %}
+            {% endunless %}
+            {% endif %}
+          {% endfor %}
+            {% for product in all_products  %}
+            {% unless product.available %}
+            {% unless product.tags contains 'hiddenoncollections' %}
+            {% if product.id != skip_product.id %}
+
+              {% include 'product-thumbnail-tabs', sidebar: sidebar %}
+
+
+            {% endif %}
+            {% endunless %}
+            {% endunless %}
+     
+      
+      {% endfor %}
+      {% assign category = "treat-your-troubles" %}
+      {% for product in collections[category].products %}      
+
+            {% if product.available %}
+            {% unless product.tags contains 'hiddenoncollections' %}
+            {% if product.id != skip_product.id %}
+
+              {% include 'product-thumbnail-tabs', sidebar: sidebar %}
+
+
+            {% endif %}
+            {% endunless %}
+            {% endif %}
+          {% endfor %}
+            {% for product in all_products  %}
+            {% unless product.available %}
+            {% unless product.tags contains 'hiddenoncollections' %}
+            {% if product.id != skip_product.id %}
+
+              {% include 'product-thumbnail-tabs', sidebar: sidebar %}
+
+
+            {% endif %}
+            {% endunless %}
+            {% endunless %}
+     
+         
+      {% endfor %}
+	</div>
+</div>
+
+
+</div>

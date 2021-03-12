@@ -1,0 +1,83 @@
+<!-- filename: wishlish-collection.liquid -->
+{% if customer %}
+
+  {%- capture wish_handle_final -%}
+      {%- assign wish_handle = customer.metafields.wish_list.get_product | split: ',' -%}
+      {%- for tag_wish in wish_handle -%}
+          {{tag_wish}}<br>
+      {%- endfor -%}
+  {%- endcapture -%}
+
+  {%- assign wish_meta = customer.metafields.wish_list.get_product | split: ',' -%}
+  {%- for tag_handle in wish_meta limit:1 -%}
+    {%- assign handle_first = tag_handle -%}
+  {%- endfor -%}
+
+  {% for tag_one in wish_meta %}
+    {% assign tag_loop = forloop.index %}
+  {% endfor %}
+
+  {% assign wish_true = false %}
+  {% if product.handle == handle_first %}
+    {% assign wish_true = true %}
+  {% endif %}
+
+  {% assign new_handle_first = handle_first | append: ',' %}
+  {% assign new_pro_handle = product.handle | prepend: ',' %}
+
+  {% if wish_handle_final contains product.handle %}
+    <form action="/a/custmeta" method="POST" class="custmeta_wish">
+      <input type="hidden" name="customer[id]" value="{{ customer.id }}" />
+      <input type="hidden" name="metafield[wish_list.get_product]" value="{% if wish_true == true %}{% if tag_loop == 1 %}{% else %}{{customer.metafields.wish_list.get_product | remove: new_handle_first }}{% endif %}{% else %}{{customer.metafields.wish_list.get_product | remove: new_pro_handle }}{% endif %}">
+      {% comment %} <input type="submit" value="&#xf004 Remove from Wishlist" class="save-btn" /> {% endcomment %}
+      <button type="submit" class="save-btn">
+        <img src="{{ 'heart-fill.png' | asset_url }}"> Remove from Wishlist
+      </button>
+    </form>
+  {% else %}
+    <form action="/a/custmeta" method="POST" class="custmeta_wish">
+      <input type="hidden" name="customer[id]" value="{{ customer.id }}" />
+      <input type="hidden" name="metafield[wish_list.get_product]" value="{%- if customer.metafields.wish_list.get_product != blank -%}{{customer.metafields.wish_list.get_product}},{{product.handle}}{%- else -%}{{product.handle}}{%- endif -%}">
+      {% comment %} <input type="submit" value="Add to Wishlist" class="save-btn" /> {% endcomment %}
+      <button type="submit" class="save-btn">
+        <img src="{{ 'heart-nofill.png' | asset_url }}"> Add to Wishlist
+      </button>
+    </form>
+  {% endif %}
+
+{% endif %}
+
+<script>
+  $('form.custmeta_wish').submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      dataType: "json",
+      data: $(this).serialize(),
+      url: $(this).attr('action'),
+      success: function (data) {
+        var formValid = (data.status === 'OK');
+        if (formValid) {
+          var msgs = '';
+          for (var i=0;i<data.messages.length;i++) {
+            msgs += '-- ' + data.messages[i] + '\n';
+          }
+          if (msgs > '') {
+            alert('SUCCESS WITH MESSAGES:\n\n' + msgs);
+          }
+          else {
+            //alert('SUCCESS!');
+            location.reload();
+          }
+        }
+        else {
+            alert('Status: ' + data.status + '\nMessage: ' + data.message);
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert('AJAX or Server 500 error occurred');
+      }
+    });
+    return false;
+  });
+</script>

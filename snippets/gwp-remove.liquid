@@ -1,0 +1,53 @@
+<!-- filename: gwp-remove.liquid -->
+{% for product in collections.free-gift-fourth.products %}
+  {% assign idfourth =  product.variants.first.id  %}
+{% endfor %}
+
+{% for product in collections.free-gift-third.products %}
+  {% assign idthird =  product.variants.first.id  %}
+{% endfor %}
+
+{% for product in collections.free-gift-second.products %}
+  {% assign idsec =  product.variants.first.id  %}
+{% endfor %}
+
+{% for product in collections.free-gift.products %}
+  {% assign id =  product.variants.first.id  %}
+{% endfor %}
+
+
+<script>
+  
+Shopify.Cart = Shopify.Cart || {};
+
+Shopify.Cart.GiftWrap = {};
+
+
+Shopify.Cart.GiftWrap.remove = function() {
+  jQuery.ajax({
+    type: 'POST',
+    url: '/cart/update.js', 
+    data: { updates: { 
+             {{ id }}: 0,
+      		 {{ idsec }}: 0,
+      		 {{ idthird }}: 0,
+      		 {{ idfourth }}: 0
+            }
+          }, 
+    dataType: 'json',
+    success: window.onload = function() {
+    if(!window.location.hash) {
+        window.location = window.location + '#removegwp';
+        window.location.reload();
+    }
+}
+  });
+}
+
+
+
+jQuery(function() {
+  Shopify.Cart.GiftWrap.remove();
+});
+
+</script>

@@ -1,0 +1,144 @@
+<!-- filename: product-loop-with-hidden-products.liquid -->
+{% assign product_found = false %}
+{% assign skip = false %}
+{% assign collection_group = products | map: 'id' %}
+{% assign collection_group_thumb = collection_group | append : 'thumb' %}
+{% assign collection_group_mobile = collection_group | append : 'mobile' %}
+
+{% if template contains 'collection' %}
+  {% assign matrixType = 'collection-matrix' %}
+{% elsif template contains 'search' %}
+  {% assign matrixType = 'search-matrix' %}
+{% endif %}
+
+{% assign forLimit = limit %}
+
+{% unless template contains 'product' %}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": [
+        {% for product in products limit: limit %}
+          {
+            "@type": "ListItem",
+            "position": "{{ forloop.index | json }}",
+            "url": "{{ shop.url }}{{ product.url }}",
+            "name": "{{ product.title | escape }}"
+          } {%- unless forloop.last -%},{%- endunless -%}
+        {% endfor %}
+      ]
+    }
+  </script>
+{% endunless %}
+
+
+{% for product in products limit: limit %}
+  {% if product.id == skip_product.id  %}
+    {% assign forLimit = limit | plus: 1 %}
+  {% endif %}
+{% endfor %}
+
+	<div itemtype="http://schema.org/ItemList" class="product-list {{ matrixType }} clearfix equal-columns--clear equal-columns--outside-trim e-desktop-flex">
+{% if collection.handle == 'basic-bloom' or collection.handle == 'summer-glow' or collection.handle == 'just-peachy' or collection.handle == 'civil-wedding-collection' or collection.handle == 'mothers-day-collection-1' or collection.handle == 'class-act-kdrama-inspired-collection' or collection.handle == 'original-visual-kpop-look-collection' or collection.handle == 'prom-perfection-collection' or collection.handle == 'nude-neutral-collection' or collection.handle == 'beauty' or collection.handle == 'eye-to-eye-collection' or collection.handle == 'find-your-match-collection' or collection.handle == 'bloom-and-glow-collection' or collection.handle == 'refills' or collection.handle == 'match-your-mood-simple-shimmer-eye-makeup' or collection.handle == 'radiant-glow-basics' or collection.handle == 'makeup-for-dry-skin-1' or collection.handle == 'zoom-meeting-makeup' or collection.handle == 'everyday-morena-makeup' or collection.handle == 'makeup-basics-conceal-and-heal' or collection.handle == 'makeup-for-oily-skin-1' or collection.handle == 'anti-maskne-routine' or collection.handle == 'post-pandemic-office-look' or collection.handle == 'just-peachy' or collection.handle == 'blush-styles-across-the-globe' or collection.handle == 'hygiene-basics-with-diego'  or collection.handle == 'natural-looking-colors-better-on-you' %}
+      {% for product in products limit: limit %}
+		 {% if product.available %}
+			{% capture itemDup %}
+			<p>{{ product.title }}</p>
+		 {% endcapture %}
+	  
+	 
+		{% if product.id != skip_product.id %}
+		  {% include 'product-thumbnail', sidebar: sidebar %}
+		{% endif %}
+     	{% endif %}
+      {% endfor %}
+      
+      {% for product in products limit: limit %}
+		 {% unless product.available %}
+			{% capture itemDup %}
+			<p>{{ product.title }}</p>
+		 {% endcapture %}
+	  
+	 
+		{% if product.id != skip_product.id %}
+		  {% include 'product-thumbnail', sidebar: sidebar %}
+		{% endif %}
+     	{% endunless %}
+      {% endfor %}
+   {% else %}
+      {% for product in products limit: limit %}
+      {% if product.object_type == 'product' %}
+      	{% if product.available %}
+          {% unless product.tags contains 'hiddenoncollections' %}
+               {% capture itemDup %}
+               <p>dd{{ product.title }}dd</p>
+               {% endcapture %}
+              {% if product.id != skip_product.id %}
+                {% include 'product-thumbnail', sidebar: sidebar %}
+              {% endif %}
+          {% endunless %}
+      	{% else %}
+      		
+      	{% endif %}
+      {% endif %}
+      {% endfor %}
+      
+      {% for product in products limit: limit %}
+      {% if product.object_type == 'product' %}
+      	{% unless product.available %}
+          {% unless product.tags contains 'hiddenoncollections' %}
+               {% capture itemDup %}
+               <p>dd{{ product.title }}dd</p>
+               {% endcapture %}
+              {% if product.id != skip_product.id %}
+                {% include 'product-thumbnail', sidebar: sidebar %}
+              {% endif %}
+          {% endunless %}
+      	{% endunless %}
+
+      
+      
+      
+      
+      {% endif %}
+      {% endfor %}
+   {% endif %}   
+      
+  
+  {% if template contains 'collection' %}
+    {% if settings.pagination_type == 'load_more' or settings.pagination_type == 'infinite_scroll' %}
+      {% if paginate.next.url %}
+        <span class="js-load-more load-more">
+          <a href="{{ paginate.next.url }}" data-no-instant class="load-more__btn action_button continue-button">
+            {% if template contains 'collection' %}
+              {{ 'collections.general.load_more' | t }}
+            {% elsif template contains 'search' %}
+              {{ 'general.search.load_more' | t }}
+            {% endif %}
+          </a>
+        </span>
+      {% endif %}
+    {% endif %}
+  {% elsif template contains 'search' %} 
+  	
+      {% if settings.search_pagination_type == 'load_more' or settings.search_pagination_type == 'infinite_scroll' %}
+        {% if paginate.next.url %}
+          <span class="js-load-more load-more">
+            <a href="{{ paginate.next.url }}" data-no-instant class="load-more__btn action_button continue-button">
+              {% if template contains 'collection' %}
+                {{ 'collections.general.load_more' | t }}
+              {% elsif template contains 'search' %}
+                {{ 'general.search.load_more' | t }}
+              {% endif %}
+            </a>
+          </span>
+        {% endif %}
+      {% endif %}
+  
+  {% endif %}
+</div>
+
+
+
+<div class="load-more__icon"></div>

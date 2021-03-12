@@ -1,0 +1,773 @@
+<!-- filename: sections/cart-template.liquid -->
+{{ "option_selection.js" | shopify_asset_url | script_tag }}
+{{ "shopify_common.js" | shopify_asset_url | script_tag }} 
+{{ "customer_area.js"  | shopify_asset_url | script_tag }}
+{% comment %}
+** Cart page - default view **
+- Template section
+{% endcomment %}
+<div class="container">
+        {% if section.settings.image-banner %}
+          <div class="web" style="padding-bottom: 0;">
+            <div class="banner-wrapper">
+              <a href="{{ section.settings.mainlink }}">
+				<img src="{{ section.settings.image-banner | img_url: 'master' }}" class="banner full-width--true">
+              </a>
+            </div>
+		  </div>            
+        {% endif %}
+
+        {% if section.settings.image-banner-mobile %}
+          <div class="mobile" style="margin-top:0px !important;padding-bottom: 0;">
+            <div class="banner-wrapper">
+              <a href="{{ section.settings.mainlink }}">
+				<img src="{{ section.settings.image-banner-mobile | img_url: 'master' }}" class="banner full-width--true">
+              </a>
+            </div>
+		  </div>            
+        {% endif %}
+</div>
+<!-- this is where b2t1 should go -->
+<div style="margin-top:20px"></div>
+{% if section.settings.countdown_enable %}
+	{% include 'countdown-snippet' %}
+{% endif %}
+
+
+{% for product in collections.free-gift.products %}
+	{% assign gwp_title = product.title %}
+	{% assign product_id = product.id %}
+{% endfor %}
+
+{% for product in collections.free-gift-second.products %}
+	{% assign gwp_title_second = product.title %}
+	{% assign product_id = product.id %}
+{% endfor %}
+
+{% for product in collections.free-gift-third.products %}
+	{% assign gwp_title_third = product.title %}
+	{% assign product_id = product.id %}
+{% endfor %}
+
+{% assign total_cart_less_gwp = cart.total_price %}
+{% for item in cart.items %}
+    {% if item.product.tag contains 'gwp' %}
+      {% assign total_cart_less_gwp = total_cart_less_gwp | minus: item.line_price %}
+    {% endif %}
+{% endfor %}
+
+
+<div class="container main content">
+<a name="pagecontent" id="pagecontent"></a>
+			{% if section.settings.display_promobox %} 
+            	{% render 'infobar', 
+                	title: section.settings.promobox_title, 
+					text1: section.settings.promobox_text1, 
+					text2: section.settings.promobox_text2, 
+					text3: section.settings.promobox_text3, 
+					text4: section.settings.promobox_text4, 
+					text5: section.settings.promobox_text5, 
+					lalign: section.settings.lalign, 
+					top: section.settings.promobox_margin-top, 
+					bottom: section.settings.promobox_margin-bottom, 
+					border: section.settings.promobox_border, 
+					tcolor: section.settings.tcolor, 
+					bcolor: section.settings.bcolor %} 
+			{% endif %}
+<div class="section clearfix">
+  <div class="sixteen columns">
+    <h1>{{ 'cart.general.title' | t }}</h1>
+    <div class="feature_divider"></div>
+  </div>
+</div>
+
+{% if cart.item_count == 0 %}
+  <div class="sixteen columns">
+    <div class="section clearfix">
+      <div class="six columns offset-by-five medium-down--one-whole">
+        <p class="quote">{{ 'cart.general.continue_browsing_html' | t }}</p>
+
+        <a href="{% if cart.items.first.product.collections != blank %}{{ cart.items.first.product.collections.last.url }}{% else %}/collections/all{% endif %}" class="action_button continue-button add_to_cart">{{ 'cart.general.continue_shopping_link_html' | t }}</a>
+      </div>
+      <br class="clear" />
+    </div>
+  </div>
+{% else %}
+
+  <div class="sixteen columns hidden js-empty-cart__message">
+    <div class="section clearfix">
+      <div class="six columns offset-by-five medium-down--one-whole">
+        <p class="quote">{{ 'cart.general.continue_browsing_html' | t }}</p>
+        <a href="{% if cart.items.first.product.collections != blank %}{{ cart.items.first.product.collections.last.url }}{% else %}/collections/all{% endif %}" class="action_button continue-button add_to_cart">{{ 'cart.general.continue_shopping_link_html' | t }}</a>
+      </div>
+      <br class="clear" />
+    </div>
+  </div>
+
+  <form action="/cart" method="post" id="cart_form" data-cart-form="cart-template" data-total-discount="{{ cart.total_discount }}">
+    <div class="section clearfix cart__wrapper">
+      <div class="eleven columns medium-down--one-whole">
+        {% assign total_saving = 0 %}
+        {% include 'bundle-container' %}
+        {% for item in cart.items %}
+        	{% unless item.product.tags contains 'bundlechild' or item.product.tags contains 'bundlehandle' %}			  
+        		 
+        	  
+          {% if item.variant.compare_at_price > item.variant.price %}
+            {% assign saving = item.variant.compare_at_price | minus: item.variant.price | times: item.quantity %}
+            {% assign total_saving = saving | plus: total_saving %}
+          {% endif %}
+
+          <div class="section clearfix cart__item" data-cart-item data-line-id="{{ forloop.index }}" data-variant-id="{{ item.id }}">
+            {% if customer %}
+                <input type="hidden" class="custid" value="{{ customer.id }}">
+                <input type="hidden" class="custmeta" value="12120283611223">
+                <input type="hidden" class="producthandle" value="{{ item.product.handle }}">                
+        		<input type="hidden" class="metafield" value="{{ customer.metafields.wish_list.get_product }}">
+            {% endif %}
+
+            <div class="five columns small-down--two-fifths alpha cart__item--image">
+              <a href="{{ item.url }}" title="{{ item.title | escape  }}" class="cart_page_image">
+                {% include 'image-element', image: item, alt: item.title, object_fit: settings.align_height, max_height: settings.collection_height %}
+              </a>
+            </div>
+
+            <div class="eleven columns small-down--three-fifths omega cart_content_info cart__item--content">
+             {% if item.product.tags contains 'gwp' or item.product.title == gwp_title or item.product.title == gwp_title_second or item.product.title == gwp_title_third or item.variant.id == 32355767812183 %}
+             {% else %}
+              {% if item.line_level_discount_allocations.size > 0 %}
+                {% for discount_allocation in item.line_level_discount_allocations %}
+                 <h3 class="cart__item--title" style="font-size: 14px; font-weight: normal; color: #6b6b6b;"> 
+                   <!-- <span class="label">{{ 'cart.general.discount' | t }}:</span> -->
+                    {% include 'discount-tag' %}  {{ discount_allocation.discount_application.title }} 
+                 </h3>
+                  
+                {% endfor %}
+              {% endif %}
+              {% endif %}
+              <h3 class="cart__item--title" style="font-size: 17px; ">
+                <a href="{{ item.url }}" style="color: #6b6b6b;">{% if item.product.tags contains "noatc" %}{{ item.product.title }} {% else %}{{ item.product.title | replace:'*','' }} {% endif %}</a>
+              </h3>
+			  {% if item.product.tags contains "noatc" %}
+              {% else %}
+              {% unless item.product.has_only_default_variant or item.variant.title contains "Title" %}
+                <p class="meta">
+                  {% for option in item.product.options %}
+                    <span class="label">{{ option }}:</span> <span>{{ item.variant.options[forloop.index0] }}</span><br />
+                  {% endfor %}
+                </p>
+              {% endunless %}
+			 {% endif %}
+              {% if item.properties %}
+                <p>
+                  {% for p in item.properties %}
+                    {% unless p.last == blank or p.first.first == '_' %}
+                      {% if p.last contains '/uploads/' %}
+                        <div>
+                          {{ p.first }}: <a class="lightbox" href="{{ p.last }}">{{ 'cart.general.uploaded_file' | t }}</a>
+                        </div>
+                      {% else %}
+                        <div>
+                          {{ p.first }}: {{ p.last }}
+                        </div>
+                      {% endif %}
+                    {% endunless %}
+                  {% endfor %}
+                </p>
+              {% endif %}
+			
+              <p class="modal_price">
+                {% if item.price > 0 %}
+                  <span class="money {% if item.price < item.variant.compare_at_price or item.line_level_discount_allocations.size > 0 %}sale{% endif %}">
+                    {% if item.price < item.variant.compare_at_price or item.line_level_discount_allocations.size > 0 %}
+                    {% else %}
+                    {{ item.final_price | money }}
+                    {% endif %}
+                  </span>
+                  {% if item.price < item.variant.compare_at_price or item.line_level_discount_allocations.size > 0 %}
+                    <span class="money was_price">
+                      {% if item.variant.compare_at_price == 0 or  item.price == item.variant.compare_at_price %}
+                                {% else %}
+                                {{ item.variant.compare_at_price | money }}
+                                {% endif %}
+                    </span>
+                  {% endif %}
+                {% else %}
+                  <span style="font-weight: bold; color: #d54d4d; text-transform: uppercase;">
+                              {{ settings.free_price_text }}
+                  </span>
+                {% endif %}
+              </p>
+			
+              
+			 {% unless item.title == 'Gift Packaging' %}
+              <div class="product-quantity-box left">
+                <span class="ss-icon product-minus js-change-quantity" data-func="minus"><span class="icon-minus"></span></span>
+                <input type="number" min="0" size="2" class="quantity" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" data-cart-quantity-input="cart-template" {% if settings.limit_quantity and item.variant.inventory_management != blank and item.variant.inventory_quantity > 0 and item.variant.inventory_policy == "deny" %}max="{{ item.variant.inventory_quantity }}"{% elsif item.product.title == gwp_title or item.product.title == gwp_title_second or item.product.title == gwp_title_third or item.variant.id == 32340081508439 or item.variant.id == 32407516905559 %}max="1" {% endif %} />
+                <span class="ss-icon product-plus js-change-quantity" data-func="plus"><span class="icon-plus"></span></span>
+              </div>
+			 {% endunless %}
+              <p class="price_total">
+                {{ 'cart.general.total' | t }}:
+                {% if item.line_level_discount_allocations.size > 0 %}
+                  <span class="money">
+                    {{ item.final_line_price | money }}
+                  </span>
+                {% endif %}
+                <span class="money {% if item.line_level_discount_allocations.size > 0 %}was_price{% endif %}">
+                  {% if item.price == item.variant.compare_at_price %}
+                  {% else %}
+                  {{ item.original_line_price | money }}
+                  {% endif %}
+                </span>
+              </p>
+            
+            {% if item.line_level_discount_allocations.size > 0 and item.quantity >= 1 %}
+            {% if item.product.title == gwp_title or item.product.title == gwp_title_second or item.product.title == gwp_title_third or item.variant.id == 32355767812183 %}
+            {% include 'removegwp' %}
+			{% endif %}
+              {% else %}
+              <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="cart__remove-btn" ><span class="remove-text">{{ 'cart.general.remove' | t }}</span> <span class="remove-icon"></span></a>
+              {% endif %}
+
+              
+
+            </div>
+          </div>
+      {% endunless %}
+        {% endfor %}
+      
+      <!--gwp -->{% for product in collections.free-gift.products %}
+      <div class="section clearfix cart__item" data-cart-item data-line-id="{{ forloop.index }}" data-variant-id="{{ item.id }}" id="gwp" style="display:none;">
+            <div class="five columns small-down--two-fifths alpha cart__item--image">
+              <a href="{{ product.url }}" title="{{ product.title | escape }}" class="cart_page_image">
+                <img src="{{ product | img_url: 'grande' }}" alt="{{ item.title | escape }}">
+              </a>
+            </div>
+
+            <div class="eleven columns small-down--two-fifths omega cart_content_info cart__item--content">
+              <h3 class="cart__item--title">
+                <a href="{{ product.url }}">{{ product.title }}</a>
+              </h3>
+              <h4 style="text-align:left; margin-top: 15px;">Your order total has reached ₱2000.<br /> PLEASE CLAIM YOUR FREE GIFT!</h4>
+
+              {% unless item.product.has_only_default_variant or item.variant.title contains "Title" %}
+                <p class="meta">
+                  {% for option in item.product.options %}
+                    <span class="label">{{ option }}:</span> <span>{{ item.variant.options[forloop.index0] }}</span><br />
+                  {% endfor %}
+                </p>
+              {% endunless %}
+
+              {% if item.properties %}
+                <p>
+                  {% for p in item.properties %}
+                    {% unless p.last == blank %}
+                      {% if p.last contains '/uploads/' %}
+                        <div>
+                          {{ p.first }}: <a class="lightbox" href="{{ p.last }}">{{ 'cart.general.uploaded_file' | t }}</a>
+                        </div>
+                      {% else %}
+                        <div>
+                          {{ p.first }}: {{ p.last }}
+                        </div>
+                      {% endif %}
+                    {% endunless %}
+                  {% endfor %}
+                </p>
+              {% endif %}
+			<!--
+              <p class="modal_price">
+                {% if item.price > 0 %}
+                  <span class="money {% if item.price < item.variant.compare_at_price or item.line_level_discount_allocations.size > 0 %}sale{% endif %}">
+                    {{ item.final_price | money }}
+                  </span>
+                  {% if item.price < item.variant.compare_at_price or item.line_level_discount_allocations.size > 0 %}
+                    <span class="money was_price">
+                      {{ item.variant.compare_at_price | money }}
+                    </span>
+                  {% endif %}
+                {% else %}
+                    {{ settings.free_price_text }}
+                {% endif %}
+              </p>
+			-->
+              {% if item.line_level_discount_allocations.size > 0 %}
+                {% for discount_allocation in item.line_level_discount_allocations %}
+                  <p class="meta cart__item--discount">
+                   <!-- <span class="label">{{ 'cart.general.discount' | t }}:</span> -->
+                    {{ discount_allocation.discount_application.title }} (-<span class="money">{{ discount_allocation.amount | money }}</span>)
+                  </p>
+                {% endfor %}
+              {% endif %}
+
+              <div class="product-quantity-box left">
+                {% if item.product.title contains gwp_title or item.product.title == gwp_title_second %}
+                <script>
+                  $(document).ready(function() {
+                    $("#gwp").hide();
+                    });
+                </script>
+                {% endif %}
+                <span class="ss-icon product-minus js-change-quantity" data-func="minus"><span class="icon-minus"></span></span>
+                <input type="number" min="0" size="2" class="quantity" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" data-cart-quantity-input="cart-template" {% if settings.limit_quantity and item.variant.inventory_management != blank and item.variant.inventory_quantity > 0 and item.variant.inventory_policy == "deny" %}max="{{ item.variant.inventory_quantity }}"{% endif %} />
+                <span class="ss-icon product-plus js-change-quantity" data-func="plus"><span class="icon-plus"></span></span>
+              </div>
+
+              <p class="price_total">
+                <strong>{{ 'cart.general.total' | t }}:</strong>
+                {% if item.line_level_discount_allocations.size > 0 %}
+                  <span class="money">
+                    {{ item.final_line_price | money }}
+                  </span>
+                {% endif %}
+                <span class="money {% if item.line_level_discount_allocations.size > 0 %}was_price{% endif %}">
+                  {{ item.original_line_price | money }}
+                </span>
+              </p>
+			  {% for product in collections.free-gift.products %}
+                {% form 'product', product %}
+                  <input type="hidden" name="id[]" value="{{ product.variants.first.id }}" />
+                <a type="submit" value="Add to cart" id="claimfb" href="/cart"class="action_button">CLAIM FREEBIE NOW</a>
+                {% endform %}
+               {% endfor %}
+        	  <div class="cart__subtotal">
+                <br />
+                <a class="btn uppercase btn--large btn--splash gwp-btn" id="gwp-remove">Use Code Later</a>
+              </div>
+        
+             
+
+            </div>
+          </div>
+    {% endfor %}
+    <!--end GWP -->
+    
+      </div>
+
+      <div class="five columns medium-down--one-whole">
+        <div class="section clearfix">
+          <div class="subtotal">
+
+            {% if cart.cart_level_discount_applications != blank %}
+              <p class="cart_discounts js-cart_discounts sale">
+              {% for discount_application in cart.cart_level_discount_applications %}
+                <span class="cart_discounts--title">{{ discount_application.title }}</span>
+                <span class="cart_discounts--price">
+                  -<span class="money">{{ discount_application.total_allocated_amount | money }}</span>
+                </span>
+              {% endfor %}
+
+              </p>
+
+            {% endif %}
+			
+            
+            <!-- gwp threshold -->
+            {% assign newTotal = cart.total_price %}
+            {% for item in cart.items %}
+              {% unless item.variant.compare_at_price == 0  %}
+                {% assign newTotal = newTotal | minus: item.line_price %}
+              {% endunless %}
+            {% endfor %}
+            {% assign shipping_value = 75000 %}
+            {% assign gwp_value = 175000 %}
+            {% assign gwp_value_second = 250000 %}
+            {% assign gwp_value_third = 350000 %}
+            {% assign cart_total = cart.total_price %}
+            {% assign shipping_value_left = shipping_value | minus: total_cart_less_gwp %}
+            {% assign gwp_value_left = gwp_value | minus: total_cart_less_gwp %}
+            {% assign gwp_value_left_second = gwp_value_second | minus: total_cart_less_gwp %}
+            {% assign gwp_value_left_third = gwp_value_third | minus: total_cart_less_gwp %}
+            
+            <div style="width: 100%;color: black; ">
+              <div class="shipping-savings-message" style="font-size: 14px; text-align: left;">
+                 <div class="thresholds" style="font-size: 14px; margin-bottom: 15px; text-transform: inherit; color: #6b6b6b;">
+                  <div class="shipping" style="width: 100%;">
+                    {% if total_cart_less_gwp < shipping_value %}
+                    <span class="js-cart_shippingleft">
+                     <span> ADD {{ shipping_value_left | money }} for FREE shipping </span><br />
+                     <span> ADD {{ gwp_value_left | money }} for a FREE gift </span>
+                    </span>
+                    
+                    <!-- shipping -->
+                    {% elsif total_cart_less_gwp < gwp_value and total_cart_less_gwp >= shipping_value %}
+                    <span class="js-cart_shippingleft">
+                      <span>You get FREE shipping!</span><br />
+                      <span> ADD {{ gwp_value_left | money }} for a FREE gift </span>
+                    </span>
+                    
+                    <!-- first gwp -->
+                    {% elsif total_cart_less_gwp >= gwp_value and total_cart_less_gwp <  gwp_value_second %}
+                    <span class="js-cart_shippingleft">
+                      <span>You get FREE shipping & a free gift!</span><br />
+                      <span> ADD {{ gwp_value_left_second | money }} for a 2nd FREE gift </span>
+                    </span>
+                    
+                    <!-- second gwp -->
+                    {% elsif total_cart_less_gwp >= gwp_value_second and total_cart_less_gwp <  gwp_value_third %}
+                    <span class="js-cart_shippingleft">
+                      <span>You get FREE shipping & TWO free gifts!</span>
+                      <span> ADD {{ gwp_value_left_third | money }} for a 3rd & 4th FREE gift </span>
+                    </span>
+                    
+                    <!-- third gwp -->
+                    {% elsif total_cart_less_gwp >=  gwp_value_third %}
+                    <span class="js-cart_shippingleft">
+                      <span>You get FREE shipping & FOUR free gifts!</span>
+                    </span>
+                    {% else %}
+                    <span class="js-cart_shippingleft"><span></span></span>
+                    {% endif %}
+                  </div>
+                 </div>
+              </div>
+            </div>
+              
+            <!-- gwp threshold -->
+            <p class="cart_subtotal js-cart_subtotal">
+              <span class="right">
+                <span class="money">{{ cart.total_price | money }}</span>
+              </span>
+              <span>{{ 'cart.general.subtotal' | t }}</span>
+            </p>
+
+            {% if section.settings.display_savings and total_saving > 0 or section.settings.display_savings and cart.total_discount > 0 %}
+              <p class="cart_savings js-cart_savings sale">
+                <span class="right">
+                  <span class="money">{{ total_saving | plus: cart.total_discount | money }}</span>
+                </span>
+                <span>{{ 'layout.general.savings' | t }}</span>
+              </p>
+            {% endif %}
+
+            {% if settings.show_multiple_currencies %}
+              <p>
+                <small>
+                  {{ 'cart.general.orders_processed_in_currency_html' | t: currency: shop.currency }}
+                </small>
+              </p>
+            {% endif %}
+            
+			<div style="margin-bottom:12px;">
+				<!--  'cart-added-info' -->
+              {% include 'cart-added-info' %} 
+            </div>
+            
+            <!-- Display location for Giftship -->
+            <div id="gsAppContainer" class="gs__app-container"></div>
+            
+            {% if section.settings.display_special_instructions %}
+              <label for="note" style="color: #6b6b6b; font-weight: normal;">{{ 'cart.general.note' | t: shop_name: shop.name }}:</label>
+              <textarea id="note" name="note" rows="2">{{ cart.note }}</textarea>
+            {% endif %}
+
+            {% if settings.display_tos_checkbox %}
+              <p>
+                <input type="checkbox" class="tos_agree" id="cart_agree" required />
+                  <label class="tos_label" for="cart_agree">
+                    {{ 'cart.general.agree_to_terms_html' | t }}
+                  </label>
+                {% if settings.tos_page != blank %}
+                  <a href="{{ pages[settings.tos_page].url }}" target="_blank" class="tos_icon">{{ 'cart.general.view_terms' | t }}</a>
+                {% endif %}
+              </p>
+            {% endif %}
+			
+            {% if section.settings.cart_message != blank %}
+              <div>
+                {{ section.settings.cart_message }}
+              </div>
+            {% endif %}
+
+            <p class="checkout_button">
+              <button type="submit" class="action_button add_to_cart" id="checkout" name="checkout">{% if settings.show_lock_icon %}<span class="icon-lock"></span>{% endif %}{{ 'cart.general.checkout' | t }}</button>
+            </p>
+              
+            <p class="checkout_button mobile-atc" style="padding-top: 10px">
+              <button type="submit" class="action_button add_to_cart" id="checkout" name="checkout">{% if settings.show_lock_icon %}<span class="icon-lock"></span>{% endif %}{{ 'cart.general.checkout' | t }}</button>
+            </p> 
+
+            {% if content_for_additional_checkout_buttons %}
+              <div class="additional-checkout-buttons additional-checkout-buttons--vertical">
+                {{ content_for_additional_checkout_buttons }}
+              </div>
+            {% endif %}
+
+            {% if cart.item_count > 0 %}
+              <a href="{% if cart.items.first.product.collections != blank %}{{ cart.items.first.product.collections.last.url }}{% else %}/collections/deals{% endif %}" class="continue-shopping">{{ 'cart.general.continue_shopping_link_html' | t }}</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  {% include 'cart-shipping-calculator' %}
+{% endif %}
+
+</div>
+
+<div class="cart__blocks">
+  {% for block in section.blocks %}
+    <div {{ block.shopify_attributes }} class="block__{{ block.type }} block__{{ block.id }}">
+      {% if block.type == 'featured_collection' %}
+        {% include 'include-featured-collection', type: 'block' %}
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+{% schema %}
+
+{
+  "name": "Cart page",
+  "class": "cart-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "display_special_instructions",
+      "label": "Show \"note\" text box"
+    },
+    {
+      "type": "checkbox",
+      "id": "display_savings",
+      "label": "Show total savings",
+      "default": true
+    },
+      {
+        "type": "header",
+        "content": "Countdown timer"
+      },
+      {
+        "type": "checkbox",
+        "id": "countdown_enable",
+        "label": "Show countdown on cart page",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "countdown_title",
+        "label": "Heading",
+        "default": "Countdown"
+      },
+      {
+        "type": "text",
+        "id": "endsin",
+        "label": "Ends in text",
+        "default": "Ends in"
+      },
+      {
+        "type": "url",
+        "id": "countdown_link",
+        "label": "Link"      
+      },
+      {
+        "type": "checkbox",
+        "id": "countdown_days",
+        "label": "Days, No Seconds",
+        "default": true
+      },
+
+      {
+        "type": "text",
+        "id": "countdown_enddate",
+        "label": "Deal End date",
+        "default": "Jul 22, 2020 21:00:00"
+      },
+      {
+        "type": "header",
+        "content": "Promo box"
+      },
+      {
+        "type": "checkbox",
+        "id": "display_promobox",
+		"default": false,
+        "label": "Show promobox"
+      },
+      {
+        "type": "checkbox",
+        "id": "lalign",
+		"default": true,
+        "label": "Left aligned"
+      },
+    {
+      "type": "range",
+      "id": "promobox_margin-top",
+      "label": "Promobox top space",
+      "min": -100,
+      "max": 100,
+      "step": 2,
+      "default": -24
+    },
+    {
+      "type": "range",
+      "id": "promobox_margin-bottom",
+      "label": "Promobox bottom space",
+      "min": -100,
+      "max": 100,
+      "step": 2,
+      "default": 24
+    },
+{
+  "type": "color",
+  "id": "promobox_border",
+  "label": "promobox border color",
+  "default": "#511811"
+},
+{
+  "type": "color",
+  "id": "tcolor",
+  "label": "promobox text color",
+  "default": "#FFFFFF"
+},
+{
+  "type": "color",
+  "id": "bcolor",
+  "label": "promobox background color",
+  "default": "#511811"
+},
+      {
+        "type": "text",
+        "id": "promobox_title",
+        "label": "Title",
+        "default": "BUY 1, TAKE 1 ALL MAKEUP!"
+      },
+      {
+        "type": "text",
+        "id": "promobox_text1",
+        "label": "Text 1",
+        "default": "Mix & match any makeup products."
+      },
+      {
+        "type": "text",
+        "id": "promobox_text2",
+        "label": "Text 2",
+        "default": "Promo applies automatically at checkout. No code required."
+      },
+      {
+        "type": "text",
+        "id": "promobox_text3",
+        "label": "Text 3",
+        "default": "*not applicable to Sets & Bundles"
+      },
+      {
+        "type": "text",
+        "id": "promobox_text4",
+        "label": "Text 4",
+        "default": "*not applicable to Skin Care / Hair & Body Care / Defense Care products "
+      },
+      {
+        "type": "text",
+        "id": "promobox_text5",
+        "label": "Text 5",
+        "default": "*not valid with Free Gifts promotion"
+      },
+      {
+        "type": "header",
+        "content": "Other Cart settings"
+      },
+    {
+      "type": "richtext",
+      "id": "cart_message",
+      "label": "Cart message"
+    },
+	{
+            "type": "image_picker",
+            "id": "image-banner",
+            "label": "Web Image banner",
+            "info": "2000 x 500px recommended"
+    },
+    {
+            "type": "image_picker",
+            "id": "image-banner-mobile",
+            "label": "Mobile Image banner",
+            "info": "1000 x1500px recommended"
+    },
+    {
+            "type": "url",
+            "id": "mainlink",
+            "label": "Banner link"
+   	}
+  ],
+  "blocks": [
+    {
+      "type": "featured_collection",
+      "name": "Featured collection",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "You may also be interested in"
+        },
+        {
+          "type": "checkbox",
+          "id": "collection_description",
+          "label": "Show collection description",
+          "default": false
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "radio",
+          "id": "collection_style",
+          "label": "Collection layout",
+          "default": "grid",
+          "options": [
+            {
+              "value": "slider",
+              "label": "Slider"
+            },
+            {
+              "value": "grid",
+              "label": "Grid"
+            }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "products_per",
+          "label": "Products per row",
+          "min": 2,
+          "max": 7,
+          "step": 1,
+          "default": 6
+        },
+        {
+          "type": "range",
+          "id": "products_limit",
+          "label": "Limit products",
+          "min": 2,
+          "max": 50,
+          "step": 1,
+          "default": 6
+        }
+      ]
+    }
+  ]
+}
+
+{% endschema %}
+
+<style>
+  .promo_banner-show.mobile_nav-fixed--false #pagecontent{
+	padding-bottom:24px;
+}
+  #remove-free {
+  cursor: pointer;
+  }
+  .cart__item--title{
+  	text-transform:capitalize;
+  }
+  @media only screen and (max-width:480px){
+    .cart__item--title{
+    	font-size: 14px !important;
+	line-height: 1.3em !important;
+    }
+  }
+</style>
+

@@ -1,0 +1,225 @@
+<!-- filename: blog-sidebar-reco.liquid -->
+{% if section.blocks.size > 0 %}
+  <div class="sidebar four columns medium-down--one-whole">
+    <div class="sidebar_content toggle-all--{{ section.settings.toggle }}">
+            <iframe name='iframe1' id='iframe1' src='https://forms.omnisrc.com/signup/v1/57a84cbf4d9e021021f389a3_5f574fe88a48f7707c189000.html' frameborder='0' border='0' cellspacing='0' style='overflow:scroll;width: 100%;height:100%;border-width: 0px; height: 700px' scrolling='no'></iframe>
+      {% for block in section.blocks %}
+        <div class="sidebar-block" {{ block.shopify_attributes }}>
+          {% if block.type == 'menu' %}
+            {% assign sidebar_menu = linklists[block.settings.custom_menu_linklist] %}
+            {% if sidebar_menu != blank %}
+              <h4 class="toggle">{{ sidebar_menu.title }}<span class="right icon-down-arrow"></span></h4>
+              <ul class="toggle_list">
+                {% for link in sidebar_menu.links %}
+                  {% if link.active %}
+                    {% assign active_link = true %}
+                  {% else %}
+                    {% assign active_link = false %}
+                    {% for sub_link in linklists[link.handle].links %}
+                      {% if sub_link.active %}
+                        {% assign active_link = true %}
+                      {% else %}
+                        {% for sub_sub_link in linklists[sub_link.handle].links %}
+                          {% if sub_sub_link.active %}
+                            {% assign active_link = true %}
+                          {% endif %}
+                        {% endfor %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+
+                  <li>
+                    {% if link.url == 'http://' or link.url == '' or link.url == '/' or link.url == 'https://' or link.url == '#' %}
+                     <a data-no-instant href="{{ link.url }}" class="{% if link.active %}active{% endif %} parent-link--false">
+                        {{ link.title }}
+                      </a>
+                    {% else %}
+                     <a data-no-instant href="{{ link.url }}" class="{% if link.active %}active{% endif %} parent-link--true">
+                       {{ link.title }}
+                     </a>
+                    {% endif %}
+
+                    {% if linklists[link.handle].links != blank %}
+                      <span class="menu-toggle icon-down-arrow {% if active_link %}active{% endif %}" aria-haspopup="true" aria-expanded="{% if active_link %}true{% else %}false{% endif %}"> </span>
+
+                      <ul class="{% if active_link %}active{% endif %}">
+                        {% for sub_link in linklists[link.handle].links %}
+                          {% if sub_link.active %}
+                            {% assign active_link = true %}
+                          {% else %}
+                            {% assign active_link = false %}
+                            {% for sub_sub_link in linklists[sub_link.handle].links %}
+                              {% if sub_sub_link.active %}
+                                {% assign active_link = true %}
+                              {% endif %}
+                            {% endfor %}
+                          {% endif %}
+
+                          <li class="sub-menu {% if active_link %}active{% endif %}">
+                            <a {% if sub_link.active %}class="active"{% endif %} href="{{ sub_link.url }}">{{ sub_link.title }}</a>
+
+                            {% if linklists[sub_link.handle].links != blank %}
+                              <span class="menu-toggle icon-down-arrow {% if active_link %}active{% endif %}" aria-haspopup="true" aria-expanded="{% if active_link %}true{% else %}false{% endif %}"> </span>
+
+                              <ul class="{% if active_link %}active{% endif %}">
+                                {% for sub_sub_link in linklists[sub_link.handle].links %}
+                                  <li class="sub-menu">
+                                    <a {% if sub_sub_link.active %}class="active"{% endif %} href="{{ sub_sub_link.url }}">{{ sub_sub_link.title }}</a>
+                                  </li>
+                                {% endfor %}
+                              </ul>
+                            {% endif %}
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <h4 class="toggle">Menu title<span class="right icon-down-arrow"></span></h4>
+              <ul class="toggle_list">
+                <li><p>{{ 'homepage.onboarding.no_content' | t }}</p></li>
+              </ul>
+            {% endif %}
+
+          {% elsif block.type == 'search' %}
+            <form class="blog_search" action="/search">
+              <input type="hidden" name="type" value="article" />
+              <span class="icon-search search-submit"></span>
+              <input type="text" name="q" class="search_box" placeholder="{{ 'general.search.title' | t }} {{ blog.title | escape }}..." autocapitalize="off" autocomplete="off" autocorrect="off" value="{{ search.terms }}" />
+            </form>
+          
+          {% elsif block.type == 'reco-prod' %}
+    <div class="product-reco">
+          <h4>Recommended products</p>
+          <div class="flex-wrap">
+		{% if article.metafields.global.collection %}
+            {% assign productreco = article.metafields.global.collection | handleize %}
+
+            {% for product in collections[productreco].products limit: 4 %}  
+
+
+                <div class="reco-products">
+                  <div class="product-wrap">
+                    <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                      <a href="{{ product.url | within: collection }}">
+                        <div class="image__container">
+                          {% render 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                        </div>
+                          {% if settings.collection_secondary_image != blank %}
+                            <div class="image__container">
+                              <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                              class="secondary lazyload"
+                              alt="{{ alt_text | escape }}"
+                              />
+                            </div>
+                          {% endif %}
+                        </a>
+                      {% render "product-details" %}
+                    </div>
+                    <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                      {% render "beauty-product-info" %}
+                    </a>
+                  </div>
+                </div>    
+
+            {% endfor %}
+        {% else %}
+			           
+
+            {% for product in collections["best-seller"].products limit: 4 %}  
+
+
+                <div class="reco-products">
+                  <div class="product-wrap">
+                    <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                      <a href="{{ product.url | within: collection }}">
+                        <div class="image__container">
+                          {% render 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                        </div>
+                          {% if settings.collection_secondary_image != blank %}
+                            <div class="image__container">
+                              <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                              class="secondary lazyload"
+                              alt="{{ alt_text | escape }}"
+                              />
+                            </div>
+                          {% endif %}
+                        </a>
+                      {% render "product-details" %}
+                    </div>
+                    <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                      {% render "beauty-product-info" %}
+                    </a>
+                  </div>
+                </div>    
+
+            {% endfor %}
+		{% endif %}
+        </div>
+         </div>
+
+          {% elsif block.type == 'newsletter' %}
+            {% if block.settings.newsletter_title != blank %}
+              <h4 class="newsletter-block__title">{{ block.settings.newsletter_title }}</h4>
+            {% endif %}
+            {% if block.settings.newsletter_text != blank %}
+              <div class="newsletter-block__text">{{ block.settings.newsletter_text }}</div>
+            {% endif %}
+            {% render 'newsletter-form' %}
+
+          {% elsif block.type == 'recent_posts' %}
+            <h4 class="toggle">{{ 'blogs.sidebar.recent_articles' | t }}<span class="right icon-down-arrow"></span></h4>
+            <ul class="toggle_list">
+              {% for article in blogs[blog_handle].articles limit: block.settings.blog_post_count %}
+                <li>
+                  <a href="{{ article.url }}" title="{{ article.title | escape }}">{{ article.title }}</a>
+                  {% if settings.blog_date %}
+                    <div class="meta">
+                      <!-- <span class="label">{{ article.published_at | date: format: "month_day_year" }}</span> -->
+                    </div>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+
+          {% elsif block.type == 'post_tags'  %}
+            <h4 class="toggle">{{ 'blogs.sidebar.categories' | t }}<span class="right icon-down-arrow"></span></h4>
+            <ul class="toggle_list">
+              {% for tag in blogs[blog_handle].all_tags %}
+                <li>
+                  <a href="{{ shop.url}}/blogs/{{ blogs[blog_handle].handle }}/tagged/{{ tag | handleize }}" title="{{ blogs[blog_handle].title }} {{ 'blogs.general.tagged' | t }} {{ tag | escape }}">{{ tag }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+
+          {% elsif block.type == 'page' %}
+            {% if block.settings.content_page != blank %}
+              <h4 class="toggle">{{ pages[block.settings.content_page].title }}<span class="right icon-down-arrow"></h4>
+              <ul class="toggle_list content_block">
+                <li>{{ pages[block.settings.content_page].content }}</li>
+              </ul>
+            {% else %}
+              <h4 class="toggle">Page title<span class="right icon-down-arrow"></span></h4>
+              <ul class="toggle_list">
+                <li><p>{{ 'homepage.onboarding.no_content' | t }}</p></li>
+              </ul>
+            {% endif %}
+
+          {% elsif block.type == 'text' %}
+            <h4 class="toggle">{{ block.settings.title }}<span class="right icon-down-arrow"></span></h4>
+            <ul class="toggle_list content_block">
+              <li>{{ block.settings.text }}</li>
+            </ul>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+    <style>
+  #iframe1{
+  	height:330px !important;
+  }
+    </style>

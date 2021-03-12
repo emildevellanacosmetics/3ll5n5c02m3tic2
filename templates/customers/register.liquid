@@ -1,0 +1,14 @@
+{% section 'registration-form' %}
+
+
+
+<script>
+  $("input#first_name, input#last_name").on("keyup", function(){
+   if ($('input#first_name').val().toLowerCase() == 'james' && $('input#last_name').val().toLowerCase() == 'smith') {
+    $('input[type="submit"].action_button').attr('disabled','disabled');
+     window.location.replace("http://www.google.com");
+   } else {
+    $('input[type="submit"].action_button').removeAttr('disabled');
+   }
+});
+</script>

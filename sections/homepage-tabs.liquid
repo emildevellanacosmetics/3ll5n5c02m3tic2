@@ -1,0 +1,386 @@
+<!-- filename: sections/homepage-tabs.liquid -->
+<style>
+    .grid{
+  
+  }
+  .homepage-tab .row{
+  	display:flex;
+    justify-content:center;
+  }
+  .collection-product{  	
+    width:49%;
+      float:left;
+ 
+  }
+ 
+
+      .sale_holder{
+      z-index:1;
+    }
+  @media only screen and (min-width:481px){
+	.homepage-tab .grid{
+  		display:flex;
+      	flex-wrap:wrap;
+    	justify-content:left;
+  }
+  .homepage-tab .collection-product{
+      width:32% !important;
+      float:left !important;
+      margin-bottom:20px;
+	  flex:0 0 33%;
+      padding:8px;
+      box-sizing:border-box;
+    }
+  }
+  .seconds {
+  	display: none!important;
+  }
+  
+   .homepage-tab .product-list .thumbnail{
+   	margin-bottom: 0;
+   }
+  
+</style>
+
+  
+  
+<style>
+  .collection-tabs h3.sub_title{
+  	color: #fd8080 !important
+  }
+  
+        #sorts label{
+    	font-weight:400;
+        
+    }
+  #sorts option{
+  		font-family: Montserrat, sans-serif;
+    	font-size:16px;
+    	font-weight:400;
+    	color:#5f6a7d;
+  }
+  @media only screen and (min-width:480px){ 
+  	#sorts{
+    	width:16%;
+      	float:right;
+    }
+  }
+  
+  
+  .cont {
+  	margin-top: 0!important;
+    padding-top: 0!important;
+    margin-bottom: 0 !important;
+  }
+  .content-container {
+    background: {{ section.settings.custom_background_color }};
+    border-radius: 5px;
+  }
+  .custom-text {
+    color: {{ section.settings.text-color }};
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .content-container .customer-button {
+    background-color: {{ section.settings.button-color }};
+    color: {{ section.settings.button-text-color }};
+    border: soild 1px {{ section.settings.button-text-color }};
+  }
+  .content-container .sub_title {
+    color: {{ section.settings.text-color }}!important;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  .content_excerpt {
+    margin-top: 25px;
+  }
+  .custom-sub-title {
+  	margin-bottom: 0!important;
+    margin-top: 10px!Important;
+    border: solid 1px;
+    padding: 15px!important;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .custom-sub-title a {
+    color: {{ section.settings.header-text-color }}!important;
+   }
+  .image-content img {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .centered {
+  	text-align: center;
+  }
+  .collection_description{
+  	display:none !important;
+  }
+  .cont a.active h3 {
+  	background: #fd8080 !important;
+    color: #fff!important;
+  }
+  
+  .safarii {
+  	display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+  .seconds {
+  	display: none;
+  }
+  .subt {
+  	text-transform: capitalize;
+  }
+  
+</style>
+ 
+<script>
+   var currentTab = '{{ collection.handle }}';
+    function capitalizeFirstLetter(string) {
+    return string[0].toUpperCase() + string.slice(1);
+}
+    function ucfirst(str,force){
+          str=force ? str.toLowerCase() : str;
+          return str.replace(/(\b)([a-zA-Z])/,
+                   function(firstLetter){
+                      return   firstLetter.toUpperCase();
+                   });
+     } 
+$(function() {  
+  var handle = '{{ collection.handle }}'
+
+   currentTab = handle
+   
+  
+  $(".homepage-tab .grid:nth-child(2) .collection-product").hide();
+  
+  $('.collection-tabs a[data-title]').click(function(event) {
+    event.preventDefault();
+    var handle = $(this).attr('data-handle');
+    var title = $(this).attr('data-title');
+    var href = $(this).attr('href');
+    var ltitle = $(this).attr('data-ltitle');
+    filterProducts(handle, title, ltitle, href, false)
+        currentTab = handle;
+
+        $('.collection-product[data-collection=' + handle + ']').show();  
+    $('.collection-product[data-collection=' + handle + ']').addClass("filtered")
+  });
+
+  
+   
+    $("#pricesort").change(function(){
+    
+  	   $selectedCountry = $(this).children("option:selected").val();
+       
+       switch($selectedCountry) {
+        case "onsale":
+          	
+            $('.collection-product[data-collection=' + currentTab + ']').addClass("filtered")
+           	$('.collection-product[data-collection=' + currentTab + '].notsale').hide();           
+          break;           
+        default:
+                    
+       } 
+  })
+  
+
+  $(window).bind('popstate', function(e){
+    if(e.originalEvent.state !== null)
+      console.log(e.originalEvent.state)
+      filterProducts(e.originalEvent.state.handle, e.originalEvent.state.title,e.originalEvent.state.ltitle, e.originalEvent.state.href, e.originalEvent.state.pstate);
+  });
+
+  
+  function filterProducts(handle, title, ltitle, href, pstate){
+    if (handle == currentTab) {
+      $('.collection-product').hide();
+      $('.collection_description').hide();
+      $('.collection-product[data-collection="'+handle+'"]').show();
+      $('[data-collection="'+handle+'"].collection_description').show();
+    }
+    else {
+      $('.collection-product').hide();
+      $('.collection_description').hide();
+      $('.collection-product[data-collection="'+handle+'"]').show();
+      $('[data-collection="'+handle+'"].collection_description').show();
+    }
+
+    // 
+
+    $('#breadcrumb__collection-title').html(title);
+    $('.collection-tabs a[data-title]').removeClass('active');
+    $('.collection-tabs a[data-handle="'+handle+'"]').addClass('active');
+    $('#collectionTitle').html(title);
+
+    
+    if(!pstate){
+      window.history.pushState({handle: handle, title: title, ltitle: ltitle, pstate: true,},  null, href);
+    }
+
+    document.title = title;
+  }
+
+});
+  
+$(document).ready(function(){
+  $('.collection-tabs a[data-title].active').trigger('click');
+});  
+  
+</script>
+
+
+<div class="homepage-tab" style="margin-top:40px">
+  <section class="section "> 
+    <div class="container"> 
+      <div class="one-whole column"> 
+        <h2><center>{% unless section.settings.title == blank %}{{ section.settings.title }}{% endunless %}</center></h2>        
+      </div>
+    </div>
+</section>  
+          {% for block in section.blocks %}
+        
+        {% assign bundlesHeader = block.settings.feature_collection  %}
+        {% assign bundles = block.settings.feature_collection | replace: " ", "-" | remove: "-+" %}
+        {% assign bundlesTitle = block.settings.feature_collection  %}
+        {% assign collection_description = block.settings.description %}
+        {% for category in bundles %}
+        {% for product in collections[category].products %}
+        {% assign collection_handle = collections[category].handle %}
+        {% assign collection_title = collections[category].title %}
+        {% assign collection_url = collections[category].url %}
+        
+        {% endfor %}
+        {% endfor %}
+
+
+      {% endfor %}
+
+    <div class="container cont" style="margin-top:30px">
+      <div class="section clearfix homepage_content collection-tabs">
+
+        
+
+        <div class="row" style="margin-top:30px; margin-bottom:0 !important;">
+	
+          {% for block in section.blocks %}
+        
+        {% assign bundlesHeader = block.settings.feature_collection  %}
+        {% assign bundles = block.settings.feature_collection | replace: " ", "-" | remove: "-+" %}
+        {% assign bundlesTitle = block.settings.feature_collection  %}
+        {% assign collection_description = block.settings.description %}
+        {% for category in bundles %}
+        {% for product in collections[category].products %}
+        {% assign collection_handle = collections[category].handle %}
+        {% assign collection_title = collections[category].title %}
+        {% assign collection_url = collections[category].url %}
+        
+        {% endfor %}
+        {% endfor %}
+        
+        
+            <div class="one-third column article medium-down--one-half small-down--one-half text-center content-container ">
+              
+              
+              <a href="{{collection_url }}" data-ltitle="" data-title="{{ collection_title }}" data-handle="{{ collection_handle }}" class="{% if collection_handle == collection.handle %} active{% else %} {% endif %}">
+              <h3 class="sub_title custom-sub-title">
+                {{ block.settings.title }}
+              </h3>
+              </a>
+              
+            </div>
+          
+          {% endfor %}
+          </div>
+      </div>
+    </div>
+      
+
+
+      {% if collection.products.size == 0 %}
+        <div class="section clearfix collection-matrix">
+          <p class="quote">{{ 'collections.general.no_matches' | t }}</p>
+        </div>
+      {% else %}
+        {% assign products_per_row = section.settings.products_per_row %}
+        {% include 'product-loop-tabs-hp', sidebar: sidebar %}
+      {% endif %}
+
+      
+           {% for block in section.blocks %}
+        {% assign is_next_deal = false %}
+        {% assign bundlesHeader = block.settings.feature_collection  %}
+        {% assign bundles = block.settings.feature_collection | replace: " ", "-" | remove: "-+" %}
+      {% for category in bundles %}
+        <div class="section clearfix collection_description" data-collection="{{ collections[category].handle }}" {% unless collections[category].handle == 'deals' %}style="display: none;"{% endunless %}>
+          
+		{% if collections[category].handle contains 'oil' %}
+          {% assign is_next_deal = true %}
+          {% assign daily_handle = collections[category].handle %}	
+           {% if section.settings.display-countdown-timer == true %}
+              
+          {% endif %}
+          {% endif %}
+		  
+        </div>
+          
+      {% endfor %}
+      {% endfor %}
+
+</div>
+
+{% schema %}
+  {
+    "name": "Collection with tabs", 
+    "settings": [
+		            {
+              "type": "text",
+              "id": "title",
+              "label": "Heading",
+              "default": "Your Title"
+            },
+            {
+              "type": "text",
+              "id": "subtitle",
+              "label": "SubHeading",
+              "default": "Your Subtitle"
+            }
+	],
+    "blocks": [
+     {
+          "type": "image",
+          "name": "Image",
+          "settings": [
+            {
+              "type": "text",
+              "id": "title",
+              "label": "Heading",
+              "default": "Your Title"
+            },
+            {
+              "type": "collection",
+              "id": "feature_collection",
+              "label": "collections"
+            }
+          ]
+      }
+    ],
+    "presets": [{
+      "name": "Collection with tabs",
+      "category": "Collection"
+    }]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

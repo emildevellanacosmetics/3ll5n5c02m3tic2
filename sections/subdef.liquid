@@ -1,0 +1,94 @@
+<!-- filename: sections/subdef.liquid -->
+<div class="master-collection container">
+  <h2>{{section.settings.title }}</h2>
+  <p>{{section.settings.subtitle }}</p>
+  {% unless section.settings.mp4 == "" %}
+  <div class="video-wrapper">
+      <video width="320" height="240" controls="controls"  poster="https://cdn.shopify.com/s/files/1/1307/5383/files/dd.png?v=1597295135">
+        <source src="{{ section.settings.mp4 }}" type="video/mp4" />
+
+      Your browser does not support the video tag.
+      </video>
+  </div>
+  {% endunless %}
+  <h2>Shop our collections below</h2>
+  <div class="frow">
+    {% if section.blocks.size > 0 %}
+    	{% for block in section.blocks %}    		
+    		<div class="category-columns">
+              <a href="{{ block.settings.link }}">
+              <img src="{{ block.settings.image | img_url: 'grande'  }}"/></a>
+              
+    		</div>    		
+    	{% endfor %} 
+    {% endif %}
+  </div>
+  
+  {% unless section.settings.banner == "//cdn.shopify.com/s/assets/no-image-2048-5e88c1b20e087fb7bbe9a3771824e743c244f437e4f8ba93bbf7b11b53f7824c_x400.gif" %}  
+  <div class="row" style="margin-top:20px;">
+    <div class="banner">
+    	<img src="{{ section.settings.banner | img_url: 'master' }}">
+    </div>
+  </div>
+  {% endunless %}
+</div>
+
+
+ 
+
+{% schema %}
+{
+  "name": "Sub Categories",
+  "class": "sub-collection",
+  "max_blocks": 16,
+  "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Your Sub Categories"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Sub Heading",
+          "default": "Collection Blurb"
+        },
+       	{
+          "type": "image_picker",
+          "id": "banner",
+          "label": "Image banner"          
+        },
+        {
+          "type": "text",
+          "id": "mp4",
+          "label": "HTML5 MP4 File URL"
+        }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "1024 x 1024px recommended"
+        },
+        {
+          "type": "text",
+          "id": "parent-category",
+          "label": "Parent category",
+          "default": "Sample Collection"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Page link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,90 @@
+<!-- filename: dropdown_script.liquid -->
+<style>
+   {% for t in product.tags %}
+  		{% if t == "dropdown" %}
+			.swatch_options{display:none;}
+  		{% endif %}
+  {% endfor %}
+</style>
+
+<script>
+  $(document).ready(function(){
+      {% for t in product.tags %}
+              {% if t == "dropdown" %}
+                  $(document).ready(function(){
+                      $("#product-select-4384313835607productproduct-template").hide()
+                      $("#product-select-6815228359productproduct-template").hide()
+                      $("#product-select-4405113782359productproduct-template").hide() 
+                      $(".selector-wrapper").show()
+                      $(".select").show()
+                  });
+              {% endif %}
+        {% endfor %}
+  })
+</script>
+
+<!-- back
+<style>  
+{% if product.id == 4384313835607 or product.id == 6815228359 or product.id == 4405113782359 or product.id == 4041478832215  or product.id == 4494726037591 %}
+  .swatch_options{display:none;}
+  {% endif %}
+  {% if product.id == 4399686680663 %}
+  .swatch{display:none;}
+  {% endif %}
+    {% if product.id == 4399695855703 %}
+  .swatch{display:none;}
+  select{font-size:12px}
+  {% endif %}
+    {% if product.id == 4423375585367 %}
+  .swatch_options{display:none !important;}
+  select{font-size:12px}
+  {% endif %}  
+      {% if product.id == 3959551361111 or product.id == 4427704664151  %}
+  .swatch_options{display:none !important;}
+  select{font-size:12px}
+  {% endif %}
+</style>
+
+<script>
+{% if product.id == 4384313835607 or product.id == 6815228359 or product.id == 4405113782359 or product.id == 4399686680663 or product.id == 4041478832215 or product.id == 4494726037591 %} 
+    $(document).ready(function(){
+    	$("#product-select-4384313835607productproduct-template").hide()
+        $("#product-select-6815228359productproduct-template").hide()
+        $("#product-select-4405113782359productproduct-template").hide() 
+        $(".selector-wrapper").show()
+        $(".select").show()        
+        });
+  
+{% endif %}
+  
+{% if product.id == 4399686680663 %}
+ $(document).ready(function(){
+   $(".selector-wrapper:nth-child(1)").show();
+   $(".selector-wrapper:nth-child(2)").show();
+   $(".selector-wrapper:nth-child(3)").show();
+       });
+{% endif %}
+  
+  
+{% if product.id == 4423375585367 %}
+ $(document).ready(function(){
+   	$(".select").show()
+   	$(".selector-wrapper").show()	
+ });
+{% endif %}
+  
+  
+  {% if product.id == 4399695855703 %}
+ $(document).ready(function(){
+   	$(".select").show()
+   $(".selector-wrapper").show()
+       });
+{% endif %}
+  {% if product.id == 3959551361111 or product.id == 4427704664151 %}
+ $(document).ready(function(){
+   	$(".select").show()
+   $(".selector-wrapper").show()
+       });
+{% endif %}
+  
+</script>

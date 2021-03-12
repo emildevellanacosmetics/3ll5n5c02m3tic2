@@ -1,0 +1,78 @@
+<!-- filename: sections/master-collection.liquid -->
+<div class="master-collection container">
+  <h2>{{section.settings.title }}</h2>
+  <p>{{section.settings.subtitle }}</p>
+  <div class="frow">
+    {% if section.blocks.size > 0 %}
+    	{% for block in section.blocks %}    		
+    		<div class="category-columns">
+              <a href="{{ block.settings.link }}">
+              <img src="{{ block.settings.image | img_url: '300x300'  }}"/></a>
+              <a href="{{ block.settings.link }}"><h4>{{ block.settings.parent-category }}</h4></a>
+    		</div>    		
+    	{% endfor %} 
+    {% endif %}
+  </div>
+</div>
+
+
+
+
+{% schema %}
+{
+  "name": "Master Collection",
+  "class": "master-collection",
+  "max_blocks": 16,
+  "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Your Master Collection"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Sub Heading",
+          "default": "Collection Blurb"
+        },
+       {
+          "type": "image_picker",
+          "id": "banner",
+          "label": "Image banner"          
+        }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "1024 x 1024px recommended"
+        },
+        {
+          "type": "text",
+          "id": "parent-category",
+          "label": "Parent category",
+          "default": "Sample Collection"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Page link"
+        }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Master Collection",
+    "category": "Collection",
+    "settings": {
+     
+    }
+  }]
+}
+{% endschema %}

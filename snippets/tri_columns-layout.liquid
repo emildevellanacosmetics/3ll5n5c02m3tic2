@@ -1,0 +1,49 @@
+<!-- filename: tri_columns-layout.liquid -->
+<div style=" background-color: {{ block.settings.bg_color }}; color: {{ block.settings.text_color }}; width: 100%;margin-top: {{ block.settings.margin-top }}px;margin-bottom: {{ block.settings.margin-bottom}}px;padding-top: {{ block.settings.padding-top }}px;padding-bottom: {{ block.settings.padding-bottom }}px;">
+    <div class="container">
+      {% if block.settings.main_heading %}
+      	<p style="color: {{ block.settings.text_color }};text-align:center;"><strong>{{ block.settings.main_heading }}</strong><br/>      
+      {% if block.settings.sub_heading %}{{ block.settings.sub_heading }}{% endif %}</p>{% endif %}
+        <div class="row">
+            <div class="trio small-down--one-whole">
+                <center>
+                  {% if block.settings.column1_title %}
+                    <strong>{{ block.settings.column1_title }}</strong> <br>
+                  {% endif %}
+                  {% if block.settings.column1_content %}
+                  	<p>{{ block.settings.column1_content }}</p>
+                  {% endif %}
+                  {% if block.settings.column1_url %}
+                  	<a href="{{ block.settings.column1_url }}"><button>{{ block.settings.column1_buttontext }}</button></a>
+                  {% endif %}
+                </center>
+            </div>
+            <div class="trio small-down--one-whole">
+                <center>
+                  {% if block.settings.column2_title %}
+                    <strong>{{ block.settings.column2_title }}</strong> <br>
+                  {% endif %}
+                  {% if block.settings.column2_content %}
+                  	<p>{{ block.settings.column2_content }}</p>
+                  {% endif %}
+                  {% if block.settings.column2_url %}
+                  <a href="{{ block.settings.column2_url }}"><button>{{ block.settings.column2_buttontext }}</button></a>
+                  {% endif %}
+                </center>
+            </div>
+            <div class="trio small-down--one-whole">
+                <center>
+                  {% if block.settings.column3_title %}
+                  	<strong>{{ block.settings.column3_title }}</strong> <br>
+                  {% endif %}
+                  {% if block.settings.column3_content %}
+                  	<p>{{ block.settings.column3_content }}</p>
+                  {% endif %}
+                  {% if block.settings.column3_url %}
+                  <a href="{{ block.settings.column3_url }}"><button>{{ block.settings.column3_buttontext }}</button></a>
+                  {% endif %}
+                </center>
+            </div>
+        </div>
+    </div>
+</div>

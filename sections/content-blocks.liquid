@@ -1,0 +1,180 @@
+<!-- filename: sections/content-blocks.liquid -->
+<div class="container cont">
+  <div class="section clearfix homepage_content">
+
+    
+      {% for block in section.blocks %}
+        <div class="one-fourth column article medium-down--one-half small-down--one-half text-center content-container">
+          
+          
+          
+          {% if block.settings.image != blank %}
+            <a href="{{ block.settings.url }}" data-src="{{ block.settings.image |  img_url: '2000x' }}" class="image-content">
+              {% include 'image-element', image: block.settings.image, alt: block.settings.image.alt %}
+            </a>
+          {% else %}
+          <a href="{{ block.settings.url }}">
+          <h3 class="sub_title custom-sub-title">
+            {{ block.settings.title }}
+          </h3>
+          </a>
+		  {% endif %}	
+          {% if block.settings.sub-text != blank %}
+            <div class="content_excerpt custom-text">{{ block.settings.sub-text }}</div>
+          {% endif %}
+          {% if block.settings.button != blank %}
+            <a href="{{ block.settings.url }}" {% if settings.read_more_style == 'button' %}class="action_button continue-button customer-button"{% endif %}>{{ block.settings.button }}</a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    
+    
+  </div>
+</div>
+
+
+<style>
+  .cont {
+  	margin-top: 15px!important;
+    margin-bottom: 25px!important;
+  }
+  .content-container {
+    background: {{ section.settings.custom_background_color }};
+    border-radius: 5px;
+  }
+  .custom-text {
+    color: {{ section.settings.text-color }};
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .content-container .customer-button {
+    background-color: {{ section.settings.button-color }};
+    color: {{ section.settings.button-text-color }};
+    border: soild 1px {{ section.settings.button-text-color }};
+  }
+  .content-container .sub_title {
+    color: {{ section.settings.text-color }}!important;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  .content_excerpt {
+    margin-top: 25px;
+  }
+  .custom-sub-title {
+  	margin-bottom: 0!important;
+    margin-top: 10px!Important;
+    border: solid 1px;
+    padding: 15px!important;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    font-size: 14px!important;
+  }
+  
+  .custom-sub-title a {
+    color: {{ section.settings.header-text-color }}!important;
+   }
+  .image-content img {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+</style>
+
+{% schema %}
+
+{
+  "name": "Custom Content Block",
+  "class": "featured-blog-section",
+  "settings": [
+    	  {
+	      "type": "color",
+		  "id": "custom_background_color",
+		  "label": "Background color",
+		  "default": "#ffffff"
+	      },
+		  {
+	      "type": "color",
+		  "id": "header-text-color",
+		  "label": "Header Text Color",
+		  "default": "#511811"
+	      },
+		  {
+	      "type": "color",
+		  "id": "text-color",
+		  "label": "Text Color",
+		  "default": "#511811"
+	      },
+		  {
+	      "type": "color",
+		  "id": "button-color",
+		  "label": "Button Background color",
+		  "default": "#ffffff"
+	      },
+		  {
+	      "type": "color",
+		  "id": "button-text-color",
+		  "label": "Button Text Color",
+		  "default": "#511811"
+	      }
+
+  ],
+  "blocks": [
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Your Title"
+          },
+		  {
+            "type": "text",
+            "id": "sub-text",
+            "label": "Sub Heading",
+            "default": "Your subtext"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image",
+            "info": "800 x 800px recommended"
+          },
+		  {
+            "type": "text",
+            "id": "button",
+            "label": "button",
+            "default": "Shop Now"
+          },
+          {
+            "type": "url",
+            "id": "url",
+            "label": "URL"
+          }
+      	  
+        ]
+      }
+    ],
+  "presets": [{
+    "name": "Custom Content Blocks",
+    "category": "Image",
+	"blocks": [
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          }
+        ]
+    
+  }]
+}
+{% endschema %}
