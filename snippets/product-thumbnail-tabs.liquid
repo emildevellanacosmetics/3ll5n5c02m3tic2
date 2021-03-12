@@ -1,0 +1,72 @@
+<!-- filename: product-thumbnail-tabs.liquid -->
+<div class="collection-product 
+	{% if product.price_min < product.compare_at_price_min %}
+    onsale{% else %}notsale{% endif %}
+  {% if products_per_row == 2 %}
+    
+  {% elsif products_per_row == 3 %}
+    
+  {% elsif products_per_row == 4 %}
+    
+  {% elsif products_per_row == 5 %}
+    
+  {% elsif products_per_row == 6 %}
+    
+  {% else %}
+    
+  {% endif %}
+  {% if settings.mobile_products_per_row == '1' %}
+
+  {% else %}
+
+  {% endif %}
+  thumbnail
+  {% cycle collection_group_mobile: 'even', 'odd' %}
+  {% if settings.quick_shop_enabled %}
+    quick-shop-style--{{ settings.quick_shop_style }}
+  {% endif %}
+  product-{{ product.id }}" data-title="{{ collections[category].title }}" data-collection="{{ collections[category].handle }}">
+
+  {% assign collection_handles = product.collections | map: 'handle' %}
+  {% if product.featured_image.alt contains 'youtube' or image.alt contains 'vimeo' %}
+    {% assign alt_text = product.title %}
+  {% else %}
+    {% assign alt_text = product.featured_image.alt %}
+  {% endif %}
+  <p class="dataprice" style="display:none;">{{ product.price | divided_by: 100 }}
+  <div class="product-wrap">
+    <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+      <a href="{{ product.url | within: collection }}" blocked-url="{{ product.url | within: collection }}" aria-label="{{ product.title }}">
+        <div class="image__container">
+          {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+        </div>
+          {% if settings.collection_secondary_image != blank %}
+            <div class="image__container">
+              <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+              class="secondary lazyload"
+              alt="{{ alt_text | escape }}"
+              />
+            </div>
+          {% endif %}
+        </a>
+      {% include "product-details" %}
+    </div>
+    <!-- <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}"> -->
+    <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="#" aria-label="{{ product.title }}">
+      {% include "product-info" %}
+    </a>
+  </div>
+
+  {% unless settings.quick_shop_style == 'inline' and settings.quick_shop_enabled %}
+    {% include 'collection-swatch' %}
+  {% endunless %}
+
+  {% if settings.quick_shop_style == 'inline' and settings.quick_shop_enabled %}
+    {% unless collection_handles contains 'coming-soon' %}
+      <div class="inline-quickshop js-product_section product-{{ product.id }}">
+        {% include 'product-form', show_payment_button_quickshop: settings.show_payment_button %}
+      </div>
+    {% endunless %}
+  {% endif %}
+</div>
+

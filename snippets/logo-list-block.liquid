@@ -1,0 +1,48 @@
+<!-- filename: logo-list-block.liquid -->
+<div style=" background-color: {{ block.settings.logo-bg_color }}; color: {{ block.settings.logo-text_color }}; width: 100%;margin-top: {{ block.settings.logo-margin-top }}px;margin-bottom: {{ block.settings.logo-margin-bottom}}px;padding-top: {{ block.settings.logo-padding-top }}px;padding-bottom: {{ block.settings.logo-padding-bottom }}px;">
+    <div class="container">
+      <h2 style="color: {{ block.settings.logo-text_color }};margin-top:0;padding-top:0;text-align:center;">{{ block.settings.logo-main_heading }}</h2>
+	<div class="row">
+      {% if block.settings.logo1 %}
+	 <div class="otso small-down--four alpha">
+	   <a href="{{ block.settings.image1_url }}"><img src="{{ block.settings.logo1 | img_url: 'large' }}" class="skincare-logo"></a>
+	 </div>
+      {% endif %}
+      {% if block.settings.logo2 %}
+	 <div class="otso small-down--four alpha">
+	   <a href="{{ block.settings.image2_url }}"><img src="{{ block.settings.logo2 | img_url: 'large' }}" class="skincare-logo"></a>
+	 </div>
+      {% endif %}
+     {% if block.settings.logo3 %}
+      	 <div class="otso small-down--four alpha">
+	   <a href="{{ block.settings.image3_url }}"><img src="{{ block.settings.logo3 | img_url: 'large' }}" class="skincare-logo"></a>
+	 </div>
+      {% endif %}
+     {% if block.settings.logo4 %}
+      	 <div class="otso small-down--four alpha">
+	   <a href="{{ block.settings.image4_url }}"><img src="{{ block.settings.logo4 | img_url: 'large' }}" class="skincare-logo"></a>
+	 </div>
+      {% endif %}
+      {% if block.settings.logo5 %}
+      	 <div class="otso small-down--four alpha">
+	   <a href="{{ block.settings.image5_url }}"><img src="{{ block.settings.logo5 | img_url: 'large' }}" class="skincare-logo"></a>
+	 </div>
+      {% endif %}
+      {% if block.settings.logo6 %}
+      	 <div class="otso small-down--four alpha">
+	   <a href="{{ block.settings.image6_url }}"><img src="{{ block.settings.logo6 | img_url: 'large' }}" class="skincare-logo"></a>
+	 </div>
+      {% endif %}
+      {% if block.settings.logo7 %}
+      	 <div class="otso small-down--four alpha">
+	   <a href="{{ block.settings.image7_url }}"><img src="{{ block.settings.logo7 | img_url: 'large' }}" class="skincare-logo"></a>
+	 </div>
+      {% endif %}
+      {% if block.settings.logo8 %}
+      	 <div class="otso small-down--four alpha">
+	   <a href="{{ block.settings.image8_url }}"><img src="{{ block.settings.logo8 | img_url: 'large' }}" class="skincare-logo"></a>
+	 </div>
+      {% endif %}
+	</div>
+	</div>
+</div>

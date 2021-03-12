@@ -1,0 +1,730 @@
+<!-- filename: sections/collection-tabs-makeup.liquid -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<style>
+.article, .article_image{
+  margin-bottom:0;  
+}
+</style>
+<style>
+    .grid{
+  
+  }
+  .collection-product{  	
+    width:49%;
+      float:left;
+    	height: 342px;
+  }
+ 
+
+      .sale_holder{
+      z-index:1;
+    }
+  @media only screen and (min-width:481px){
+	.grid{
+  	display:block !important;
+    
+  }
+  .collection-product{
+      width:24% !important;
+      float:left !important;
+      margin-bottom:20px;
+    height:450px;
+    }
+  }
+  
+</style>
+
+<script>
+   var currentTab = '{{ collection.handle }}';
+    function capitalizeFirstLetter(string) {
+    return string[0].toUpperCase() + string.slice(1);
+}
+    function ucfirst(str,force){
+          str=force ? str.toLowerCase() : str;
+          return str.replace(/(\b)([a-zA-Z])/,
+                   function(firstLetter){
+                      return   firstLetter.toUpperCase();
+                   });
+     } 
+$(function() {  
+  var handle = '{{ collection.handle }}'
+
+   currentTab = handle
+  $('.collection-tabs a[data-title]').click(function(event) {
+    event.preventDefault(); 
+    var handle = $(this).attr('data-handle');
+    var title = $(this).attr('data-title');
+    var href = $(this).attr('href');
+    var ltitle = $(this).attr('data-ltitle');
+    filterProducts(handle, title, ltitle, href, false)
+        currentTab = handle;
+
+        $('.collection-product[data-collection=' + handle + ']').show();  
+    $('.collection-product[data-collection=' + handle + ']').addClass("filtered")
+  });
+
+  
+
+    $("#pricesort").change(function(){
+    
+  	   $selectedCountry = $(this).children("option:selected").val();
+       
+       switch($selectedCountry) {
+        case "onsale":
+          	
+            $('.collection-product[data-collection=' + currentTab + ']').addClass("filtered")
+           	$('.collection-product[data-collection=' + currentTab + '].notsale').hide();           
+          break;           
+        default:
+                    
+       } 
+  })
+
+    
+
+  $(window).bind('popstate', function(e){
+    if(e.originalEvent.state !== null)
+      console.log(e.originalEvent.state)
+      filterProducts(e.originalEvent.state.handle, e.originalEvent.state.title,e.originalEvent.state.ltitle, e.originalEvent.state.href, e.originalEvent.state.pstate);
+  });
+
+  
+  function filterProducts(handle, title, ltitle, href, pstate){
+    if (handle == currentTab) {
+      $('.collection-product').hide();
+      $('.collection_description').hide();
+      $('.collection-product[data-collection="'+handle+'"]').show();
+      $('[data-collection="'+handle+'"].collection_description').show();
+    }
+    else {
+      $('.collection-product').hide();
+      $('.collection_description').hide();
+      $('.collection-product[data-collection="'+handle+'"]').show();
+      $('[data-collection="'+handle+'"].collection_description').show();
+    }
+
+    // 
+
+    $('#breadcrumb__collection-title').html(title);
+    $('.collection-tabs a[data-title]').removeClass('active');
+    $('.collection-tabs a[data-handle="'+handle+'"]').addClass('active');
+    $('#collectionTitle').html(title);
+
+    
+    if(!pstate){
+      window.history.pushState({handle: handle, title: title, ltitle: ltitle, pstate: true,},  null, href);
+    }
+
+    document.title = title;
+  }
+
+});
+  
+$(document).ready(function(){
+  $('.collection-tabs a[data-title].active').trigger('click');
+});  
+  
+</script>
+
+
+{% comment %}
+** Collections - default view **
+- Collection template
+- Uses blocks
+{% endcomment %} 
+
+
+<a name="pagecontent" id="pagecontent"></a>
+{% if section.settings.marquee_text_enable == true %}
+<div style="width: 100%; background-color: #fff; padding: 5px 5px 5px 5px;">
+  <span style="font-size: 12px; letter-spacing: .2em;"><center><marquee style="vertical-align: middle; line-height: 1.2;">{{ section.settings.marquee_text }}</marquee></center></span>
+</div>
+{% endif %}
+
+        {% if section.settings.featured_collection_image %}
+            {% if collection.title == "deals" %}
+                <header class="banner center page_banner dark-overlay-{{ section.settings.image_darken }}">
+                  <div class="banner-row">
+                      <img src="{{ section.settings.image | img_url: 'grande' }}"/>
+                  </div>
+                </header>
+            {% endif %}
+        {% endif %}
+
+
+        {% if section.settings.image-banner %}
+          <div class="web" style="padding-bottom: 0;">
+            <div class="banner-wrapper">
+              <a href="{{ section.settings.mainlink }}">
+				<img src="{{ section.settings.image-banner | img_url: 'master' }}" class="banner full-width--true">
+              </a>
+            </div>
+		  </div>            
+        {% endif %}
+
+        {% if section.settings.image-banner-mobile %}
+          <div class="mobile" style="padding-bottom: 0;">
+            <div class="banner-wrapper">
+              <a href="{{ section.settings.mainlink }}">
+				<img src="{{ section.settings.image-banner-mobile | img_url: 'master' }}" class="banner full-width--true">
+              </a>
+            </div>
+		  </div>            
+        {% endif %}
+
+<!-- infobar -->
+
+<style>
+  .infobar {
+    margin-top: 20px;    
+}
+  @media only screen and (max-width:480px){
+ .infobar {
+
+} 
+  }
+</style>
+
+     {% for block in section.blocks %}
+        {% assign is_next_deal = false %}
+        {% assign bundlesHeader = block.settings.feature_collection  %}
+        {% assign bundles = block.settings.feature_collection | replace: " ", "-" | remove: "-+" %}
+      {% for category in bundles %}
+      
+        <div class="section clearfix collection_description" data-collection="{{ collections[category].handle }}" {% unless collections[category].handle == 'deals' %}style="display: none;"{% endunless %}>
+        
+          {% if block.settings.image != blank %}
+                <a href="{{ block.settings.link }}" data-src="{{ block.settings.image |  img_url: '2000x' }}" class="image-content dt-show" data-title="{{ collection_title }}" data-handle="{{ collection_handle }}">
+                  {% include 'image-element', image: block.settings.image, alt: block.settings.image.alt %}
+                </a>
+          {% endif %}
+          {% if block.settings.image2 != blank %}
+                <div class="mb-show">
+                  <a href="{{ block.settings.link }}">
+                  <img src="{{ block.settings.image2 | img_url: '1024x' }}">
+                  </a>
+                </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+      {% endfor %}
+
+
+
+
+<div class="container">
+  
+    <div class="clearfix breadcrumb-collection">
+      {% if section.settings.collection_breadcrumb %}
+        <script type="application/ld+json">
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                  "@id": "{{ shop.url }}",
+                  "name": "{{ 'general.breadcrumbs.home' | t }}"
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                  "@id": "{{ shop.url }}/collections/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}",
+                  "name": "{{ collection.title }}"
+                }
+              }
+              {% if current_tags %}
+                {% for tag in current_tags %}
+                  {% unless tag contains 'meta-' %}
+                    ,
+                    {
+                      "@type": "ListItem",
+                      "position": {{ forloop.index | plus: 2 }},
+                      "item": {
+                        "@id": "{{ shop.url }}/collections/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}/{{ tag | handleize }}",
+                        "name": "{{ tag }}"
+                      }
+                    }
+                  {% endunless %}
+                {% endfor %}
+              {% endif %}
+            ]
+          }
+        </script>
+
+      {% endif %}
+    </div>
+
+  <style>
+  @media only screen and (max-width:480px){
+  	 .top-padder{
+  		padding-top:0 !important;
+  	}
+  }
+    </style>
+    
+
+
+
+    {% comment %}Check to see if sidebar should be enabled{% endcomment %}
+
+
+    <div class="sixteen columns">
+
+	<!-- Collection Tabs start -->
+	
+    <div class="container cont">
+      <div class="section clearfix homepage_content collection-tabs makeuptabs">
+
+        
+
+        
+
+          {% for block in section.blocks %}
+        
+        {% assign bundlesHeader = block.settings.feature_collection  %}
+        {% assign bundles = block.settings.feature_collection | replace: " ", "-" | remove: "-+" %}
+        {% assign bundlesTitle = block.settings.feature_collection  %}
+        {% assign collection_description = block.settings.description %}
+        {% for category in bundles %}
+        {% for product in collections[category].products %}
+        {% assign collection_handle = collections[category].handle %}
+        {% assign collection_title = collections[category].title %}
+        {% assign collection_url = collections[category].url %}
+        
+        {% endfor %}
+        {% endfor %}
+        
+        
+            <div class="one-fifth column article medium-down--one-half small-down--one-half text-center content-container ">
+              
+              
+              <a href="{{collection_url }}" data-ltitle="" data-title="{{ collection_title }}" data-handle="{{ collection_handle }}" class="{% if collection_handle == collection.handle %} active{% else %} {% endif %}">
+              <h3 class="sub_title custom-sub-title">
+                {{ block.settings.title }}
+              </h3>
+              </a>
+              
+            </div>
+          {% endfor %}
+      </div>
+    </div>
+      
+      
+    <!-- Collection Tabs end -->
+    
+  <div class="section">
+    <div id="sorts" class="button-group">
+        <select id="pricesort" class="single-option-selector" name="sort">
+          <option value="orig">Sort By</option>    
+          <option value="onsale">On Sale</option> 
+          <option value="byreviews">Most Reviewed</option> 
+          <option value="hi">Price: High to Low</option> 
+          <option value="low">Price: Low to High</option>
+        </select>
+    </div>
+  </div>
+    
+      
+      {% for block in section.blocks %}
+        {% assign is_next_deal = false %}
+        {% assign bundlesHeader = block.settings.feature_collection  %}
+        {% assign bundles = block.settings.feature_collection | replace: " ", "-" | remove: "-+" %}
+      {% for category in bundles %}
+        <div class="section clearfix collection_description" data-collection="{{ collections[category].handle }}" {% unless collections[category].handle == 'deals' %}style="display: none;"{% endunless %}>
+          
+		{% if collections[category].handle contains 'daily' %}
+          {% assign is_next_deal = true %}
+          {% assign daily_handle = collections[category].handle %}	
+          {% include 'newdailycountdown' %}
+          {% endif %}
+		  
+        </div>
+          
+      {% endfor %}
+      {% endfor %}
+      
+      
+
+        
+        
+        
+        
+      {% if collection.products.size == 0 %}
+        <div class="section clearfix collection-matrix">
+          <p class="quote">{{ 'collections.general.no_matches' | t }}</p>
+        </div>
+      {% else %}
+        {% assign products_per_row = section.settings.products_per_row %}
+        {% include 'product-loop-tabs', sidebar: sidebar %}
+      {% endif %}
+      {% for block in section.blocks %}
+        {% assign is_next_deal = false %}
+        {% assign bundlesHeader = block.settings.feature_collection  %}
+        {% assign bundles = block.settings.feature_collection | replace: " ", "-" | remove: "-+" %}
+      {% for category in bundles %}
+        <div class="section clearfix collection_description" data-collection="{{ collections[category].handle }}" {% unless collections[category].handle == 'deals' %}style="display: none;"{% endunless %}>
+          {{ collections[category].description }}
+        </div>
+          
+      {% endfor %}
+    {% endfor %}
+      
+      
+      
+      {% for block in section.blocks %}
+        
+        {% assign bundlesHeader = block.settings.feature_collection  %}
+        {% assign bundles = block.settings.feature_collection | replace: " ", "-" | remove: "-+" %}
+      {% for category in bundles %}
+          
+		{% if collections[category].handle contains 'daily' %}
+          
+          
+          
+          {% endif %}
+
+          
+      {% endfor %}
+      {% endfor %}
+      <!-- hide next deal
+      <div itemtype="http://schema.org/ItemList" class="product-list {{ matrixType }} clearfix equal-columns--clear equal-columns--outside-trim">
+      <div class="collection_description clearfix" style="width: 100%;" data-collection="{{ daily_handle }}" {% unless collection.handle contains 'daily' %}style="display: none;"{% endunless %}>
+      <h2 class="text-center">
+                Next Deal
+      </h2>
+      {% for product in collections.next-daily-deals.products %}
+      
+      
+      {% endfor %}
+      </div>
+      </div>
+      -->
+      
+      
+      
+      
+      
+      
+
+    {% if settings.pagination_type == 'basic_pagination' %}
+      {% include 'pagination' with sidebar %}
+    {% endif %}
+
+    </div>
+  
+ {% if product.price_varies %} 
+    between {{ product.price_min | money }} to {{ product.price_max | money }} 
+ {% else %}
+   {{ product.price_min | money }}
+ {% endif %}
+
+</div>
+
+
+  
+<div id="custom-login">
+	{% include 'custom-login' %}
+</div>
+  
+{% schema %}
+
+{
+  "name": "Collection",
+  "class": "collection-template-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "display_collection_title",
+      "label": "Show collection title"
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_breadcrumb",
+      "label": "Show breadcrumb links",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "marquee_text_enable",
+      "label": "Show marquee text",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "marquee_text",
+      "label": "Marquee Text", 
+	  "default": "FLASH SALE ALERT! Use code MOUTH and get P300 off all orders P1500 and up. Use code EYES and get P700 off all orders P2200 and up. Use code NOSE and get P850 off all orders P3000 and up.<strong>FREE SHIPPING</strong> for Metro Manila! FREE Shipping outside Metro Manila for orders above P1500!",
+      "info": "Maximum character limit is 170"
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_tags",
+      "label": "Enable filtering by product tag"
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_sort",
+      "label": "Enable collection sorting"
+    },
+    {
+      "type": "header", 
+      "content": "Banner image"
+    },
+    {
+      "type": "checkbox",
+      "id": "featured_collection_image",
+      "label": "Show top banner image",
+      "info": "The collection's featured image will be used by default. Optionally upload a banner image as a fallback."
+    },
+    {
+      "type": "checkbox",
+      "id": "image_darken",
+      "label": "Darken banner image",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "range",
+      "id": "products_per_row",
+      "label": "Products per row",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "pagination_limit",
+      "label": "Products per page",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Sidebar"
+    },
+    {
+      "type": "paragraph",
+      "content": "Create a sidebar by adding content blocks."
+    },
+    {
+      "type": "checkbox",
+      "id": "toggle",
+      "label": "Toggle sidebar content",
+      "default": false
+    },
+	{
+      "type": "header",
+      "content": "Button Collection Color"
+    },
+    {
+	      "type": "color",
+		  "id": "custom_background_color",
+		  "label": "Background color",
+		  "default": "#ffffff"
+	      },
+		  {
+	      "type": "color",
+		  "id": "header-text-color",
+		  "label": "Header Text Color",
+		  "default": "#511811"
+	      },
+		  {
+	      "type": "color",
+		  "id": "text-color",
+		  "label": "Text Color",
+		  "default": "#511811"
+	      },
+		  {
+	      "type": "color",
+		  "id": "button-color",
+		  "label": "Button Background color",
+		  "default": "#ffffff"
+	      },
+		  {
+	      "type": "color",
+		  "id": "button-text-color",
+		  "label": "Button Text Color",
+		  "default": "#511811"
+	      },
+	{
+      "type": "header",
+      "content": "Countdown Timer for Daily Deals"
+    },
+	{
+      "type": "text",
+      "id": "enddate",
+      "label": "Deal End date",
+  	  "default": "Jul 22, 2020 21:00:00"
+    },
+	{
+      "type": "header",
+      "content": "Next Deal"
+    },
+	{
+      "type": "collection",
+      "id": "next_deal",
+      "label": "collections"
+    },
+	{
+      "type": "header",
+      "content": "Top Video"
+    },
+    {
+      "type": "text",
+      "id": "mp4",
+      "label": "HTML5 MP4 File URL"
+    },
+    {
+            "type": "image_picker",
+            "id": "image-banner",
+            "label": "Web Image banner",
+            "info": "2000 x 500px recommended"
+    },
+    {
+            "type": "image_picker",
+            "id": "image-banner-mobile",
+            "label": "Mobile Image banner",
+            "info": "1000 x1500px recommended"
+    },
+    {
+            "type": "url",
+            "id": "mainlink",
+            "label": "Banner link"
+   	}
+  ],
+  "blocks": [
+   {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Your Title"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image Desktop",
+            "info": "2000 x 800px recommended"
+          },
+          {
+            "type": "image_picker",
+            "id": "image2",
+            "label": "Image Mobile",
+            "info": "800 x 800px recommended"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Banner link"
+          },
+          {
+            "type": "collection",
+            "id": "feature_collection",
+            "label": "collections"
+          }
+      	  
+        ]
+    }
+  ]
+}
+
+{% endschema %}
+
+  
+
+  
+  
+<style>
+  
+        #sorts label{
+    	font-weight:400;
+        
+    }
+  #sorts option{
+  		font-family: Montserrat, sans-serif;
+    	font-size:16px;
+    	font-weight:400;
+    	color:#5f6a7d;
+  }
+  @media only screen and (min-width:480px){ 
+  	#sorts{
+    	width:16%;
+      	float:right;
+    }
+  }
+  
+  
+  .cont {
+  	margin-top: 0!important;
+    padding-top: 0!important;
+    margin-bottom: 25px!important;
+  }
+  .content-container {
+    background: {{ section.settings.custom_background_color }};
+    border-radius: 5px;
+  }
+  .custom-text {
+    color: {{ section.settings.text-color }};
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .content-container .customer-button {
+    background-color: {{ section.settings.button-color }};
+    color: {{ section.settings.button-text-color }};
+    border: soild 1px {{ section.settings.button-text-color }};
+  }
+  .content-container .sub_title {
+    color: {{ section.settings.text-color }}!important;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  .content_excerpt {
+    margin-top: 25px;
+  }
+  .custom-sub-title {
+  	margin-bottom: 0!important;
+    margin-top: 10px!Important;
+    border: solid 1px;
+    padding: 15px!important;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .custom-sub-title a {
+    color: {{ section.settings.header-text-color }}!important;
+   }
+  .image-content img {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .centered {
+  	text-align: center;
+  }
+  
+  .cont a.active h3 {
+  	background: {{ section.settings.button-color }} !important;
+    color: #fff!important;
+  }
+  
+  
+</style>

@@ -1,0 +1,31 @@
+<!-- filename: best-sellers.liquid -->
+{% assign products_per_row = section.settings.rv_per %}
+{% assign products_limit = block.settings.sidebar_rv_per | minus: 1 %}
+
+
+
+<div class="recently-viewed__title">
+  <h4 class="toggle">{{ block.settings.sidebar_rv_title }}</h4>
+</div>
+
+<div class="clearfix rv-container">
+  <div class="product-list clearfix recently-viewed-list">
+    {% if collection.handle == 'lips' %}
+    {% for product in collections.best-seller.products limit: 5 %}
+    {% if product.title contains 'Strawberry' %}
+    {% continue %}
+    {% endif %}
+	{% include 'best-seller-loop' %}
+    
+    {% endfor %}
+    {% else %}
+    {% for product in collections.best-seller.products limit: 4 %}
+	{% include 'best-seller-loop' %}
+    
+    {% endfor %}
+    {% endif %}
+   
+  </div>
+</div>
+
+

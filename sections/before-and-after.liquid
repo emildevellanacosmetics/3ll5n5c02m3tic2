@@ -1,0 +1,93 @@
+<!-- filename: sections/before-and-after.liquid -->
+<script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+<link href="https://cdn.shopify.com/s/files/1/1307/5383/files/twentytwenty.css?v=1613642291" rel="stylesheet" type="text/css" />
+         
+<div class="slider-wrapper">
+  <div class="large-8">
+  	  <div class="twentytwenty-container e-desktop" style="width:100%;">
+            <img src="{% if section.settings.ba-image1 %}{{ section.settings.ba-image1 | img_url: '1600x' }}{% else %}https://cdn.shopify.com/s/files/1/1307/5383/files/1_1.jpg?v=1613643631{% endif %}" />
+        	<img src="{% if section.settings.ba-image2 %}{{ section.settings.ba-image2 | img_url: '1600x' }}{% else %}https://cdn.shopify.com/s/files/1/1307/5383/files/1_2.jpg?v=1613643641{% endif %}" />            
+      </div>
+  	  <div class="twentytwenty-container-mobile e-mobile" style="width:100%;">
+            <img src="{% if section.settings.bam-image1 %}{{ section.settings.bam-image1 | img_url: '1600x' }}{% else %}https://cdn.shopify.com/s/files/1/1307/5383/files/1_1.jpg?v=1613643631{% endif %}" />
+        	<img src="{% if section.settings.bam-image2 %}{{ section.settings.bam-image2 | img_url: '1600x' }}{% else %}https://cdn.shopify.com/s/files/1/1307/5383/files/1_2.jpg?v=1613643641{% endif %}" />            
+      </div>
+  </div>
+</div>
+
+{% schema %} 
+  {
+    "name": "Before and After",
+    "settings": [
+          {
+            "type": "image_picker",
+            "id": "ba-image1",
+            "label": "Before image Web",
+            "info": "Must have same size as the after image"
+          },
+          {
+            "type": "image_picker",
+            "id": "bam-image1",
+            "label": "Before image mobile",
+            "info": "Must have same size as the after image mobile"
+          },
+          {
+            "type": "image_picker",
+            "id": "ba-image2",
+            "label": "After Image",
+            "info": "Must have same size as the before image"
+          },
+          {
+            "type": "image_picker",
+            "id": "bam-image2",
+            "label": "After Image mobile",
+            "info": "Must have same size as the before image mobile"
+          }
+	],
+    "presets": [{
+      "name": "Before and After",
+      "category": "Image",
+      "settings": {
+      }
+    }]
+  }
+{% endschema %}
+
+
+
+<style>
+
+  .slider-wrapper{
+  	width:50%;
+    margin:0 auto;
+  }
+  .twentytwenty-container img{
+  	width:100%;
+  }
+  @media only screen and (max-width:480px){
+    .collection-tabs .content-container{
+    	padding:2px !iimportant;
+    }
+    .collection-tabs h3{
+    	font-size: 11px !important;
+    }
+    .slider-wrapper{
+      width:93%;
+      margin:0 auto;
+    }
+  }
+</style>
+<script src="https://cdn.shopify.com/s/files/1/1307/5383/files/jquery.event.move.js?v=1613642255"></script>
+<script src="https://cdn.shopify.com/s/files/1/1307/5383/files/jquery.twentytwenty.js?v=1613642274"></script>
+<script>
+  jQuery(function($){
+  
+  $(".twentytwenty-container[data-orientation!='vertical']").twentytwenty({default_offset_pct: 0.7});
+      $(".twentytwenty-container-mobile[data-orientation!='vertical']").twentytwenty({default_offset_pct: 0.7});
+      $(".twentytwenty-container[data-orientation='vertical']").twentytwenty({default_offset_pct: 0.3, orientation: 'vertical'});
+  })
+      
+</script>

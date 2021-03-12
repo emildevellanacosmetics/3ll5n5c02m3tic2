@@ -1,0 +1,147 @@
+<!-- filename: product-info-dailydeals.liquid -->
+    {% if product.available %}
+    {% if product.variants.size > 1 %}
+<div class="buybuttonwrap">
+    {% if product.id == 4463233040471 or product.id == 4455742963799  or product.id == 4485346820183 or product.id == 4494726037591 or product.id == 4521889071191 %}
+        <a href="{{ product.url }}" class="showswatch action_button add_to_cart custom-button"> Select Option </a>
+    {% else %}
+        <a {% if product.id == 4530133762135 or product.id == 4488330379351 %} href="#" {% elsif product.type == 'Special Bundle' or product.title contains 'Brush' or product.title contains 'Pouches' or product.title contains 'Ellana Cosmetics Gift E-Card' or product.title contains 'Sanitizing Spray' or product.title contains 'Beauty Balm' or product.title contains 'All Surface Anti-Bad Things Spray' %}href="{{ product.url }}" {% else %}href="#" {% endif %}  class="showswatch action_button add_to_cart custom-button {% if product.id == 4530133762135 or product.id == 4488330379351 %} notbundles {% elsif product.type == 'Special Bundle' or product.title contains 'Brush' or product.title contains 'Pouches' or product.title contains 'Ellana Cosmetics Gift E-Card' or product.title contains 'Sanitizing Spray' or product.title contains 'Beauty Balm' or product.title contains 'All Surface Anti-Bad Things Spray' %}bundles {% else %} notbundles {% endif %}">  {% if product.id == 4530133762135 or product.id == 4488330379351 %} Select Shade {% elsif product.type == 'Special Bundle' or product.title contains 'Brush' or product.title contains 'Pouches' or product.title contains 'Ellana Cosmetics Gift E-Card' or product.title contains 'Sanitizing Spray' or product.title contains 'Beauty Balm' or product.title contains 'All Surface Anti-Bad Things Spray' %}Select Option {% else %}Select Shade {% endif %} </a>
+    {% endif %}
+
+    <div class="ajaxbuynow">
+    {% form 'product', product %}
+      <input type="hidden" name="id" id="vid" value="{{ product.variants.first.id }}" />
+      <input type="hidden" min="1" type="number" id="quantity" name="quantity" value="1"/>
+      <button style="display:none" type="{% if settings.cart_action == 'ajax' %}button{% else %}submit{% endif %}" name="add" class="custom-button {% if settings.cart_action == 'ajax' %} ajax-submit {% endif %}action_button add_to_cart {% if show_payment_button %} action_button--secondary {% endif %} {% if product.available == false %}disabled{% endif %}" data-label={{ add_to_cart_label | json }}>
+              <span class="text" style="color: #fff;">
+                {% if product.available %}Add to Bag{% else %}{{ settings.sold_out_text }}{% endif %}
+              </span>
+              <svg x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32" class="checkmark">
+                <path fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M9,17l3.9,3.9c0.1,0.1,0.2,0.1,0.3,0L23,11"/>
+              </svg>
+      </button>
+    </div>
+    {% endform %}
+    {% include 'wishlish-collection-non-logged' %}
+</div>
+{% else %}
+
+
+
+<div class="buybuttonwrap">
+{% form 'product', product %}
+  <input type="hidden" name="id" id="vid" value="{{ product.variants.first.id }}" />
+  <input type="hidden" min="1" type="number" id="quantity" name="quantity" value="1"/>
+
+  <button type="{% if settings.cart_action == 'ajax' %}button{% else %}submit{% endif %}" name="add" class="custom-button {% if settings.cart_action == 'ajax' %} ajax-submit {% endif %}action_button add_to_cart {% if show_payment_button %} action_button--secondary {% endif %} {% if product.available == false %}disabled{% endif %}" data-label={{ add_to_cart_label | json }}>
+          <span class="text" style="color: #fff;">
+            {% if product.available %}Add to Bag{% else %}{{ settings.sold_out_text }}{% endif %}
+          </span>
+          <svg x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32" class="checkmark">
+            <path fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M9,17l3.9,3.9c0.1,0.1,0.2,0.1,0.3,0L23,11"/>
+          </svg>
+  </button>
+{% endform %}
+  {% include 'wishlish-collection-non-logged' %}
+</div>
+{% endif %}
+{% else %}
+
+<a href="{{ product.url }}" class="action_button add_to_cart soldout" style="margin-bottom: 10px; min-height: 30px;
+      font-size: 12px; width: 75%;     background: gray;
+    border: gray; font-family: Poppins, sans-serif;">{{ settings.sold_out_text }}</a>
+
+
+{% endif %}
+
+
+
+
+<div class="product-details">
+  <a href="{{ product.url }}"><span class="title" itemprop="name">{{ product.title }}</span></a>
+  {% if settings.display_vendor %}
+    <span class="brand">{{ product.vendor }}</span>
+  {% endif %}
+  {% if settings.enable_shopify_collection_badges %}
+    <div class="shopify-reviews reviewsVisibility--{{settings.enable_shopify_review_comments}}">
+      <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+    </div>
+  {% endif %}
+  {% if collection_handles contains 'coming-soon' %}
+    <span class="modal_price">{{ 'collections.general.coming_soon' | t }}</span>
+  {% else %}
+    <span class="price {% if product.compare_at_price_max > product.price %}sale{% endif %}">
+      {% unless product.available == false and settings.display_price == false %}
+        <span class="current_price">
+          {% if product.price_varies and product.price_min > 0 %}
+            <small><em>{{ 'products.general.from' | t }}</em></small>
+          {% endif %}
+          {% if product.price_min > 0 %}
+            <span class="money">{{ product.price_min | money }}</span>{% if product.price_varies %} to <span class="money">{{ product.price_max | money }}</span> {% endif %}
+          {% else %}
+            {{ settings.free_price_text }}
+          {% endif %}
+        </span>
+        {% assign variant = product.selected_or_first_available_variant %}
+        <span class="was_price">
+          {% if variant.price < variant.compare_at_price %}
+            <span class="money">{{ variant.compare_at_price | money }}</span>
+          {% endif %}
+        </span>
+      {% endunless %}
+      {% comment %}
+      <p>You save {{ product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round }}% </p>
+      {% endcomment %}
+     <div class="sold_out">{% if variant.available == false %}{{ settings.sold_out_text }}{% endif %}</div> 
+    </span>
+  {% endif %}
+</div>
+
+
+
+<script>
+   $(document).ready(function(){     		
+			$(".product .wishlist-collection .fa-heart-o").on("click", function (e) {
+              	e.preventDefault()
+                e.stopPropagation();
+                $("#custom-login").show() 
+                location.href = "#custom-login"; 
+                $("#redirecturl").val(window.location.href);
+              	return false;
+            })
+  		$(".product .onlinewish .save-btn-act img").on("click", function (e) {
+                    e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                // $(this).parents("a").attr("href","#")
+                $form = $(this).parents("form.custmeta_wish")
+                $.ajax({
+              type: "POST",
+              dataType: "json",
+              data: $form.serialize(),
+              url: $form.attr('action'),
+              success: function (data) {
+                var formValid = (data.status === 'OK');
+                if (formValid) {
+                  var msgs = '';
+                  for (var i=0;i<data.messages.length;i++) {
+                    msgs += '-- ' + data.messages[i] + '\n';
+                  }
+                  if (msgs > '') {                   
+                  }
+                  else {                   
+                    location.reload();
+                  }
+                }
+                else {
+                   // alert('Status: ' + data.status + '\nMessage: ' + data.message);
+                }
+              },
+              error: function (jqXHR, textStatus, errorThrown) {
+                //alert('AJAX or Server 500 error occurred');
+              }
+            });
+            return false;
+  		})
+  })
+</script>

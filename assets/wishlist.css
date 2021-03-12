@@ -1,0 +1,47 @@
+
+/* Wishlist */
+.custmeta_wish .save-btn, .custmeta_wish .save-btn:hover, .custmeta_wish .save-btn:active, .custmeta_wish .save-btn:focus {
+    background: transparent;
+    color: #ff998d;
+    margin-top: 10px;
+    padding: 0;
+}
+.wishlist-item {
+    text-align: center;
+}
+.wishlist-item a {
+    text-decoration: none;
+}
+.wishlist-item form {
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+.wishlist-item form.custmeta_wish {
+    margin-top: 0;
+}
+.wishlist-item .sold-out {
+    margin: 15px 0 10px;
+}
+.wishlist-item .sold-out a p {
+    color: #ffffff;
+}
+.wishlist-item .sold-out a:hover p, .wishlist-item .sold-out a:focus p {
+    color: #ffffff;
+    cursor: pointer;
+}
+.custmeta_wish button.save-btn, .custmeta_wish button.save-btn:hover, .custmeta_wish button.save-btn:active {
+    border: 0;
+    outline: 0;
+}
+.custmeta_wish button.save-btn img {
+    width: 20px;
+    position: relative;
+    top: 4px;
+    margin-right: 5px;
+}
+.template-collection .custmeta_wish button.save-btn, .template-index .custmeta_wish button.save-btn {
+    margin: 0;
+}
+.template-collection form.custmeta_wish, .template-index form.custmeta_wish {
+    margin-bottom: 15px;
+}

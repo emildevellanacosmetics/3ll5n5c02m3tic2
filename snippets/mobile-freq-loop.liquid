@@ -1,0 +1,96 @@
+<!-- filename: mobile-freq-loop.liquid -->
+{% for product in products %}
+      <div class="section clearfix cart__item" data-cart-item data-line-id="{{ forloop.index }}" data-variant-id="{{ item.id }}" id="gwp">
+            <div class="five columns small-down--one-fifth alpha cart__item--image">
+              <a href="{{ product.url }}" title="{{ product.title | escape }}" class="cart_page_image">
+                <img src="{{ product | img_url: 'grande' }}" alt="{{ item.title | escape }}">
+              </a>
+            </div>
+
+            <div class="eleven columns small-down--four-fifths omega cart_content_info cart__item--content">
+              <h3 class="cart__item--title">
+                <a href="{{ product.url }}">{{ product.title }}</a>
+              </h3>
+              
+
+              {% unless item.product.has_only_default_variant or item.variant.title contains "Title" %}
+                <p class="meta">
+                  {% for option in item.product.options %}
+                    <span class="label">{{ option }}:</span> <span>{{ item.variant.options[forloop.index0] }}</span><br />
+                  {% endfor %}
+                </p>
+              {% endunless %}
+
+              {% if item.properties %}
+                <p>
+                  {% for p in item.properties %}
+                    {% unless p.last == blank %}
+                      {% if p.last contains '/uploads/' %}
+                        <div>
+                          {{ p.first }}: <a class="lightbox" href="{{ p.last }}">{{ 'cart.general.uploaded_file' | t }}</a>
+                        </div>
+                      {% else %}
+                        <div>
+                          {{ p.first }}: {{ p.last }}
+                        </div>
+                      {% endif %}
+                    {% endunless %}
+                  {% endfor %}
+                </p>
+              {% endif %}
+
+              <p class="modal_price">
+                 <span class="current_price">
+          {% if product.price_varies and product.price_min > 0 %}
+            <small><em>{{ 'products.general.from' | t }}</em></small>
+          {% endif %}
+          {% if product.price_min > 0 %}
+            <span class="money">{{ product.price_min | money }}</span>
+          {% else %}
+            {{ settings.free_price_text }}
+          {% endif %}
+        </span>
+        {% assign variant = product.selected_or_first_available_variant %}
+        <span class="was_price">
+          {% if variant.price < variant.compare_at_price %}
+            <span class="money">{{ variant.compare_at_price | money }}</span>
+          {% endif %}
+        </span>
+              </p>
+
+
+
+  
+
+              <p class="price_total">
+                <strong>{{ 'cart.general.total' | t }}:</strong>
+                {% if item.line_level_discount_allocations.size > 0 %}
+                  <span class="money">
+                    {{ item.final_line_price | money }}
+                  </span>
+                {% endif %}
+                <span class="money {% if item.line_level_discount_allocations.size > 0 %}was_price{% endif %}">
+                  {{ item.original_line_price | money }}
+                </span>
+              </p>
+			  
+                {% form 'product', product %}
+                  <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                  <input type="hidden" min="1" type="number" id="quantity" name="quantity" value="1"/>
+                <button style="" type="{% if settings.cart_action == 'ajax' %}button{% else %}submit{% endif %}" name="add" class="custom-button {% if settings.cart_action == 'ajax' %} ajax-submit {% endif %}action_button add_to_cart {% if show_payment_button %} action_button--secondary {% endif %} {% if product.available == false %}disabled{% endif %}" data-label={{ add_to_cart_label | json }}>
+          <span class="text" style="color: #fff;">
+            {% if product.available %}Buy Now{% else %}{{ settings.sold_out_text }}{% endif %}
+          </span>
+          <svg x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32" class="checkmark">
+            <path fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M9,17l3.9,3.9c0.1,0.1,0.2,0.1,0.3,0L23,11"/>
+          </svg>
+  </button>
+                {% endform %}
+               
+
+        
+             
+
+            </div>
+          </div>
+    {% endfor %}

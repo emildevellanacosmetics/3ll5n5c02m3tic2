@@ -1,0 +1,2385 @@
+<!-- filename: sections/beauty-quiz-section.liquid -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+{% if customer %}
+<section class="beauty-quiz logged" style="margin-top:40px;">
+
+    <div class="welcomescreen">
+<p style="text-align:center">Want to learn more about the skin you're in?<br/>
+Not sure what products would suit you best?<br/>
+  Take this test and discover YOUR BEAUTY PROFILE!</p>
+      <button class="startbutton">Start Quiz</button>
+  	</div>
+	<div class="phase-container">	
+		<div class="questions">
+			<div class="question" data-id="1">
+              <h4>When you wake up in the morning, your skin feels...</h4>
+				<div class="hidden">				
+					<input type="radio" id="p1a1" name="aq1" value="1">
+					<label for="p1a1">Shiny and heavy-feeling</label><br>
+					<input type="radio" id="p1a2" name="aq1" value="2">
+					<label for="p1a2">Tight and dull</label><br>
+					<input type="radio" id="p1a3" name="aq1" value="3" checked="checked"/>
+					<label for="p1a3">Shiny in certain areas and dry in others.</label><br>
+					<input type="radio" id="p1a4" name="aq1" value="4">
+					<label for="p1a4">Neither greasy nor dull/dry.</label> <br>
+				</div>
+				<div class="flexer">
+					<div class="boxes q1box1" data-value="1" data-box="aq1">
+						<p>Shiny and heavy-feeling</p>
+					</div>
+					<div class="boxes q1box2" data-value="4" data-box="aq1">
+						<p>Tight and dull</p>
+					</div>
+					<div class="boxes q1box3" data-value="3" data-box="aq1">
+						<p>Shiny in certain areas and dry in others.</p>						
+					</div>
+					<div class="boxes q1box4" data-value="2" data-box="aq1">
+						<p>Neither greasy nor dull/dry.</p>
+					</div>	</div>				
+			</div>
+			<div class="question" data-id="2">
+              <h4>Are the pores on your face...</h4>
+				<div class="hidden">
+				
+					<input type="radio" id="p1b1" name="aq2" value="1">
+					<label for="p1b1">Very visible and enlarged</label><br>
+					<input type="radio" id="p1b2" name="aq2" value="4">
+					<label for="p1b2">Not visible at all (fine, silvery lines/flakes more common)</label><br>
+					<input type="radio" id="p1b3" name="aq2" value="3" checked="checked"/>
+					<label for="p1b3">Enlarged along T-zone (forehead, nose, chin) and not visible in rest of face.</label><br>
+					<input type="radio" id="p1b4" name="aq2" value="2">
+					<label for="p1b4">Visible, but not very large</label> <br>
+				</div>	
+              				<div class="flexer">
+					<div class="boxes q2box1" data-value="1" data-box="aq2">
+						<p>Very visible and enlarged</p>
+					</div>
+					<div class="boxes q2box2" data-value="4" data-box="aq2">
+						<p>Not visible at all (fine, silvery lines/flakes more common)</p>
+					</div>
+					<div class="boxes q2box3" data-value="3" data-box="aq2">
+						<p>Enlarged along T-zone (forehead, nose, chin) and not visible in rest of face.</p>						
+					</div>
+					<div class="boxes q2box4" data-value="2" data-box="aq2">
+						<p>Visible, but not very large</p>
+					</div></div>
+			</div>
+			<div class="question" data-id="3">
+              <h4>At the end of the day, is your makeup more likely to...</h4>
+							<div class="hidden">
+				
+					<input type="radio" id="p1c1" name="aq3" value="1">
+					<label for="p1c1">Cake and slide off</label><br>
+					<input type="radio" id="p1c2" name="aq3" value="4">
+					<label for="p1c2">Remain in place but show fine lines and </label><br>
+					<input type="radio" id="p1c3" name="aq3" value="3" checked="checked"/>
+					<label for="p1c3">Slide off around the nose and settle into fine lines under the eyes/cheeks</label><br>
+					<input type="radio" id="p1c4" name="aq3" value="2">
+					<label for="p1c4">Stay in place but feel slightly heavy</label> <br>
+					</div>				<div class="flexer">
+					<div class="boxes q3`box1" data-value="1" data-box="aq3">
+						<p>Cake and slide off</p>
+					</div>
+					<div class="boxes q3box2" data-value="4" data-box="aq3">
+						<p>Remain in place but show fine lines and </p>
+					</div>
+					<div class="boxes q3box3" data-value="3" data-box="aq3">
+						<p>Slide off around the nose and settle into fine lines under the eyes/cheeks</p>						
+					</div>
+					<div class="boxes q3box4" data-value="2" data-box="aq3">
+						<p>Stay in place but feel slightly heavy</p>
+					</div></div>
+			</div>
+
+			<div class="question" data-id="4">
+              <h4>What color jewelry looks best on your skin?</h4>
+							<div class="hidden">
+				
+					<input type="radio" id="p2a1" name="bq1" value="1">
+					<label for="p2a1">Gold</label><br>
+					<input type="radio" id="p2a2" name="bq1" value="3" checked="checked"/>
+					<label for="p2a2">Silver</label><br>
+					<input type="radio" id="p2a3" name="bq1" value="2">
+					<label for="p2a3">Both Gold and Silver</label><br>
+					</div>				<div class="flexer">
+					<div class="boxes q4box1" data-value="1" data-box="bq1">
+						<p>Gold</p>
+					</div>
+					<div class="boxes q4box2" data-value="3" data-box="bq1">
+						<p>Silver</p>
+					</div>
+					<div class="boxes q4box3" data-value="2" data-box="bq1">
+						<p>Both Gold and Silver</p>						
+					</div></div>
+			</div>
+			<div class="question" data-id="5">
+              <h4>What color are the veins in your wrist?</h4>
+							<div class="hidden">
+				
+					<input type="radio" id="p2b1" name="bq2" value="1">
+					<label for="p2b1">Greenish-blue</label><br>
+					<input type="radio" id="p2b2" name="bq2" value="3" checked="checked"/>
+					<label for="p2b2">Violet-blue</label><br>
+					<input type="radio" id="p2b3" name="bq2" value="2">
+					<label for="p2b3">Mix of green-blue and violet-blue</label><br>
+					</div>				<div class="flexer">
+					<div class="boxes q5box1" data-value="1" data-box="bq2">
+						<p>Greenish-blue</p>
+					</div>
+					<div class="boxes q5box2" data-value="3" data-box="bq2">
+						<p>Violet-blue</p>
+					</div>
+					<div class="boxes q5box3" data-value="2" data-box="bq2">
+						<p>Mix of green-blue and violet-blue</p>						
+					</div></div>
+			</div>
+			<div class="question" data-id="6">
+              <h4>What happens to your skin when you are out in the sun without sunscreen?</h4>
+							<div class="hidden">
+				
+					<input type="radio" id="p2c1" name="bq3" value="1">
+					<label for="p2c1">I tan</label><br>
+					<input type="radio" id="p2c2" name="bq3" value="3" checked="checked"/>
+					<label for="p2c2">I burn</label><br>
+					<input type="radio" id="p2c3" name="bq3" value="2">
+					<label for="p2c3">I start with a tan but can burn if I stay out too long.</label><br>
+					</div>				<div class="flexer">
+					<div class="boxes q6box1" data-value="1" data-box="bq3">
+						<p>I tan</p>
+					</div>
+					<div class="boxes q6box2" data-value="3" data-box="bq3">
+						<p>I burn</p>
+					</div>
+					<div class="boxes q6box3" data-value="2" data-box="bq3">
+						<p>I start with a tan but can burn if I stay out too long.</p>						
+					</div></div>
+			</div>
+			
+			<div class="question" data-id="7">
+              <h4>Which of these photos is closest to your skin tone?</h4>
+							<div class="hidden">
+				
+					<input type="radio" id="p3a1" name="cq1" value="1">
+					<label for="p3a1">Fair</label><br>
+					<input type="radio" id="p3a2" name="cq1" value="2">
+					<label for="p3a2">Light</label><br>
+					<input type="radio" id="p3a3" name="cq1" value="3" checked="checked"/>
+					<label for="p3a3">Light to Medium</label><br>
+					<input type="radio" id="p3a3" name="cq1" value="4">
+					<label for="p3a3">Medium to Deep</label><br>
+					<input type="radio" id="p3a3" name="cq1" value="5">
+					<label for="p3a3">Deep</label><br>
+					</div>				<div class="flexer">
+					<div class="boxes q7box1" data-value="1" data-box="cq1">
+						<p>Fair</p>
+					</div>
+					<div class="boxes q7box2" data-value="2" data-box="cq1">
+						<p>Light</p>
+					</div>
+					<div class="boxes q7box3" data-value="3" data-box="cq1">
+						<p>Light to Medium</p>						
+					</div>
+					<div class="boxes q7box4" data-value="4" data-box="cq1">
+						<p>Medium to Deep</p>
+					</div>
+					<div class="boxes q7box5" data-value="5" data-box="cq1">
+						<p>Deep</p>						
+					</div></div>
+			</div>
+
+			<div class="question" data-id="8">
+              <h4>Which of these skin issues do you experience?</h4>
+							<div class="hidden">
+				
+					<input type="radio" id="p4a1" name="dq1" value="1">
+					<label for="p4a1">Scars/Dark Spots</label><br>
+					<input type="radio" id="p4a2" name="dq1" value="2">
+					<label for="p4a2">Dark circles</label><br>
+					<input type="radio" id="p4a3" name="dq1" value="3" checked="checked"/>
+					<label for="p4a3">Dull-looking Skin</label><br>
+					<input type="radio" id="p4a3" name="dq1" value="4">
+					<label for="p4a3">Fine lines</label><br>
+					</div><div class="flexer">
+					<div class="boxes q8box1" data-value="1" data-box="dq1">
+						<p>Scars/Dark Spots</p>
+					</div>
+					<div class="boxes q8box2" data-value="2" data-box="dq1">
+						<p>Dark circles</p>
+					</div>
+					<div class="boxes q8box3" data-value="3" data-box="dq1">
+						<p>Dull-looking Skin</p>						
+					</div>
+					<div class="boxes q8box4" data-value="4" data-box="dq1">
+						<p>Fine lines</p>
+					</div></div>
+			</div>
+			<div class="buttons">
+              	<input type="hidden" value="{{ customer.id }}" id="customerid"/>
+                <input type="hidden" value="{{ customer.first_name }} {{ customer.last_name }}" id="custname"/>
+              	<input type="hidden" value="{{ customer.email }}" id="custemail"/>
+				<button class="prev">Previous</button>
+				<button class="next" dataprogress="1">Next</button>
+              	<button id="submitter">Submit test</button>
+			</div>		
+		</div>
+	</div>
+  	<div class="beautyresult thumbnail">
+      <div id="phaseoneresult">
+        <div class="ans beautyOily">
+          <h4>Your skin type is oily</h4><p>Oily skin produces a lot of sebum. This sebum builds up over the course of the day, causing shine, makeup “meltdown,” or even clogged pores. Your skin needs: Oil control, pore blurring, and increased makeup longevity.</p>
+          <div class="flex-wrap">
+            
+            {% assign count = 0 %}
+        {% for product in collections.oily.products %} 
+            {% assign count = count | plus: 1 %}
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+        {% endfor %}
+            {% if count == 0 %} 
+            	<p>Product coming soon</p>
+            {% endif%}
+            </div>
+        </div>
+        <div class="ans beautyDry">
+          <h4>Your skin type is dry</h4><p>Dry skin does not produce enough oil. Skin feels “tight," is in need of extra hydration to prevent the topmost layers of skin from having a dull and flaky appearance. Your skin needs: Moisture retention, regular hydration, and brightening.</p>
+          <div class="flex-wrap">
+        {% for product in collections.dry.products %}          
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+        {% endfor %}
+        </div></div>
+        <div class="ans beautyCombination">
+          <h4>For Combination of Dry and Oily Skin</h4><p>Combination skin usually is oily in the T-zone (forehead, nose, and chin) and normal to dry on the cheeks and parts of the jaw. This means that oily areas need sebum control and pore-blurring, while drier areas need lightweight hydration. Your skin needs: Targeted oil control, lightweight moisture, and "A little bit of everything.”</p>
+          <div class="flex-wrap">
+        {% for product in collections.combination.products %}          
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+        {% endfor %}
+        </div></div>
+        
+        <div class="ans beautyNormal">
+          <h4>You have normal skin type</h4><p>Normal skin is neither too oily nor too dry. Pores are barely visible and is usually smooth, with breakouts only occasionally and in small areas. Your skin needs: lightweight moisture for maintenance and skin brightening (to maintain complexion).</p>
+          <div class="flex-wrap">
+        {% for product in collections.normal.products %}          
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+        {% endfor %}
+        </div></div>
+        
+        
+
+      </div>
+      <div id="phasetworesult">
+
+        
+         <div class="ans fair">
+          <h4>You have fair skin tone</h4><p>While you do have an undertone, your fair complexion tends towards neutral!</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "fair" %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>
+        	 
+          <div class="ans lightwarm">
+          <h4>Your tone/undertone combination is light-warm.</h4><p>Choose foundation with a yellow/gold undertone.</p>
+          <div class="flex-wrap">
+			
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "light" and product.tags contains "warm" %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>
+
+        
+        
+            
+             <div class="ans lightcool">
+          <h4>Your tone/undertone combination is light-cool.</h4><p>Choose foundation with a pinkish/red undertone.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "light" and product.tags contains "cool" %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+            
+
+        </div>
+         </div>
+        
+                       
+             <div class="ans lmwarm">
+          
+          <h4>Your tone/undertone combination is light-to-medium/warm.</h4><p>You are lightly tanned. Choose foundation with a yellow/gold undertone.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "light to medium" and product.tags contains "warm" %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+            
+
+        </div>
+         </div>
+         
+			 
+              <div class="ans lmcool">
+          <h4>Your tone/undertone combination is light-to-medium/cool.</h4><p>You are lightly ruddy. Choose foundation with a pinkish/red undertone.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "light to medium" and product.tags contains "cool" %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>       
+        
+   
+        
+
+              <div class="ans lmolive">
+          <h4>Your tone/undertone combination is light-to-medium/olive.</h4><p> You are lightly bronzed. Choose foundation with a neutral/olive undertone.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "light to medium" and product.tags contains "olive" %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>   
+        
+  
+        
+         
+              <div class="ans mdwarm">
+          <h4>Your tone/undertone combination is medium-to-deep/warm.</h4><p>You are moderately tanned. Choose foundation with a yellow/gold undertone.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "medium to deep" and product.tags contains "warm" %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>   
+         
+               <div class="ans mdcool">
+          <h4>Your tone/undertone combination is medium-to-deep/cool.</h4><p>You are moderately ruddy. Choose foundation with a pinkish/red undertone.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "medium to deep" and product.tags contains "cool" %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>         
+      
+         
+              <div class="ans mdolive">
+          <h4>Your tone/undertone combination is medium-to-deep/olive.</h4><p>You are moderately bronzed. Choose foundation with a neutral/olive undertone.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "medium to deep" and product.tags contains "olive" %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>  
+        
+          
+              <div class="ans deepwarm">
+          <h4>You have a beautiful, rich natural tan.</h4><p>Choose foundation that brings out the glow and warmth in your skin.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "deep" and product.tags contains "warm"  %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>  
+        
+           
+              <div class="ans deepcool">
+          <h4>You have a beautiful, rich natural tan.</h4><p>Choose foundation that brings out the glow and warmth in your skin.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "deep" and product.tags contains "cool"  %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>  
+          
+         <div class="ans deepolive">
+          <h4>Your skin is a rich natural, bronze.</h4><p>Your skin is a rich natural, bronze.</p>
+          <div class="flex-wrap">
+        	{% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "deep" and product.tags contains "olive"  %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>  
+
+
+       <div class="ans cheer">
+          <h4>Concealer</h4>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.id == 4563562201175 %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+      </div>  
+        
+        
+       <div class="ans radiant">
+          <h4>Concealer</h4>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.id == 4563559022679  %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+      </div>  
+        
+
+        
+       <div class="ans revive">
+          <h4>Concealer</h4>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.id == 4563560824919 %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+      </div>  
+        
+        
+        
+       <div class="ans smile">
+          <h4>Concealer</h4>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.id == 4563564658775  %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+      </div> 
+        
+        
+        
+        
+            <div class="ans dulllooking">
+          <h4>Dull-looking Skin</h4><p>Look for skin-brightening products like peach-tinted moisturizers or facial mists with illumination. Level up your moisture game with light-weight hydrators like tsubaki oil and jojoba oil.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "dull looking skin"  %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>         
+        
+        
+              <div class="ans darkspot">
+          <h4>Scars/Dark Spots</h4><p>Look for ingredients that help with skin turnover (Centella Asiatica) and skin brightening (Niacinamide). Soothing agents like Vitamin E can also help improve your complexion.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "dark spots"  %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>  
+
+        
+        <div class="ans darkcircles">
+          <h4>Dark circles</h4><p>Look for concealers that will help color-correct any pigmentation. Violet/blue circles are best cancelled out with pink or salmon-tinted cover ups. Soothing ingredients, like rosewater, help reduce stress to tender, pigmented areas.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+            {% if product.id == 4503780982871 %}
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+      </div>  
+        
+        
+    
+        
+                
+        <div class="ans finelines">
+          <h4>Fine lines</h4><p>Look for ingredients that help plump up the skin and stimulate collagen production, like Vitamin C. Pore-filling and blurring products will scatter light and help reduce the appearance of lines.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "finelines" %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+       </div>  
+        
+        
+      </div>
+      
+      <div id="phasethreeresult">
+      </div>
+      <div id="phasefourresult">
+      </div>
+  	</div>
+  
+</section>
+<style>
+
+</style>
+{% else %}
+	
+
+
+
+
+<section class="beauty-quiz non-logged" style="margin-top:40px;">
+	
+    <div class="welcomescreen">
+    <p style="text-align:center">Want to learn more about the skin you're in?<br/>
+    Not sure what products would suit you best?<br/>
+      Take this test and discover YOUR BEAUTY PROFILE!</p>
+          <button class="startbutton">Start Quiz</button>
+  	</div>
+	<div class="phase-container">	
+		<div class="questions">
+			<div class="question" data-id="1">
+              <h4>When you wake up in the morning, your skin feels...</h4>
+				<div class="hidden">				
+					<input type="radio" id="p1a1" name="aq1" value="1">
+					<label for="p1a1">Shiny and heavy-feeling</label><br>
+					<input type="radio" id="p1a2" name="aq1" value="2">
+					<label for="p1a2">Tight and dull</label><br>
+					<input type="radio" id="p1a3" name="aq1" value="3" checked="checked"/>
+					<label for="p1a3">Shiny in certain areas and dry in others.</label><br>
+					<input type="radio" id="p1a4" name="aq1" value="4">
+					<label for="p1a4">Neither greasy nor dull/dry.</label> <br>
+				</div>
+				<div class="flexer">
+					<div class="boxes q1box1" data-value="1" data-box="aq1">
+						<p>Shiny and heavy-feeling</p>
+					</div>
+					<div class="boxes q1box2" data-value="4" data-box="aq1">
+						<p>Tight and dull</p>
+					</div>
+					<div class="boxes q1box3" data-value="3" data-box="aq1">
+						<p>Shiny in certain areas and dry in others.</p>						
+					</div>
+					<div class="boxes q1box4" data-value="2" data-box="aq1">
+						<p>Neither greasy nor dull/dry.</p>
+					</div>	</div>				
+			</div>
+			<div class="question" data-id="2">
+              <h4>Are the pores on your face...</h4>
+				<div class="hidden">
+				
+					<input type="radio" id="p1b1" name="aq2" value="1">
+					<label for="p1b1">Very visible and enlarged</label><br>
+					<input type="radio" id="p1b2" name="aq2" value="4">
+					<label for="p1b2">Not visible at all (fine, silvery lines/flakes more common)</label><br>
+					<input type="radio" id="p1b3" name="aq2" value="3" checked="checked"/>
+					<label for="p1b3">Enlarged along T-zone (forehead, nose, chin) and not visible in rest of face.</label><br>
+					<input type="radio" id="p1b4" name="aq2" value="2">
+					<label for="p1b4">Visible, but not very large</label> <br>
+				</div>	
+              				<div class="flexer">
+					<div class="boxes q2box1" data-value="1" data-box="aq2">
+						<p>Very visible and enlarged</p>
+					</div>
+					<div class="boxes q2box2" data-value="4" data-box="aq2">
+						<p>Not visible at all (fine, silvery lines/flakes more common)</p>
+					</div>
+					<div class="boxes q2box3" data-value="3" data-box="aq2">
+						<p>Enlarged along T-zone (forehead, nose, chin) and not visible in rest of face.</p>						
+					</div>
+					<div class="boxes q2box4" data-value="2" data-box="aq2">
+						<p>Visible, but not very large</p>
+					</div></div>
+			</div>
+			<div class="question" data-id="3">
+              <h4>At the end of the day, is your makeup more likely to...</h4>
+							<div class="hidden">
+				
+					<input type="radio" id="p1c1" name="aq3" value="1">
+					<label for="p1c1">Cake and slide off</label><br>
+					<input type="radio" id="p1c2" name="aq3" value="4">
+					<label for="p1c2">Remain in place but show fine lines and </label><br>
+					<input type="radio" id="p1c3" name="aq3" value="3" checked="checked"/>
+					<label for="p1c3">Slide off around the nose and settle into fine lines under the eyes/cheeks</label><br>
+					<input type="radio" id="p1c4" name="aq3" value="2">
+					<label for="p1c4">Stay in place but feel slightly heavy</label> <br>
+					</div>				<div class="flexer">
+					<div class="boxes q3`box1" data-value="1" data-box="aq3">
+						<p>Cake and slide off</p>
+					</div>
+					<div class="boxes q3box2" data-value="4" data-box="aq3">
+						<p>Remain in place but show fine lines and </p>
+					</div>
+					<div class="boxes q3box3" data-value="3" data-box="aq3">
+						<p>Slide off around the nose and settle into fine lines under the eyes/cheeks</p>						
+					</div>
+					<div class="boxes q3box4" data-value="2" data-box="aq3">
+						<p>Stay in place but feel slightly heavy</p>
+					</div></div>
+			</div>
+
+			<div class="question" data-id="4">
+              <h4>What color jewelry looks best on your skin?</h4>
+							<div class="hidden">
+				
+					<input type="radio" id="p2a1" name="bq1" value="1">
+					<label for="p2a1">Gold</label><br>
+					<input type="radio" id="p2a2" name="bq1" value="3" checked="checked"/>
+					<label for="p2a2">Silver</label><br>
+					<input type="radio" id="p2a3" name="bq1" value="2">
+					<label for="p2a3">Both Gold and Silver</label><br>
+					</div>				<div class="flexer">
+					<div class="boxes q4box1" data-value="1" data-box="bq1">
+						<p>Gold</p>
+					</div>
+					<div class="boxes q4box2" data-value="3" data-box="bq1">
+						<p>Silver</p>
+					</div>
+					<div class="boxes q4box3" data-value="2" data-box="bq1">
+						<p>Both Gold and Silver</p>						
+					</div></div>
+			</div>
+			<div class="question" data-id="5">
+              <h4>What color are the veins in your wrist?</h4>
+							<div class="hidden">
+				
+					<input type="radio" id="p2b1" name="bq2" value="1">
+					<label for="p2b1">Greenish-blue</label><br>
+					<input type="radio" id="p2b2" name="bq2" value="3" checked="checked"/>
+					<label for="p2b2">Violet-blue</label><br>
+					<input type="radio" id="p2b3" name="bq2" value="2">
+					<label for="p2b3">Mix of green-blue and violet-blue</label><br>
+					</div>				<div class="flexer">
+					<div class="boxes q5box1" data-value="1" data-box="bq2">
+						<p>Greenish-blue</p>
+					</div>
+					<div class="boxes q5box2" data-value="3" data-box="bq2">
+						<p>Violet-blue</p>
+					</div>
+					<div class="boxes q5box3" data-value="2" data-box="bq2">
+						<p>Mix of green-blue and violet-blue</p>						
+					</div></div>
+			</div>
+			<div class="question" data-id="6">
+              <h4>What happens to your skin when you are out in the sun without sunscreen?</h4>
+							<div class="hidden">
+				
+					<input type="radio" id="p2c1" name="bq3" value="1">
+					<label for="p2c1">I tan</label><br>
+					<input type="radio" id="p2c2" name="bq3" value="3" checked="checked"/>
+					<label for="p2c2">I burn</label><br>
+					<input type="radio" id="p2c3" name="bq3" value="2">
+					<label for="p2c3">I start with a tan but can burn if I stay out too long.</label><br>
+					</div>				<div class="flexer">
+					<div class="boxes q6box1" data-value="1" data-box="bq3">
+						<p>I tan</p>
+					</div>
+					<div class="boxes q6box2" data-value="3" data-box="bq3">
+						<p>I burn</p>
+					</div>
+					<div class="boxes q6box3" data-value="2" data-box="bq3">
+						<p>I start with a tan but can burn if I stay out too long.</p>						
+					</div></div>
+			</div>
+			
+			<div class="question" data-id="7">
+              <h4>Which of these photos is closest to your skin tone?</h4>
+							<div class="hidden">
+				
+					<input type="radio" id="p3a1" name="cq1" value="1">
+					<label for="p3a1">Fair</label><br>
+					<input type="radio" id="p3a2" name="cq1" value="2">
+					<label for="p3a2">Light</label><br>
+					<input type="radio" id="p3a3" name="cq1" value="3" checked="checked"/>
+					<label for="p3a3">Light to Medium</label><br>
+					<input type="radio" id="p3a3" name="cq1" value="4">
+					<label for="p3a3">Medium to Deep</label><br>
+					<input type="radio" id="p3a3" name="cq1" value="5">
+					<label for="p3a3">Deep</label><br>
+					</div>				<div class="flexer">
+					<div class="boxes q7box1" data-value="1" data-box="cq1">
+						<p>Fair</p>
+					</div>
+					<div class="boxes q7box2" data-value="2" data-box="cq1">
+						<p>Light</p>
+					</div>
+					<div class="boxes q7box3" data-value="3" data-box="cq1">
+						<p>Light to Medium</p>						
+					</div>
+					<div class="boxes q7box4" data-value="4" data-box="cq1">
+						<p>Medium to Deep</p>
+					</div>
+					<div class="boxes q7box5" data-value="5" data-box="cq1">
+						<p>Deep</p>						
+					</div></div>
+			</div>
+
+			<div class="question" data-id="8">
+              <h4>Which of these skin issues do you experience?</h4>
+							<div class="hidden">
+				
+					<input type="radio" id="p4a1" name="dq1" value="1">
+					<label for="p4a1">Scars/Dark Spots</label><br>
+					<input type="radio" id="p4a2" name="dq1" value="2">
+					<label for="p4a2">Dark circles</label><br>
+					<input type="radio" id="p4a3" name="dq1" value="3" checked="checked"/>
+					<label for="p4a3">Dull-looking Skin</label><br>
+					<input type="radio" id="p4a3" name="dq1" value="4">
+					<label for="p4a3">Fine lines</label><br>
+					</div><div class="flexer">
+					<div class="boxes q8box1" data-value="1" data-box="dq1">
+						<p>Scars/Dark Spots</p>
+					</div>
+					<div class="boxes q8box2" data-value="2" data-box="dq1">
+						<p>Dark circles</p>
+					</div>
+					<div class="boxes q8box3" data-value="3" data-box="dq1">
+						<p>Dull-looking Skin</p>						
+					</div>
+					<div class="boxes q8box4" data-value="4" data-box="dq1">
+						<p>Fine lines</p>
+					</div></div>
+			</div>
+			<div class="buttons">
+              	<input type="hidden" value="{{ customer.id }}" id="customerid"/>
+              	<input type="hidden" value="no" id="loggedin"/>
+              	<input type="hidden" value="{{ customer.first_name }} {{ customer.last_name }}" id="custname"/>
+              	<input type="hidden" value="{{ customer.email }}" id="custemail"/>
+				<button class="prev">Previous</button>
+				<button class="next" dataprogress="1">Next</button>
+              	<button id="submitter">Submit test</button>
+			</div>		
+		</div>
+	</div>
+</section>
+  	<div class="beautyresult thumbnail">
+      <div id="phaseoneresult">
+        <div class="ans beautyOily">
+          <h4>Your skin type is oily</h4><p>Oily skin produces a lot of sebum. This sebum builds up over the course of the day, causing shine, makeup “meltdown,” or even clogged pores. Your skin needs: Oil control, pore blurring, and increased makeup longevity.</p>
+          <div class="flex-wrap">
+            
+            {% assign count = 0 %}
+        {% for product in collections.oily.products %} 
+            {% assign count = count | plus: 1 %}
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+        {% endfor %}
+            {% if count == 0 %} 
+            	<p>Product coming soon</p>
+            {% endif%}
+            </div>
+        </div>
+        <div class="ans beautyDry">
+          <h4>Your skin type is dry</h4><p>Dry skin does not produce enough oil. Skin feels “tight," is in need of extra hydration to prevent the topmost layers of skin from having a dull and flaky appearance. Your skin needs: Moisture retention, regular hydration, and brightening.</p>
+          <div class="flex-wrap">
+        {% for product in collections.dry.products %}          
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+        {% endfor %}
+        </div></div>
+        <div class="ans beautyCombination">
+          <h4>For Combination of Dry and Oily Skin</h4><p>Combination skin usually is oily in the T-zone (forehead, nose, and chin) and normal to dry on the cheeks and parts of the jaw. This means that oily areas need sebum control and pore-blurring, while drier areas need lightweight hydration. Your skin needs: Targeted oil control, lightweight moisture, and "A little bit of everything.”</p>
+          <div class="flex-wrap">
+        {% for product in collections.combination-skin.products %}          
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+        {% endfor %}
+        </div></div>
+        
+        <div class="ans beautyNormal">
+          <h4>You have normal skin type</h4><p>Normal skin is neither too oily nor too dry. Pores are barely visible and is usually smooth, with breakouts only occasionally and in small areas. Your skin needs: lightweight moisture for maintenance and skin brightening (to maintain complexion).</p>
+          <div class="flex-wrap">
+        {% for product in collections.normal.products %}          
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+        {% endfor %}
+        </div></div>
+        
+        
+
+      </div>
+      <div id="phasetworesult">
+
+        
+         <div class="ans fair">
+          <h4>You have fair skin tone</h4><p>While you do have an undertone, your fair complexion tends towards neutral!</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "fair" %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>
+        	 
+          <div class="ans lightwarm">
+          <h4>Your tone/undertone combination is light-warm.</h4><p>Choose foundation with a yellow/gold undertone.</p>
+          <div class="flex-wrap">
+			
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "light" and product.tags contains "warm" %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>
+
+        
+        
+            
+             <div class="ans lightcool">
+          <h4>Your tone/undertone combination is light-cool.</h4><p>Choose foundation with a pinkish/red undertone.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "light" and product.tags contains "cool" %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+            
+
+        </div>
+         </div>
+        
+                       
+             <div class="ans lmwarm">
+          
+          <h4>Your tone/undertone combination is light-to-medium/warm.</h4><p>You are lightly tanned. Choose foundation with a yellow/gold undertone.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "light to medium" and product.tags contains "warm" %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+            
+
+        </div>
+         </div>
+         
+			 
+              <div class="ans lmcool">
+          <h4>Your tone/undertone combination is light-to-medium/cool.</h4><p>You are lightly ruddy. Choose foundation with a pinkish/red undertone.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "light to medium" and product.tags contains "cool" %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>       
+        
+   
+        
+
+              <div class="ans lmolive">
+          <h4>Your tone/undertone combination is light-to-medium/olive.</h4><p> You are lightly bronzed. Choose foundation with a neutral/olive undertone.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "light to medium" and product.tags contains "olive" %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>   
+        
+  
+        
+         
+              <div class="ans mdwarm">
+          <h4>Your tone/undertone combination is medium-to-deep/warm.</h4><p>You are moderately tanned. Choose foundation with a yellow/gold undertone.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "medium to deep" and product.tags contains "warm" %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>   
+         
+               <div class="ans mdcool">
+          <h4>Your tone/undertone combination is medium-to-deep/cool.</h4><p>You are moderately ruddy. Choose foundation with a pinkish/red undertone.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "medium to deep" and product.tags contains "cool" %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>         
+      
+         
+        <div class="ans mdolive">
+          <h4>Your tone/undertone combination is medium-to-deep/olive.</h4><p>You are moderately bronzed. Choose foundation with a neutral/olive undertone.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "medium to deep" and product.tags contains "olive" %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>  
+        
+          
+              <div class="ans deepwarm">
+          <h4>You have a beautiful, rich natural tan.</h4><p>Choose foundation that brings out the glow and warmth in your skin.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "deep" and product.tags contains "warm"  %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>  
+        
+           
+              <div class="ans deepcool">
+          <h4>You have a beautiful, rich natural tan.</h4><p>Choose foundation that brings out the glow and warmth in your skin.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "deep" and product.tags contains "cool"  %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>  
+          
+         <div class="ans deepolive">
+          <h4>Your skin is a rich natural, bronze.</h4><p>Your skin is a rich natural, bronze.</p>
+          <div class="flex-wrap">
+        	{% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "deep" and product.tags contains "olive"  %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>  
+
+
+       <div class="ans cheer">
+          <h4>Concealer</h4>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.id == 4563562201175 %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+      </div>  
+        
+        
+       <div class="ans radiant">
+          <h4>Concealer</h4>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.id == 4563559022679 %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+      </div>  
+        
+
+        
+       <div class="ans revive">
+          <h4>Concealer</h4>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.id == 4563560824919 %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+      </div>  
+        
+        
+        
+       <div class="ans smile">
+          <h4>Concealer</h4>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.id == 4563564658775 %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+      </div> 
+        
+        
+        
+        
+            <div class="ans dulllooking">
+          <h4>Dull-looking Skin</h4><p>Look for skin-brightening products like peach-tinted moisturizers or facial mists with illumination. Level up your moisture game with light-weight hydrators like tsubaki oil and jojoba oil.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "dull looking skin"  %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>         
+        
+        
+              <div class="ans darkspot">
+          <h4>Scars/Dark Spots</h4><p>Look for ingredients that help with skin turnover (Centella Asiatica) and skin brightening (Niacinamide). Soothing agents like Vitamin E can also help improve your complexion.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "dark spots"  %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+         </div>  
+
+        
+        <div class="ans darkcircles">
+          <h4>Dark circles</h4><p>Look for concealers that will help color-correct any pigmentation. Violet/blue circles are best cancelled out with pink or salmon-tinted cover ups. Soothing ingredients, like rosewater, help reduce stress to tender, pigmented areas.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+            {% if product.tags contains "dark circles"  %}
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+      </div>  
+        
+        
+    
+        
+                
+        <div class="ans finelines">
+          <h4>Fine lines</h4><p>Look for ingredients that help plump up the skin and stimulate collagen production, like Vitamin C. Pore-filling and blurring products will scatter light and help reduce the appearance of lines.</p>
+          <div class="flex-wrap">
+        {% for product in collections.beauty.products %}  
+			
+            {% if product.tags contains "finelines" %}              
+        	<div class="beautyproducts">
+              <div class="product-wrap">
+                <div class="relative product_image swap-{{ settings.collection_secondary_image }}">
+                  <a href="{{ product.url | within: collection }}">
+                    <div class="image__container">
+                      {% include 'image-element', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+                    </div>
+                      {% if settings.collection_secondary_image != blank %}
+                        <div class="image__container">
+                          <img src="{% if product.images[1] != blank %}{{ product.images[1] | img_url: '800x' }}{% else %}{{ product.featured_image | img_url: '800x' }}{% endif %}"
+                          class="secondary lazyload"
+                          alt="{{ alt_text | escape }}"
+                          />
+                        </div>
+                      {% endif %}
+                    </a>
+                  {% include "product-details" %}
+                </div>
+                <a class="product-info__caption {% if settings.thumbnail_hover_enabled %}hidden{% endif %}" href="{{ product.url | within: collection }}">
+                  {% include "beauty-product-info" %}
+                </a>
+              </div>
+			</div>
+          	{% endif %}      
+        {% endfor %}
+        </div>
+       </div>  
+        
+        
+      </div>
+      
+      <div id="phasethreeresult">
+      </div>
+      <div id="phasefourresult">
+      </div>
+  	</div>
+
+
+<div class="custom-login">
+    <p class="form-text" style="text-align:center;">Find out more about your skin type, skin tone, and undertone, and get recommendations from our experts on how you can get that radiant skin using your favorite Ellana products.</p>
+	<h4 style="text-align:center;">SIGN IN OR CREATE AN ACCOUNT TO GET STARTED</h4>
+  <div class="beautylogin">
+    {%- form 'customer_login' -%}
+      {{ form.errors | default_errors }}
+		<input type="hidden" name="checkout_url" id="redirecturl" value="/pages/know-your-skin" />
+      <div>
+        <label for="customerEmail">Email Address</label>
+        <input type="email"
+          name="customer[email]"
+          id="customerEmail"
+          autocorrect="off"
+          autocapitalize="off"
+          autocomplete="email">
+      </div>
+      <div>
+        <label for="customerPassword">Password</label>
+        <input type="password"
+          name="customer[password]"
+          id="customerPassword">
+      </div>
+
+      <input type="submit" value="Sign In" style="margin-bottom:30px" />
+
+      <p>
+        <span id="registerjquery">Create Account</span>
+      </p>
+      <p>
+        <a href="#recover">Forgot your password?</a>
+      </p>
+
+    {%- endform -%}
+
+    <!-- If accounts are set as optional, the following will be shown as an option when coming from checkout, not on the default /login page. -->
+    {%- if shop.checkout.guest_login -%}
+      {%- form 'guest_login' -%}
+        <input type="submit" value="Continue as Guest" />
+      {%- endform -%}
+    {%- endif -%}
+
+    <!-- Use JavaScript to show/hide this form -->
+    {%- form 'recover_customer_password' -%}
+
+      {%- if form.posted_successfully? -%}
+        <div role="status">
+          <p>We've sent you an email with a link to update your password.</p>
+        </div>
+      {%- endif -%}
+
+      <div id="recover"{% unless form.errors %} style="display: none;"{% endunless %}>
+        <p>We will send you an email to reset your password.</p>
+
+        {{ form.errors | default_errors }}
+
+        <label for="customerEmail">Email Address</label>
+        <input type="email"
+          name="email"
+          id="customerEmail"
+          autocorrect="off"
+          autocapitalize="off"
+          autocomplete="email">
+
+        <input type="submit" value="Submit">
+      </div>
+
+    {%- endform -%}
+  </div>
+<div class="beautyreg">
+   {% form 'create_customer' %} {{ form.errors | default_errors }}
+    <input type="hidden" name="checkout_url" id="redirecturl" value="/account/login" />
+    <label for="first_name">First Name</label>
+    <input type="text" id="beautyregname" value="" name="customer[first_name]" size="30" />
+
+    <label for="last_name">Last Name</label>
+    <input type="text" id="beautyreglastname" value="" name="customer[last_name]" size="30" />
+
+    <label for="email">Email Address</label>
+    <input type="email" id="beautyregemail" value="" name="customer[email]" size="30" />
+
+    <label for="password">Password</label>
+    <input type="password"  id="beautyregpassword" value="" name="customer[password]" size="30" />
+
+    <input type="submit" value="Create" />
+  {% endform %} 
+</div>
+</div>
+{% endif %}
+
+<script>
+  $(document).ready(function(){
+  	$jsonanswers = JSON.parse(Cookies.get('bqanswers'))
+    $jsonanswers = JSON.parse($jsonanswers)
+    $loggedin = $("#loggedin").val();
+	
+    if(($jsonanswers.activate) && ($loggedin != "no")){
+      $(".custom-login").hide()
+      $("h1").hide()
+      $(".welcomescreen").hide()      
+      $(".phase-container").hide()
+      $(".beautyresult").show()
+      $aq1 = parseInt($jsonanswers.aq1)
+      $aq2 = parseInt($jsonanswers.aq2)
+      $aq3 = parseInt($jsonanswers.aq3)
+      $bq1 = parseInt($jsonanswers.bq1)
+      $bq2 = parseInt($jsonanswers.bq2)
+      $bq3 = parseInt($jsonanswers.bq3)
+      $cq1 = parseInt($jsonanswers.cq1)
+      $dq1 = parseInt($jsonanswers.dq1)
+      $iduser = $("#customerid").val()
+      $username = $("#custname").val()
+      $email = $("#custemail").val()
+	$phaseone = Math.round(($aq1 + $aq2 + $aq3)/3);
+    $phasetwo = Math.round(($bq1 + $bq2 + $bq3)/3);
+    $phasethree = $cq1;
+    $phasefour = $dq1;
+      
+        $.ajax({
+                type: 'POST',
+                url: 'https://ellanacosmeticsprivateapp.herokuapp.com/shopify.php',
+                data: { 
+                  	beautyquiz: {
+                      process : "add",
+                      aq1 : $aq1,
+                      aq2 : $aq2,
+                      aq3 : $aq3,
+                      bq1 : $bq1,
+                      bq2 : $bq2,
+                      bq3 : $bq3,
+                      cq1 : $cq1,
+                      dq1 : $dq1,
+                      username : $username,
+                      email : $email,
+                      iduser : $iduser
+                    }
+                },
+                success: function (data) {
+                  
+                  	console.log(data)
+                   
+                }
+
+    	}); // ajax
+      
+    console.log($phaseone + " " + $phasetwo + " " + $phasethree + " " + $phasefour + "hhdfghdf" )
+    switch($phaseone) {
+      case 1:
+        $(".beautyOily").show()
+        break;
+      case 4:
+        $(".beautyDry").show()
+        // code block
+        break;
+      case 3:
+        $(".beautyCombination").show()
+        // code block
+        break;
+      default:
+        $(".beautyNormal").show()
+        // code block
+    } 
+    
+    if(($phasetwo == 1) || ($phasetwo == 2)){$(".cheer").show()}
+    if(($phasetwo == 3) && ($phasethree == 1)){$(".radiant").show()}
+    if(($phasetwo == 3) && ($phasethree == 2)){$(".revive").show()}
+    if(($phasetwo == 3) && ($phasethree == 3)){$(".smile").show()}
+    if(($phasetwo == 4) && ($phasethree == 1)){$(".smile").show()}
+    if(($phasetwo == 4) && ($phasethree == 2)){$(".revive").show()}
+    if(($phasetwo == 4) && ($phasethree == 3)){$(".smile").show()}
+    if($phasetwo == 5){$(".smile").show()}
+      
+	if(($phasethree == 2) && ($phasetwo == 1)){$(".lightwarm").show()}
+    if(($phasethree == 2) && ($phasetwo == 2)){$(".lightwarm").show()}
+    if(($phasethree == 2) && ($phasetwo == 2)){$(".lightcool").show()}
+    if(($phasethree == 3) && ($phasetwo == 1)){$(".lmwarm").show()}
+    if(($phasethree == 3) && ($phasetwo == 2)){$(".lmcool").show()}
+    if(($phasethree == 3) && ($phasetwo == 3)){$(".lmolive").show()}
+    if(($phasethree == 4) && ($phasetwo == 1)){$(".mdwarm").show()}
+    if(($phasethree == 4) && ($phasetwo == 2)){$(".mdcool").show()}
+ 	if(($phasethree == 4) && ($phasetwo == 3)){$(".mdolive").show()}
+    if(($phasethree == 5) && ($phasetwo == 1)){$(".deepwarm").show()} 
+	if(($phasethree == 5) && ($phasetwo == 2)){$(".deepcool").show()} 
+    if(($phasethree == 5) && ($phasetwo == 3)){$(".deepolive").show()}
+    if(($phasethree == 5) && ($phasetwo == 3)){$(".deepolive").show()}
+    
+    switch($phasefour) {
+      case 1:
+		$(".darkspot").show()
+        // code block
+        break;
+      case 2:
+		$(".darkcircles").show()
+        // code block
+        break;
+	  case 3:
+		$(".dulllooking").show()
+        // code block
+        break;
+	  case 4:
+		$(".finelines").show()
+        // code block
+        break;	  
+      default:
+		// $(".finelines").show()
+        // code block
+    }
+	
+    }else{
+    	$(".ans").hide();
+    }
+  })
+</script>

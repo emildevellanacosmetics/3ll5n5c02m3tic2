@@ -1,0 +1,293 @@
+<!-- filename: sections/skin-bundles.liquid -->
+{{ "option_selection.js" | shopify_asset_url | script_tag }}
+{{ "shopify_common.js" | shopify_asset_url | script_tag }}
+{{ "customer_area.js"  | shopify_asset_url | script_tag }}
+
+
+
+
+<div class="bundle-container">
+  {% for block in section.blocks %}
+  {% assign bundlesHeader = block.settings.feature_collection  %}
+  <div class="bundle-section">
+    {% assign bundles = block.settings.feature_collection | replace: " ", "-" | remove: "-+" %}
+    {% assign bundlesTitle = block.settings.feature_collection  %}
+  
+      {% for category in bundles %}
+        
+
+         <div class="sixteen columns center">
+              <h3 class="bundle-name">{{ block.settings.bundle-title }}</h3>
+             
+                <div class="section clearfix collection_description">
+                  {{ collections[category].description }}
+                </div>
+            
+         </div>
+    
+    	{% assign soldout_true = false %}
+          <div class="flex-wrap">
+            {% for product in collections[category].products %}
+                  {% include 'custom-bundle' %}
+                  {% if variant.inventory_quantity == 0 %}
+                      {% assign soldout_true = true %}
+                  {% endif %}
+                 
+            {% endfor %}
+          </div> 
+           <div class="flex-wrap"> 
+            {% assign items = collections[category].products | sort: 'price' %}
+             {% assign totalPrice = 0 %}
+             
+            {% for item in items %}
+                {% assign totalPrice =  totalPrice | plus: item.price %}
+             	
+             
+            {% endfor %}
+             {% assign totalDiscount =  totalPrice | times: 0.15 %}
+             {% assign currentPrice =  totalPrice | minus: totalDiscount %}
+             
+             <span class="price sale price-bundle"> 
+               <span class="current_price"> 
+                 <span class="money">
+                   <span class="money">{{ currentPrice | money }}</span>
+                 </span>
+               </span> 
+               <span class="was_price"> 
+                 <span class="money">
+                   <span class="money">{{ totalPrice | money }}</span>
+                 </span></span> 
+               </span>
+    		</div>
+          
+          <div class="flex-wrap">
+            <form method="post" action="/cart/add" enctype="multipart/form-data" class="bundle-form">
+              <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                <button {% if soldout_true %} disabled="disabled" style="background: gray;
+    border: gray; font-family: Poppins, sans-serif; width: 100%;" {% endif %} style="width: 100%;" type="submit" id="add-{{ collections[category].id }}" onclick="addAllItems('{% for product in collections[category].products %}{{ product.selected_or_first_available_variant.id }}{% unless forloop.last %},{% endunless %}{% endfor %}'); return false;">{% if soldout_true %} Soldout {% else %}ADD BUNDLE {% endif %}</button>
+            </form>
+          </div>
+  
+  
+      {% endfor %}
+  
+  </div>
+  {% endfor %}
+</div>
+
+
+<script>
+  function addAllItems(array){
+	Shopify.queue = [];
+	  var quantity = {{ cart.item_count }} ;
+	  var newArray = array.split(',');
+	  for (var i = 0; i < newArray.length; i++) {
+	    product = newArray[i]
+	    Shopify.queue.push({
+	      variantId: product,
+	    });
+          }
+	  Shopify.moveAlong = function() {
+	  // If we still have requests in the queue, let's process the next one.
+	  if (Shopify.queue.length) {
+	    var request = Shopify.queue.shift();
+	    var data = 'id='+ request.variantId + '&quantity=1'
+	    $.ajax({
+	      type: 'POST',
+              url: '/cart/add.js',
+	      dataType: 'json',
+	      data: data,
+	      success: function(res){
+	        Shopify.moveAlong();
+            
+		  quantity += 1;
+            setTimeout(function() {
+            	window.location.reload();
+            }, 1000);
+	     }
+           
+           });
+        }
+	 // If the queue is empty, we add 1 to cart
+	else {
+	  quantity += 1;
+	  addToCartOk(quantity);
+	 }
+       };
+    Shopify.moveAlong();
+  };
+</script>
+
+<script>
+$(".swatch-element").on('click', function() 
+	$('.swatch-element').attr("data-id");
+});
+  
+$(function() {
+
+    var form_original_data = $('form[name="id"]').val();
+
+    $("#mybutton").click(function() {
+        if ($("#myform").serialize() != form_original_data) {
+            // Something changed
+        }
+    });
+
+});  
+  
+</script>
+
+
+<style>
+  .flex-wrap .price-bundle {
+    font-size: 20px;
+  }
+  .bundle-name {
+    font-size: 18px;
+    font-weight: 500;
+  }
+   .bundle-form {
+     width: 35%;
+   }
+  .flex-wrap {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 20px auto 0;
+  }
+  
+  .flex-wrap {
+
+  }
+   .flex-wrap .bundleProducts {
+    text-align: center;
+    width: 25%;
+    
+    margin: 0 5px;
+    margin-bottom: 5px;
+  }
+  .bundle-container {
+    width: 100%;
+    margin: 0 auto;
+  }
+  .sale_holder {
+    display: none;
+  }
+  .ajax-submit {
+    display: none!important;
+  }
+  .product-details {
+    margin: 10px;
+  }
+  @media only screen and (max-width: 480px) {
+    .flex-wrap {
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      width: 100%;
+      margin: 0!important;
+      -webkit-flex-flow: row wrap;
+    justify-content: space-around;
+    }
+    .flex-wrap .bundleProducts {
+        width: 50%;
+      margin: 0;
+    }
+    .bundle-form {
+     width: 100%;
+    }
+    .flex-wrap .price-bundle {
+      margin: 25px 0;
+    }
+  }
+  .showswatch {
+    display: none!important;
+  }
+  .bundle-section {
+    margin-bottom: 100px;
+  }
+</style>
+
+
+{% schema %}
+{
+  "name": "Skin Bundles",
+  "class": "collection-list-section",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Collection list"
+    },
+    {
+      "type": "checkbox",
+      "id": "align_height",
+      "label": "Align height of collection images"
+    },
+    {
+      "type": "range",
+      "id": "collection_height",
+      "label": "Collection image height",
+      "min": 150,
+      "max": 400,
+      "step": 10,
+      "default": 200,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "frontpage_collections_per_row",
+      "label": "Collections per row",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 3
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+    	{
+          "type": "text",
+          "id": "bundle-title",
+          "label": "Bundles Title"
+        },
+        {
+          "type": "collection",
+          "id": "feature_collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Collection list",
+    "category": "Collection",
+    "settings": {
+
+    },
+    "blocks": [
+      {
+        "type": "collection"
+      },
+      {
+        "type": "collection"
+      },
+      {
+        "type": "collection"
+      }
+    ]
+  }]
+}
+{% endschema %}

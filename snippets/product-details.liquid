@@ -1,0 +1,60 @@
+<!-- filename: product-details.liquid -->
+{% if product.id == 4530133762135 or product.id == 4488330379351 %} 
+<!-- render "ex-swatch"  -->
+{% else %}
+{% unless product.tags contains 'Sets' or product.type == 'Special Bundle' %}
+ <!-- render "ex-swatch"  -->
+{% endunless %}
+{% endif %}
+
+
+{% assign collection_handles = product.collections | map: 'handle' %}
+{% if settings.thumbnail_hover_enabled or settings.quick_shop_enabled and settings.quick_shop_style == 'popup' %}
+  <div class="thumbnail-overlay">
+    <a href="{% if product.tags contains 'Sets' or product.type == 'Special Bundle' or template contains 'index' %}{{ product.url | within: collection }}{% else %}{{ variant.url | within: collection }}{% endif %}" itemprop="url" class="hidden-product-link">{{ product.title }}</a>
+    <div class="info">
+      {% if settings.thumbnail_hover_enabled %}
+        {% render "product-info", product: product %}
+      {% endif %}
+      {% if settings.quick_shop_enabled and settings.quick_shop_style == 'popup' %}
+        {% render 'quick-shop-button', product: product %}
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+<div class="banner_holder">
+  {% if product.available %}
+    {% if settings.sale_banner_enabled and product.compare_at_price_max > product.price %}
+      <div class="sale_banner thumbnail_banner">{{ 'collections.general.sale' | t }}</div>
+    {% endif %}
+  {% endif %}
+  {% if collection_handles contains 'new' %}
+    <div class="new_banner thumbnail_banner">{{ 'collections.general.new' | t }}</div>
+  {% endif %}
+  {% if collection_handles contains 'pre-order' %}
+    <div class="preorder_banner thumbnail_banner">{{ 'collections.general.pre_order' | t }}</div>
+  {% endif %}
+</div>
+  
+{% if product.tags contains 'NEW' %}
+   <div class="sale_holder">
+     New!
+    </div>
+{% endif %}
+{% if product.tags contains 'comingsoon' %}
+<div class="sale_holder" style="background-color: #e68c5d;">
+  {{ settings.coming_soon_text }}
+ </div>
+{% endif %}
+
+{% if product.tags contains 'crazydeal' and settings.crazy_deal_banner_enabled %}
+   <div class="sale_holder" style="background-color: #DAA520;">
+     {{ settings.crazy_deal_text }}
+    </div>
+{% endif %}
+
+{% if product.tags contains 'sellingfast' and settings.selling_fast_banner_enabled %}
+   <div class="selling_holder">
+     {{ settings.selling_fast_text }}
+    </div>
+{% endif %}

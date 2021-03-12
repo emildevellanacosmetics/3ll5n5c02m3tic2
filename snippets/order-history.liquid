@@ -1,0 +1,67 @@
+<!-- filename: order-history.liquid -->
+{% paginate customer.orders by 20 %}
+  
+
+  <div class="section clearfix">
+    <aside class="sixteen columns account-sidebar">
+      
+    </aside>
+    <main class="eleven columns account-main">
+      <div id="customer_orders">
+        <h4>{{ 'customer.orders.title' | t }}</h4>
+
+        {% if customer.orders.size != 0 %}
+        <table width="100%" class="desktoptable">
+          <thead>
+            <tr>
+              <th>{{ 'customer.orders.order_number' | t }}</th>
+              <th>{{ 'customer.orders.date' | t }}</th>
+              <th>{{ 'customer.orders.payment_status' | t }}</th>
+              <th>{{ 'customer.orders.fulfillment_status' | t }}</th>
+              <th>{{ 'customer.orders.total' | t }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in customer.orders %}
+              <tr class="{% cycle 'odd', 'even' %} {% if order.cancelled %}cancelled_order{% endif %}">
+                  <td>{{ order.name | link_to: order.customer_url }}</td>
+                  <td>{{ order.created_at | date: format: "month_day_year" }}</td>
+                  <td>{{ order.financial_status_label }}</td>
+                  <td>{{ order.fulfillment_status_label }}</td>
+                  <td>
+                    <span class="money">{{ order.total_price | money }}</span>
+                  </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        
+		<div class="mobiletable">
+		{% for order in customer.orders %}
+          <div class="row">            
+            <div class="sixteen columns"><p><span>{{ 'customer.orders.order_number' | t }}:</span> {{ order.name | link_to: order.customer_url }}</p></div>
+              <div class="sixteen columns"><p><span>{{ 'customer.orders.date' | t }}:</span> {{ order.created_at | date: format: "month_day_year" }}</p></div>
+              <div class="sixteen columns"><p><span>{{ 'customer.orders.payment_status' | t }}:</span> {{ order.financial_status_label }}</p></div>
+              <div class="sixteen columns"><p><span>{{ 'customer.orders.fulfillment_status' | t }}:</span> {{ order.fulfillment_status_label }}</p></div>
+              <div class="sixteen columns"><p><span>{{ 'customer.orders.total' | t }}</span>:<span class="money">{{ order.total_price | money }}</span></p></div>
+          </div>
+		{% endfor %}
+		</div>
+        {% else %}
+          <p>{{ 'customer.orders.none' | t }}</p>
+        {% endif %}
+
+        {% include 'pagination' with true %}
+      </div>
+    </main>
+  </div>
+{% endpaginate %}
+
+<style>
+  .mobiletable{display:none}
+  @media only screen and (max-width:480px){
+    .mobiletable span{width:20%;}
+  	.mobiletable{display:block}
+    .desktoptable{display:none}
+  }
+</style>

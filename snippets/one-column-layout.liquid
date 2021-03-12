@@ -1,0 +1,25 @@
+<!-- filename: one-column-layout.liquid -->
+<div style=" background-color: {{ block.settings.one-col-bg_color }}; color: {{ block.settings.one-col-text_color }}; width: 100%;margin-top: {{ block.settings.one-col-margin-top }}px;margin-bottom: {{ block.settings.one-col-margin-bottom}}px;padding-top: {{ block.settings.one-col-padding-top }}px;padding-bottom: {{ block.settings.one-col-padding-bottom }}px;">
+    <div class="container">
+      {% unless block.settings.one-col-main_heading == blank %}
+      <p style="color: {{ block.settings.one-col-text_color }};text-align:center;"><strong>{{ block.settings.one-col-main_heading }}</strong><br/>
+      {% unless block.settings.one-col-sub_heading  == blank %}{{ block.settings.one-col-sub_heading }}{% endunless %}</p>{% endunless %}
+        <div class="row">
+            <div class="uno small-down--one-whole">
+                <center>
+                  {% unless block.settings.one-col-column1_title == blank %}
+                    <strong>{{ block.settings.one-col-column1_title }}</strong> <br>
+                  {% endunless %}
+                  {% unless block.settings.one-col-column1_content == blank %}
+                  	<p>{{ block.settings.one-col-column1_content }}</p>
+                  {% endunless %}
+                  	{% unless block.settings.one-col-column1_url == blank %}
+                  	<a href="{{ block.settings.one-col-column1_url }}"><button>{{ block.settings.one-col-column1_buttontext }}</button></a>
+                  	{% endunless %}
+                </center>
+            </div>
+
+        </div>
+    </div>
+</div>
+

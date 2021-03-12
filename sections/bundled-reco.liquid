@@ -1,0 +1,63 @@
+<!-- filename: sections/bundled-reco.liquid -->
+<div class="bundle-items">  
+{% for product in collection.products limit: 4 %}
+     {% include 'product-thumbnail'%}
+{% endfor %}
+</div>
+
+
+
+{% assign products_per_row = section.settings.rv_per %}
+{% assign products_limit = block.settings.sidebar_rv_per | minus: 1 %}
+
+
+{% for product in collections.special-bundle.products %}
+    {% assign productTitle = product.title | join: ', ' %}
+<p style="display: none;">{{ productTitle }} </p>
+{% endfor %}
+
+
+
+
+
+<div class="recently-viewed__title" style="text-align: center;">
+  <h4 class="toggle">Get Individually from this bundle</h4>
+</div>
+
+<div class="clearfix rv-container">
+  <div class="product-list clearfix recently-viewed-list">
+    {% assign productTags = product.tags | join: ', ' %}
+
+    
+    {% assign bundlesReco = product.title | replace: " ", "-" | remove: "-+" %}
+    
+      {% for category in bundlesReco %}
+         
+          {% for product in collections[category].products limit: 4 %}
+     	     
+              {% include 'bundle-reco' %}
+             
+          {% endfor %}
+         
+      {% endfor %}
+
+   
+  </div>
+</div>
+
+
+
+
+
+{% schema %}
+  {
+    "name": "Section name",
+    "settings": []
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

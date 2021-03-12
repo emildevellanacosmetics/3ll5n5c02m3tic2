@@ -1,0 +1,44 @@
+<style>
+  .homepage-video {
+  	display: block!important;
+  }
+  .seconds {
+  	display: none;
+  }
+  .subt {
+  	text-transform: capitalize;
+  }
+@media only screen and (max-width: 480px) {
+  .product-list .column {
+      float: left;
+  }
+}
+</style>
+
+<a name="pagecontent" id="pagecontent"></a>
+<div class="index-sections">
+  {{ content_for_index }}
+</div> 
+
+<style>
+  {% if template == "index" %}
+  @media only screen and (max-width:480px){
+  	.product-list{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content: space-between;
+  	} 
+    .small-down--one-half{
+    	flex: 0 0 46%;
+    }
+    .featured-link--half .button {
+        margin-top: 25px;
+        margin-bottom: 27px;
+    }
+
+  }
+   {% endif %}
+</style>
+
+
+

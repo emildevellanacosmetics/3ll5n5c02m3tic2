@@ -1,0 +1,890 @@
+<!-- filename: sections/product-tempaltemccbackup.liquid -->
+{% comment %}
+** Product - default view **
+- Product template
+{% endcomment %}
+<div class="wish">
+   {% include 'wishlist-product' %}
+</div>
+<a name="pagecontent" id="pagecontent"></a>
+{% if section.settings.marquee_text_enable == true %}
+<div style="width: 100%; background-color: #fff; padding: 5px 5px 5px 5px;">
+   <span style="font-size: 12px; letter-spacing: .2em;">
+      <center>
+         <marquee style="vertical-align: middle; line-height: 1.2;">{{ section.settings.marquee_text }}</marquee>
+      </center>
+   </span>
+</div>
+{% endif %}
+<div class="container main content product-name--{{ product.handle }}">
+   <div class="sixteen columns">
+      {% if collection.previous_product or collection.next_product or section.settings.product_breadcrumb %}
+      <div class="clearfix breadcrumb-collection">
+         {% if collection.previous_product or collection.next_product %}
+         <div class="nav_arrows breadcrumb_text">
+            {% if collection.previous_product %}
+            <a href="{{ collection.previous_product }}" title="{{ 'products.general.previous_product_html' | t }}" class="breadcrumb_link"><span class="icon-left-arrow"> {{ 'products.general.previous_product_html' | t }}</span></a>
+            {% endif %}
+            {% if collection.previous_product and collection.next_product %}<span class="breadcrumb-divider"> | </span>{% endif %}
+            {% if collection.next_product %}
+            <a href="{{collection.next_product}}" title="{{ 'products.general.next_product_html' | t }}" class="breadcrumb_link">{{ 'products.general.next_product_html' | t }} <span class="icon-right-arrow"></span></a>
+            {% endif %}
+         </div>
+         {% endif %}
+         {% if section.settings.product_breadcrumb %}
+         {% include 'product__breadcrumb' %}
+         {% endif %}
+      </div>
+      {% endif %}
+   </div>
+   <div class="product-header">
+      <div  class="product-{{ product.id }}"
+         data-free-text="{{ settings.free_price_text }}"
+         >
+         {% assign collection_handles = product.collections | map: 'handle' %}
+         {% assign variant = product.selected_or_first_available_variant %}
+         {% if product.available %}
+         {% if settings.sale_banner_enabled and product.compare_at_price_max > product.price %}
+         <div class="sale_banner_product">{{ 'collections.general.sale' | t }}</div>
+         {% endif %}
+         {% endif %}
+         {% if collection_handles contains 'new' %}
+         <div class="new_banner_product">{{ 'collections.general.new' | t }}</div>
+         {% endif %}
+         {% if collection_handles contains 'pre-order' %}
+         <div class="preorder_banner_product">{{ 'collections.general.pre_order' | t }}</div>
+         {% endif %}
+         {% if section.settings.display_vendor %}
+         <p class="vendor">
+            <span class="vendor">{{ product.vendor | link_to_vendor }}</span>
+         </p>
+         {% endif %}
+         {% if variant.sku != blank and section.settings.display_sku %}
+         <p class="sku">
+            <span>{{ variant.sku }}</span>
+         </p>
+         {% endif %}
+         <h1 class="product_name">{{ product.title }}</h1>
+         {% if section.settings.enable_shopify_product_badges and settings.enable_shopify_review_comments %}
+         <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+         {% endif %}
+         {% if collection_handles contains 'coming-soon' %}
+         <p class="modal_price">{{ 'collections.general.coming_soon' | t }}</p>
+         {% else %}
+         <div class="modal_price">
+            {% unless product.available == false and settings.display_price == false %}
+            <div class="price__container price__container--display-price-{{ settings.display_price }} {% if settings.display_price %}has-margin-right{% endif %}">
+               <span content="{{ variant.price | money_without_currency | remove: "," }}" class="{% if variant.compare_at_price > variant.price %}sale{% endif %}">
+               <span class="current_price">
+               {% if variant.price > 0 %}
+               <span class="money">{{ variant.price | money }}</span>
+               {% else %}
+               {{ settings.free_price_text }}
+               {% endif %}
+               </span>
+               </span>
+               <span class="was_price">
+               {% if variant.price < variant.compare_at_price %}
+               <span class="money">{{ variant.compare_at_price | money }}</span>
+               {% endif %}
+               </span>
+               {% if section.settings.display_savings %}
+               <span class="sale savings">
+               {% if variant.price < variant.compare_at_price %}
+               {{ 'products.product.savings' | t }}  {{ variant.compare_at_price | minus: variant.price | times: 100 | divided_by: variant.compare_at_price }}% 
+               {% endif %}
+               </span>
+               {% endif %}
+            </div>
+            {% endunless %}
+         </div>
+         {% endif %}
+      </div>
+   </div>
+   <style>
+      .savings .money{display:none;}
+   </style>
+   <div class="product clearfix">
+      {% if product.id == 4384313835607 or product.id == 1966667497559 or product.id == 6815228359 %}
+      <style>
+         .select,
+         .selector-wrapper{
+         display:block !important;
+         }
+         .swatch_options{
+         display:none !important;
+         }
+      </style>
+      {% endif %}
+      <div  class="product-{{ product.id }}"
+         data-free-text="{{ settings.free_price_text }}"
+         >
+         <div class="section product_section clearfix js-product_section {% if section.settings.product_images_position == 'right' %}align_right--images{% endif %}" data-rv-handle="{{ product.handle }}">
+            <div class="nine columns medium-down--one-whole {% if section.settings.product_images_position == 'left' %}alpha{% else %}omega{% endif %}">
+               {% include 'product-images' %}
+            </div>
+            <div class="seven columns medium-down--one-whole  {% if section.settings.product_images_position == 'left' %}omega{% else %}alpha{% endif %}">
+               
+               {% unless collection_handles contains 'coming-soon' %}
+               {% include 'mcc' with 'product' %}
+               {% endunless %}
+              
+               {% include 'product-added-info' %}
+              
+              
+               {% if product.description != blank %}
+               <div class="description" data-miniheight="150">
+                  {{ product.description | split: '<!-- split -->' | first }}
+               </div>
+               {% endif %}
+               
+               {% if section.settings.review_position == "next_to_gallery" %}
+               <div class="shopify-reviews reviews-height reviewsVisibility--{{settings.enable_shopify_review_comments}}">
+                  <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+               </div>
+               <div class="read-container ">
+                  <a class="viewmore" href="#">View more</a>
+               </div>
+               {% endif %}
+               {% if section.settings.display_collections or section.settings.display_tags or section.settings.display_type %}
+               <div class="product_links">
+                  {% if section.settings.display_collections %}
+                  <p>
+                     <span class="label">{{ 'products.product.collections' | t }}:</span>
+                     <span>
+                     {% for col in product.collections %}
+                     <a href="{{ col.url }}" title="{{ col.title }}">{{ col.title }}</a>{% unless forloop.last %},{% endunless %}
+                     {% endfor %}
+                     </span>
+                  </p>
+                  {% endif %}
+                  {% if section.settings.display_type %}
+                  <p>
+                     <span class="label">{{ 'products.product.product_types' | t }}:</span>
+                     <span>{{ product.type | link_to_type }}</span>
+                  </p>
+                  {% endif %}
+                  {% if section.settings.display_tags %}
+                  <p>
+                     {% for tag in product.tags %}
+                     {% if forloop.first %}
+                     <span class="label">{{ 'products.product.tags' | t }}:</span>
+                     {% endif %}
+                     {% unless tag contains 'meta-' %}
+                     <span>
+                     <a href="/collections/{% if collection %}{{ collection.handle }}{% else %}all{% endif %}/{{ tag | handle }}" title="{{ 'products.product.products_tagged' | t: tag: tag }}">{{ tag }}</a>{% unless forloop.last %},{% endunless %}
+                     </span>
+                     {% endunless %}
+                     {% endfor %}
+                  </p>
+                  {% endif %}
+               </div>
+               {% endif %}
+               <div class="meta">
+                  {% if section.settings.display_social_buttons %}
+                  {% include "social-buttons" with "product" %}
+                  {% endif %}
+               </div>
+            </div>
+         </div>
+      <div class="instafeed">
+     <center class="instafeedtitle"><h2>GET THE LOOK</h2></center>
+            <script src="//foursixty.com/media/scripts/fs.embed.v2.5.js" data-money-format="₱<%= amount %>" data-feed-id="ellanacosmetics" data-defer-image-loading="false" data-theme="showcase_v2_5" data-page-size="12" data-connector-filter="37170,37194" data-for-url="true"></script><style>.fs-has-links::after {  padding: 5px 7.5px; background-color: rgba(255, 255, 255, 0); color: rgba(0, 0, 0, 0); content: "GET THE LOOK";  }.fs-desktop .fs-entry-container { width: 16.666666666666668% !important; padding-top: 16.666666666666668% !important; }.fs-mobile .fs-entry-container { width: 50% !important; padding-top: 50% !important; }.fs-wrapper div.fs-text-container .fs-entry-title, div.fs-detail-title{font-family:HELVETICA;font-style:normal;font-weight:normal;}div.fs-text-container .fs-entry-date, div.fs-detail-container .fs-post-info, div.fs-wrapper div.fs-has-links::after, .fs-text-product, .fs-overlink-text{font-family:HELVETICA;font-style:normal;font-weight:bold;}.fs-wrapper div.fs-text-container * {color:rgba(255, 255, 255, 0)}.fs-wrapper div.fs-text-container {background-color:rgba(0, 0, 0, 0); margin: 0px}div.fs-entry-date{display:none}div.fs-service-icon{display:none}div.fs-entry-title{display:none}.fs-wrapper div.fs-timeline-entry{ margin: 1px }</style>
+          </div>
+
+         {% if section.settings.review_position == "below_gallery" %}
+         <div class="shopify-reviews reviews-height reviewsVisibility--{{settings.enable_shopify_review_comments}}">
+            <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+         </div>
+         <div class="read-container ">
+            <a class="viewmore" href="#">View more</a>
+         </div>
+         {% endif %}
+      </div>
+   </div>
+</div>
+
+
+
+
+      {% if section.settings.display_recently_viewed %}
+        {% include 'include-recently-viewed' %}
+      {% endif %}
+<div class="container" style="margin-bottom:50px">
+  	<center><h2>YOU MAY ALSO LIKE</h2></center>
+        {% if product.metafields.global.productrecommendation == blank %}
+  			{% assign count = 0 %}
+  			{% for collection in product.collections %}
+  				
+                    {% assign prodreco = collection.title %} 
+                    {% assign tagcounter = 0 %}
+                    {% for product in collections['best-seller'].products limit: 4 %}
+  						{% if count < 4 %}	
+                          {% if product.object_type == 'product' %}
+                              {% if product.available %}
+                              {% unless product.tags contains 'hiddenoncollections' %}
+                                   {% capture itemDup %}
+                                   <p>{{ product.title }}</p>
+                                   {% endcapture %}
+                                  {% if product.id != skip_product.id %}
+                                    {% include 'product-thumbnail', sidebar: sidebar %}
+                                  {% endif %}
+                              {% endunless %}
+                              {% else %}
+
+                              {% endif %}
+                          {% endif %}                          
+  						{% endif %} 
+  						{% assign count = count | plus: 1 %}
+                    {% endfor %}  				
+  				 
+   					
+            {% endfor %}
+            
+            {% assign tagcounter = 0 %}
+                {% for product in collections[prodreco].products limit: 4 %}      
+                {% if product.object_type == 'product' %}
+                    {% if product.available %}
+                    {% unless product.tags contains 'hiddenoncollections' %}
+                         {% capture itemDup %}
+                         <p>{{ product.title }}</p>
+                         {% endcapture %}
+                        {% if product.id != skip_product.id %}
+                          {% include 'product-thumbnail', sidebar: sidebar %}
+                        {% endif %}
+                    {% endunless %}
+                    {% else %}
+						
+                    {% endif %}
+                {% endif %}
+                {% endfor %}
+  		{% else %}
+  
+  
+  
+  
+  {%- assign prodreco = product.metafields.global.productrecommendation | split: ', ' -%}
+
+
+  {% for tag_one in wish_meta %}
+    {% assign tag_loop = forloop.index %}
+  {% endfor %}
+  
+    {% assign prodcol = collection.title %} 
+           
+            {% assign tagcounter = 0 %}
+                {% for product in collections.ellana-product-line-2020.products %}      
+                    {% if product.object_type == 'product' %}
+                        {% if product.available %}
+  							{% for recos in prodreco %}
+  								
+                                {% if product.handle == recos %}
+  									{% unless product.tags contains 'hiddenoncollections' %}
+                                         {% capture itemDup %}
+                                         <p>{{ product.title }}</p>
+                                         {% endcapture %}
+                                        {% if product.id != skip_product.id %}
+                                          {% include 'product-thumbnail', sidebar: sidebar %}
+                                        {% endif %}
+                                	{% endunless %}
+  								{% endif %}
+  							{% endfor %}
+                        {% else %}
+
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+  		 
+  		{% endif %}
+  <!--
+    old product recommendation div
+    <div data-product-recommendations-container></div> -->
+</div>
+
+
+    
+	<div class="container">
+      <center><h2>Related Articles</h2></center>
+	</div>
+	<div class="container blog-reco">
+      
+      {% if product.metafields.global.blog %}
+          {% assign blogreco = product.metafields.global.blog %}
+      	  {% assign tagcounter = 0 %} 
+          {% for article in blogs["beautorials"].articles %}
+      			{% for tag in article.tags %}
+      	  			{% if tag == blogreco %}
+     		   			{% if tagcounter < 5 %}
+          <div class="article medium-down--one-fourth">
+          {% if article.image %}
+            <a href="{{ article.url }}">
+              {% include 'image-element', image: article.image, alt: article.image.alt %}
+            </a>
+          {% endif %}
+
+          <h3 class="sub_title">
+            <a href="{{ article.url }}">{{ article.title }}</a>
+          </h3>
+                  
+            
+    
+        </div> 
+      			{% else %}
+    
+      	 		{% endif %}
+      		{% endif %}
+		  {% endfor %}
+     
+      	{% endfor %}
+      {% else %}
+     	
+      
+      	{% for article in blogs["beautorials"].articles limit: 4  %}
+        <div class="article medium-down--one-fourth">
+          {% if article.image %}
+            <a href="{{ article.url }}">
+              {% include 'image-element', image: article.image, alt: article.image.alt %}
+            </a>
+          {% endif %}
+
+          <h3 class="sub_title">
+            <a href="{{ article.url }}">{{ article.title }}</a>
+          </h3>
+    
+        </div>
+     	
+      {% endfor %}
+      {% endif %}
+	</div>
+
+
+<div id="custom-login">
+	{% include 'custom-login' %}
+</div>
+
+
+{% schema %}
+
+{
+  "name": "Product",
+  "class": "product-template",
+  "settings": [
+	{
+      "type": "header",
+      "content": "Marquee Announcement bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "marquee_text_enable",
+      "label": "Show marquee text",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "marquee_text",
+      "label": "Marquee Text", 
+	  "default": "FLASH SALE ALERT! Use code MOUTH and get P300 off all orders P1500 and up. Use code EYES and get P700 off all orders P2200 and up. Use code NOSE and get P850 off all orders P3000 and up.<strong>FREE SHIPPING</strong> for Metro Manila! FREE Shipping outside Metro Manila for orders above P1500!",
+      "info": "Maximum character limit is 170"
+    },
+    {
+      "type": "checkbox",
+      "id": "product_breadcrumb",
+      "label": "Show breadcrumb links"
+    },
+    {
+      "type": "checkbox",
+      "id": "display_vendor",
+      "label": "Show vendor"
+    },
+    {
+      "type": "checkbox",
+      "id": "display_sku",
+      "label": "Show SKU"
+    },
+    {
+      "type": "checkbox",
+      "id": "display_savings",
+      "label": "Show price savings",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "display_collections",
+      "label": "Show collections"
+    },
+    {
+      "type": "checkbox",
+      "id": "display_type",
+      "label": "Show type"
+    },
+    {
+      "type": "checkbox",
+      "id": "display_tags",
+      "label": "Show tags"
+    },
+    {
+      "type": "checkbox",
+      "id": "display_social_buttons",
+      "label": "Show social media share icons",
+      "default": true
+    },
+    {
+      "type": "radio",
+      "id": "product_description_position",
+      "label": "Description position",
+      "options": [
+        {
+          "value": "top",
+          "label": "Above product form"
+        },
+        {
+          "value": "bottom",
+          "label": "Below product form"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Product gallery"
+    },
+    {
+      "type": "checkbox",
+      "id": "gallery_arrows",
+      "label": "Show arrows on product gallery",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "activate_zoom",
+      "label": "Magnify product images on hover"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_product_lightbox",
+      "label": "Enable product gallery popup",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "activate_autoplay",
+      "label": "Enable product gallery slideshow"
+    },
+    {
+      "type": "select",
+      "id": "slideshow_animation",
+      "label": "Gallery transition",
+      "options": [
+        {
+          "value": "slide",
+          "label": "Slide"
+        },
+        {
+          "value": "fade",
+          "label": "Fade"
+        }
+      ],
+      "default": "slide"
+    },
+    {
+      "type": "radio",
+      "id": "product_images_position",
+      "label": "Gallery position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "product_thumbs",
+      "label": "Show product gallery thumbnails",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "thumbnail_position",
+      "label": "Thumbnail position",
+      "default": "bottom-slider",
+      "options": [
+        {
+          "value": "bottom-thumbnails",
+          "label": "Bottom (grid)"
+        },
+        {
+          "value": "bottom-slider",
+          "label": "Bottom (slider)"
+        },
+        {
+          "value": "left-thumbnails",
+          "label": "Left"
+        },
+        {
+          "value": "right-thumbnails",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Product reviews"
+    },
+    {
+      "type": "paragraph",
+      "content": "Reviews app must be enabled. [Learn more](https://help.outofthesandbox.com/hc/en-us/articles/360008549274#section2)"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_shopify_product_badges",
+      "label": "Display star rating on product",
+      "default": false
+    },
+    {
+      "type": "radio",
+      "id": "review_position",
+      "label": "Reviews position",
+      "default": "next_to_gallery",
+      "options": [
+        {
+          "value": "next_to_gallery",
+          "label": "In product description area"
+        },
+        {
+          "value": "below_gallery",
+          "label": "Below image\/description"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Dynamic checkout button"
+    },
+    {
+      "type": "paragraph",
+      "content": "Lets customers check out directly using a familiar payment method. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_button",
+      "label": "Show dynamic checkout button",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Recently viewed products"
+    },
+    {
+      "type": "paragraph",
+      "content": "To test the recently viewed products, view your online store outside of the Editor and visit multiple product pages. [Learn more](https:\/\/help.outofthesandbox.com\/hc\/en-us\/articles\/115008765228)"
+    },
+    {
+      "type": "checkbox",
+      "id": "display_recently_viewed",
+      "label": "Show recently viewed products",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "rv_title",
+      "label": "Title",
+      "default": "Recently Viewed Items"
+    },
+    {
+      "type": "radio",
+      "id": "rv_products_style",
+      "label": "Layout",
+      "default": "grid",
+      "options": [
+        {
+          "value": "slider",
+          "label": "Slider"
+        },
+        {
+          "value": "grid",
+          "label": "Grid"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "rv_max_display",
+      "label": "Products limit",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "rv_per",
+      "label": "Products per row",
+      "min": 3,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Sidebar"
+    },
+    {
+      "type": "paragraph",
+      "content": "Create a sidebar by adding content blocks."
+    },
+    {
+      "type": "checkbox",
+      "id": "toggle",
+      "label": "Toggle sidebar content",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+    	{
+          "type": "text",
+          "id": "bundle-title",
+          "label": "Bundles Title"
+        },
+        {
+          "type": "collection",
+          "id": "feature_collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "settings": {
+
+    }
+  }
+}
+
+{% endschema %}
+
+<style>
+
+{% unless product.metafields.spr.reviews %}  
+ .reviews-height {
+	height: auto;
+    overflow: hidden;
+    position: relative;
+    
+ }
+{% else %}
+  .reviews-height {
+	// height: 756px;
+    overflow: hidden;
+    position: relative;
+    
+ }
+{% endunless %}
+
+  
+   .viewmore {
+   border: solid 1px #f08c81;
+    padding: 5px 10px;
+    color: #f08c81!important;
+    text-transform: uppercase;
+  }
+  .read-container  {
+    text-align: left;
+    padding-bottom: 10px;
+    width: 100%;
+    position: relative;
+  }
+  
+ .mobile-atc .add_to_cart {
+   width: 70%;
+   margin-left: 51px;
+ }
+  .wish {
+    position: fixed!important;
+    z-index: 9999999;
+    bottom: -25px;
+    left: 10px;
+  }
+</style>
+
+
+
+<script type="text/javascript">
+var gorgiasChatInterval = window.setInterval(function () {
+  var iframe = document.querySelector('#gorgias-web-messenger-container');
+    if (iframe) { 
+      var head = iframe.contentWindow.document.querySelector('head')
+      if (head.children.length) {
+        window.clearInterval(gorgiasChatInterval); // this line breaks out of the loop - make sure it's not deleted.        
+        var styles = document.createElement('style');
+        styles.textContent = '#messenger-button  {width: 45px!important; height: 45px!important;} #wrapper { height: 63%!important; top: 25%!important; }'  // the custom CSS you want to inject
+        head.appendChild(styles)
+      }
+    }    
+}, 100);
+  
+$(document).on("click",".spr-review-header",function(e){
+              if ( $(this).parents(".spr-review").hasClass( "factive" ) ) {
+                  $(".spr-review-content").hide()              
+                  $(".spr-review-reply").hide()
+                  $(".fminus").hide()
+                  $(".fplus").show()                                    
+                  $(this).parents(".spr-review").find(".fminus").hide()                  
+                  $(this).parents(".spr-review").find(".fplus").show()                  
+                  $(this).parents(".spr-review").removeClass("factive")
+              }else{
+				  $(".spr-review-content").hide()              
+                  $(".spr-review-reply").hide()
+                  $(".fminus").hide()
+                  $(".fplus").show()                  
+                  $(".spr-review").removeClass("factive")                  
+                  $(this).parents(".spr-review").find(".spr-review-content").show()
+                  $(this).parents(".spr-review").find(".spr-review-reply").show()                  
+                  $(this).parents(".spr-review").find(".reviewsign").toggle()
+                  $(this).parents(".spr-review").addClass("factive")
+              }
+      	})
+
+</script>
+
+
+{% unless product.metafields.spr.reviews %}
+<style>
+  .viewmore {
+    display: none!important;
+  }
+</style>
+{% endunless %}
+
+<style>
+.description {
+  display: block;
+  overflow: hidden;
+  height: auto;
+}
+
+.text-expand,
+.text-contract {
+  margin-top: 10px;
+  color: #d3725d;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.text-expand:hover,
+.text-contract:hover {
+  color: #d3725d;
+}
+
+.hide {
+  display: none;
+}
+  
+.rm {
+    display: block!important;
+    overflow: hidden;  
+  }  
+</style>
+
+
+<script>
+  $(function() {
+  var animspeed = 550; // animation speed in milliseconds
+
+  var $longtext = $('.rm');
+  var height = $longtext.height();
+  var mini = $longtext.data('miniheight');
+
+  if (height > mini) {
+    $('.text-expand').removeClass('hide');
+    $longtext.attr('data-fullheight', height + 'px');
+    $longtext.attr('data-miniheight', mini + 'px');
+    $longtext.css('height', mini + 'px');
+  } else {
+    $longtext.css('height', height + 'px');
+  }
+
+  $('.text-expand').on('click', function(e) {
+    $text = $(this).prev();
+
+    $text.animate({
+      'height': $text.attr('data-fullheight')
+    }, animspeed);
+    $(this).next('.text-contract').removeClass('hide');
+    $(this).addClass('hide');
+  });
+
+  $('.text-contract').on('click', function(e) {
+    $text = $(this).prev().prev();
+
+    $text.animate({
+      'height': $text.attr('data-miniheight')
+    }, animspeed);
+    $(this).prev('.text-expand').removeClass('hide');
+    $(this).addClass('hide');
+  });
+});
+
+</script>
+
+<script>
+var allPanels = $('.accordion > dd').hide();
+    
+  $('.accordion > dt > a').click(function() {
+    if(!$(this).parent().next().is(":visible")) {
+     $(this).find('small.right').html('-');
+    $(this).parent().next().slideDown();
+    } else if($(this).parent().next().is(":visible")){
+      $(this).parent().next().slideUp();
+      $(this).parent().next('.accordion small.right').html('+');
+      $(this).next('small.right').html('+');
+      if($(this).find('small.right').html('-')) {
+        $(this).find('small.right').html('+');
+      } else if($(this).find('small.right').html('+')) {
+        $(this).find('small.right').html('-');
+      }
+    }
+        return false;
+  });
+</script>
+
+<style>
+  .viewmore {
+    display: none!important;
+  }
+  dd {
+  margin-inline-start: 0px!important;
+    margin-top: 10px!important;
+  }  
+  .rm {
+    display: block!important
+  }
+  dt {
+  	margin: 5px 0;
+  }
+  
+  .accordion > dt > a {
+    color: #511811;
+  }
+  .rm a {
+    color: #511811;
+  }
+</style>
+
+
+
+<script>
+$('<p class="text-expand">Read more</p><p class="hide text-contract">Read less</p>' ).insertAfter('.rm');  
+</script>

@@ -1,0 +1,284 @@
+<!-- filename: mcc.liquid -->
+{{ "option_selection.js" | shopify_asset_url | script_tag }}
+{{ "shopify_common.js" | shopify_asset_url | script_tag }} 
+{{ "customer_area.js"  | shopify_asset_url | script_tag }}
+
+<div class="bundle-container">
+  {% for block in section.blocks %}
+  {% assign bundlesHeader = block.settings.feature_collection  %}
+  <div class="bundle-section">
+    {% assign bundles = block.settings.feature_collection | replace: " ", "-" | remove: "-+" %}
+    {% assign bundlesTitle = block.settings.feature_collection  %}
+    <input type="hidden" class="palette" value="32338746933335"/>
+    <input type="hidden" class="bundle-handle-id" value="32407520608343"/>
+      {% for category in bundles %}
+      <div class="flex-wrap">
+            <form method="post" action="/cart/add" enctype="multipart/form-data" class="bundle-form">
+                <button disabled {% if soldout_true %} disabled style="background: gray;
+       border: gray; width: 100%;" {% endif %} type="submit" class="action_button add_to_cart {{ collections[category].handle }}">{% if soldout_true %} Soldout {% else %}Select 4 shades {% endif %}
+                </button>
+            </form>
+      </div>
+      
+      
+    	{% assign soldout_true = false %}
+          <div class="flex-wrap" id="{{ collections[category].id }}">
+            {% for product in collections[category].products %}
+                  {% form 'product', product, class: 'form-image' %}
+                    
+                    <input type="checkbox" onchange="countChecked()"  name="id" id="{{ product.variants.first.id }}" class="vid" value="{{ product.variants.first.id }}" />
+                    <input type="hidden" min="1" type="number" id="quantity" name="quantity" value="1"/>
+                    
+                    <label class="image__container image-checkbox noclass" for="{{ product.variants.first.id }}">
+                      {% for option in product.options %}
+                        {% include 'product-swatch-mcc' %}
+                      
+                      {% endfor %}
+                    </label>
+                      
+                  {% endform %}
+                  {% if variant.inventory_quantity == 0 %}
+                      {% assign soldout_true = true %}
+                  {% endif %}
+                 
+            {% endfor %}
+          </div> 
+
+      {% endfor %}
+  
+  </div>
+  {% endfor %}  
+</div>
+
+
+
+<style>
+.action_button:disabled {
+  color: #511811;
+  font-weight: normal;
+  background: #fff;
+  border: gray;
+  text-align: left;
+  padding-left: 10px;
+}
+.option_title {display: none;}  
+.nopad {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+/*image gallery*/
+.image-checkbox {
+	cursor: pointer;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	border: 4px solid transparent;
+	margin-bottom: 0;
+	outline: 0;
+}
+input[type="checkbox"].vid {
+	display: none;
+}
+
+.image-checkbox-checked .swatch-element {
+	border: #000 1px solid;
+    border-radius: 50px;
+}
+.image-checkbox .fa {
+  position: absolute;
+  color: #4A79A3;
+  background-color: #fff;
+  padding: 10px;
+  top: 0;
+  right: 0;
+}
+.image-checkbox-checked .fa {
+  display: block !important;
+}
+  .swatch-element.color {
+  padding: 2.5px;
+  }  
+  .swatch .swatch-element {margin: 0;}  
+  
+  #message {
+    display: none;
+  }
+
+  input[type=checkbox].vid:checked + label.image-checkbox {
+    border: #e2e2e2 1px solid!important;
+    border-radius: 50px!important;
+  }
+
+  input[type=checkbox].vid:checked + .swatch .color label {
+    border: #e2e2e2 1px solid!important;
+    border-radius: 50px!important;
+}
+:checked + label.image-checkbox {
+  transform: scale(0.9);
+  box-shadow: 0 0 5px #333;
+  z-index: -1;
+}
+
+
+
+</style>
+
+
+<script>
+function countChecked() {
+    
+    if ($('input.vid:checked').length == 4 && $(".bundle-form button").is(':disabled')) {
+        $(".bundle-form button").removeAttr('disabled');
+        $(".bundle-form button").html('Add to bag')
+
+    } else if ($('input.vid:checked').length != 4) {
+      $(".bundle-form button").attr('disabled', true)
+      $(".bundle-form button").html('Select 4 shades');
+    }
+  };
+  $('input.vid').on("change", function(e) {
+      countChecked();
+  });
+  $('.image-checkbox').click(function() {
+    $(this).toggleClass("image-checkbox-checked");
+  });  
+</script>
+
+
+<script type="text/javascript">
+  document.querySelector('.multipurpose-color-cream').addEventListener('click', function (e) {
+     $(".add_to_cart").text("Adding to bag...");
+	Shopify.queue = [];
+    var titles = $('#161092862039 input:checked.vid, .palette, .bundle-handle-id').map(function(){return $(this).val();}).get();            
+    console.log(titles);
+	  var quantity = {{ cart.item_count }} ;
+	  for (var i = 0; i < titles.length; i++) {
+	    product = titles[i]
+	    Shopify.queue.push({
+	      variantId: product,
+	    });
+      }
+    
+	  Shopify.moveAlong = function() {
+	  // If we still have requests in the queue, let's process the next one.
+	  if (Shopify.queue.length) {
+	    var request = Shopify.queue.shift();
+	    var data = 'id='+ request.variantId + '&quantity=1'
+	    $.ajax({
+	      type: 'POST',
+              url: '/cart/add.js',
+	      dataType: 'json',
+	      data: data,
+	      success: function(res){
+	        Shopify.moveAlong();
+		    quantity += 1;
+	      },
+          error: function(){
+             if (Shopify.queue.length){
+                Shopify.moveAlong()
+                quantity += 1;
+             } else {
+               window.location.href = "/cart";
+             }
+           }
+           
+           });
+        }
+	 // If the queue is empty, we add 1 to cart
+	else {
+	  quantity += 1;
+	   window.location.href = "/cart";
+	 }
+    };
+    
+    
+    Shopify.moveAlong();
+  e.stopPropagation();
+  e.preventDefault();
+    }, false);
+</script>
+ 
+
+
+<style>
+  .flex-wrap .price-bundle {
+    font-size: 20px;
+  }
+  .bundle-name {
+    font-size: 18px;
+    font-weight: 500;
+  }
+   .bundle-form {
+
+   }
+  .flex-wrap {
+
+  }
+
+   .flex-wrap .bundleProducts {
+
+  }
+  .bundle-container {
+    width: 100%;
+    margin: 0 auto;
+  }
+  .sale_holder {
+    display: none;
+  }
+  .ajax-submit {
+    display: none!important;
+  }
+  .product-details {
+    margin: 10px;
+  }
+  
+  .flex-wrap .bundleProducts {
+      width: 15%!important;
+      margin: 0;
+  }
+  .form-image {
+     width: 15%;
+     display: inline-block;
+    margin-bottom: 0;
+    }
+  
+  .swatch .color label {
+  	width: 40px!important;
+    height: 40px!important;
+  }
+  
+  .add_to_cart.action_button {
+      width: 394px;
+    }
+  @media only screen and (max-width: 480px) {
+    .flex-wrap {
+
+    }
+    .add_to_cart.action_button {
+      width: 100%;
+    }
+    .flex-wrap .form-image {
+     
+    }
+    .form-image {
+     width: 15%;
+     display: inline-block;
+    
+    }
+    .bundle-form {
+     width: 100%;
+    }
+    .flex-wrap .price-bundle {
+
+    }
+    .my-mcc {
+
+    }
+  }
+  .showswatch {
+    
+  }
+  .bundle-section {
+  
+  }
+</style>

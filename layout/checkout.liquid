@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}" dir="{{ direction }}" class="{{ checkout_html_classes }}">
+  <head> 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+    <meta name="referrer" content="origin">
+
+    <title>{{ page_title }}</title>
+    {{ content_for_header }}
+    {{ checkout_stylesheets }}
+    {{ checkout_scripts }}
+
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> 
+<script>
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var t=analytics.methods[e];analytics[t]=analytics.factory(t)}analytics.load=function(e,t){var n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src="https://cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(n,a);analytics._loadOptions=t};analytics.SNIPPET_VERSION="4.1.0";
+  analytics.load("ibB4LmkB7BRVXeVmdRwB4vawr6XOCRPm");
+  analytics.page();
+  }}();
+</script>
+   
+ 
+  
+  <!-- Event snippet for Website Purchases conversion page -->
+{% if first_time_accessed %}
+    <script>
+  gtag('event', 'conversion', {
+      'send_to': 'AW-719070602/cYrWCMjV5KkBEIrL8NYC',
+      'value': {{ checkout.total_price | money_without_currency }},
+      'currency': '{{ shop.currency }}',
+      'transaction_id': '{{ order_number  }}'
+  });
+</script>
+    {% endif %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>	
+    {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+  
+ 
+
+    
+<script src="https://cdn.jsdelivr.net/jquery.cookie/1.1/jquery.cookie.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+  var steps = document.title;
+   if(steps === "Payment - Ellana Cosmetics - Checkout" ) {  
+  
+$(function(){ 
+  $('#accordion').accordion({
+    heightStyle: "content",
+    collapsible: true,
+    active: false
+  });
+
+  $('#accordion').on('mouseleave', function() {
+    $(this).accordion("activate", false);
+  });
+  $(".rotate").click(function(){
+   $(this).toggleClass("down")  ; 
+  })
+  $('#accordion').insertAfter('[data-subfields-for-gateway="87457415"]');
+  $('[data-select-gateway="37465751639"], #payment-gateway-subfields-37465751639, [data-gateway-name="paypal"], #payment-gateway-subfields-87388743, [data-select-gateway="87458247"], #payment-gateway-subfields-87458247').appendTo('#appendpayment');
+});
+   }
+</script>
+  
+</head>
+  <body>
+    {{ skip_to_content_link }}
+
+    <div class="banner" data-header>
+      <div class="wrap">
+        {{ content_for_logo }}
+      </div>
+    </div>
+
+    {{ order_summary_toggle }}
+
+    <div class="content" data-content>
+      <div class="wrap">
+        <div class="main" role="main">
+          <script>
+              $(document).ready(function(){
+               
+                $("select#checkout_shipping_address_province").change(function(e){
+                   var selectedProv = $(this).children("option:selected").text();
+                   $("input#prov").val(selectedProv);
+                   localStorage.setItem('myProv', selectedProv);
+                });
+                $('#checkout_shipping_address_address2').on('input',function(e){
+                    var barangay = $(this).val();
+                    $("#bar").val(barangay);
+                    localStorage.setItem('myBarangay', barangay);
+                });
+                
+                $('#checkout_shipping_address_city').on('input',function(e){
+                    var city = $(this).val();
+                    $("#cit").val(city);
+                    localStorage.setItem('myCity', city);
+                });
+                
+                   
+              });   
+          </script>
+          
+          {% for attribute in checkout.attributes %}
+            <input type="hidden" name="checkout[attributes][{{ attribute.first }}]" value="{{ attribute.last }}">
+          {% endfor %}
+          
+          <div id="capturedata">
+            
+          <!--  <input required class="required" id="to" type="hidden" name="checkout[attributes][To]" value="">
+            <input required class="required" id="from" type="hidden" name="checkout[attributes][From]" value="">
+            <input required class="required" id="message" type="hidden" name="checkout[attributes][Message]" value="">
+            -->
+            <input required class="required" id="cit" type="hidden" name="checkout[attributes][City]" value="">
+            <input required class="required" id="prov" type="hidden" name="checkout[attributes][Province]" value="">
+            <input required class="required" id="bar" type="hidden" name="checkout[attributes][Barangay]" value="">
+          </div>
+          
+          <div id="append-dropdown" class="cart-attribute__field" style="display: none;">
+            	<div class="field field--required field--show-floating-label">
+           	      <div class="field__input-wrapper">
+                    <input required class="required" id="cit" type="hidden" name="checkout[attributes][City]" value="">
+                    <label class="field__label field__label--visible" for="city">City</label>
+                    <select required aria-required="true" class="field__input field__input--select" required name="checkout[attributes][City]" id="city" value="" >
+                    </select>
+                    <div class="field__caret">
+                      <svg class="icon-svg icon-svg--color-adaptive-lighter icon-svg--size-10 field__caret-svg" aria-hidden="true" focusable="false"> <use xlink:href="#caret-down"></use> </svg>
+                    </div>
+                  </div>
+            	</div>
+            	<div class="field field--required field--show-floating-label">
+           		  <div class="field__input-wrapper">
+                    
+                    <label class="field__label field__label--visible" for="barangay">Barangay</label>
+                    <select required aria-required="true" class="field__input field__input--select" required name="checkout[attributes][Barangay]"  id="barangay" value="" >
+                               <option disabled="" selected="" value="">Select Barangay</option>
+                    </select>
+                    <div class="field__caret">
+                      <svg class="icon-svg icon-svg--color-adaptive-lighter icon-svg--size-10 field__caret-svg" aria-hidden="true" focusable="false"> <use xlink:href="#caret-down"></use> </svg>
+                    </div>
+                  </div>
+            	</div>
+          </div>
+          
+          <div class="main__header">
+            {{ content_for_logo }}
+            {{ breadcrumb }}
+            {{ alternative_payment_methods }}
+          </div>
+          <div class="main__content">
+            
+            {{ content_for_layout }}
+          </div>
+          <div class="main__footer">
+            {{ content_for_footer }}
+          </div>
+        </div>
+        <div class="sidebar" role="complementary">
+          <div class="sidebar__header">
+            {{ content_for_logo }}
+          </div>
+          <div class="sidebar__content">
+            {{ content_for_order_summary }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{ tracking_code }} 
+    
+
+  {% include 'insider' %} 
+    <!--Gorgias Chat Widget Start--><script id="gorgias-chat-widget-install">!function(_){_.GORGIAS_CHAT_APP_ID="3244",_.GORGIAS_CHAT_BASE_URL="us-east1-898b.production.gorgias.chat",_.GORGIAS_API_BASE_URL="config.gorgias.chat";var e=new XMLHttpRequest;e.open("GET","https://config.gorgias.chat/applications/3244",!0),e.onload=function(t){if(4===e.readyState)if(200===e.status){var n=JSON.parse(e.responseText);if(!n.application||!n.bundleVersion)throw new Error("Missing fields in the response body - https://config.gorgias.chat/applications/3244");if(_.GORGIAS_CHAT_APP=n.application,_.GORGIAS_CHAT_BUNDLE_VERSION=n.bundleVersion,n&&n.texts&&(_.GORGIAS_CHAT_TEXTS=n.texts),n&&n.sspTexts&&(_.GORGIAS_CHAT_SELF_SERVICE_PORTAL_TEXTS=n.sspTexts),!document.getElementById("gorgias-chat-container")){var o=document.createElement("div");o.id="gorgias-chat-container",document.body.appendChild(o);var r=document.createElement("script");r.setAttribute("defer",!0),r.src="https://storage.googleapis.com/gorgias-chat-production-client-builds/{bundleVersion}/static/js/main.js".replace("{bundleVersion}",n.bundleVersion),document.body.appendChild(r)}}else console.error("Failed request GET - https://config.gorgias.chat/applications/3244")},e.onerror=function(_){console.error(_)},e.send()}(window||{});</script><!--Gorgias Chat Widget End-->
+ </body>
+</html>
+
+
+<style>
+
+  .product-added-info {
+	 padding: 20px;
+	 background: #fff;
+  	 margin-bottom:12px;
+}
+ .product-added-info .row {
+	 margin-bottom: 0;
+	 text-align: center;
+}
+   .product-added-info .row h2 {
+	 padding-bottom: 0;
+	 margin-bottom: 12px;
+}
+ .product-added-info .row h4 {
+	 padding-bottom: 0;
+	 margin-bottom: 0;
+}
+ 
+  .main .field__input::placeholder{
+  	opacity:0;
+  }
+  .sidebar .field__input::placeholder{
+  	opacity:0;
+  }
+  .floating-labels .field__label{
+    position: absolute;
+    opacity: 1;
+    left: 0;
+    font-size:11px;
+    font-weight:500;
+    /* bottom: 38px; */
+    display: block;
+    top: 0px;
+    &::after{
+    	content:" *";
+      	color: red;
+    }
+  }
+  
+  .product-recommendations__list{
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+  }
+  .dynamic-checkout {
+    display: none;
+  }
+  .alternative-payment-separator{
+    display: none;
+  }
+  .checkout_shipping_address_city {
+    display: none;
+  }
+  #append-dropdown {
+    width: 100%;
+  }
+  
+
+  div[data-select-gateway="87457415"] {
+    display: block;
+  }
+  
+  .importantDisplay {
+    display: block;
+  }
+  
+  .importantNone {
+    display: none!important;
+  }
+  
+  .action_button {
+    color: #e08377;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .section--shipping-method .radio__label__accessory br, .section--shipping-method .content-box__small-text{
+  	display:none;
+  }
+  
+</style>
+
+
+<!-- orig brgy complete https://cdn.shopify.com/s/files/1/1307/5383/files/barangay-ellana-new.js?21417 -->
+
+<script>
+  
+!function()
+{if('object'==typeof Checkout&&'function'==typeof Checkout.$) {
+  var a='https://cdn.shopify.com/s/files/1/1307/5383/files/barangay_48e06e62-ae2c-44ea-843a-28cf088726e4.js?v=1611548187',
+b=document.createElement('script');
+b.type='text/javascript',b.src=a,
+document.getElementsByTagName('head')[0].appendChild(b)
+}}();  
+  
+</script>
+
+
+<script>
+var steps = document.title;
+   if(steps === "Information - Ellana Cosmetics - Checkout" || steps === "Error - Information - Ellana Cosmetics - Checkout" || steps === '    Information - Ellana Cosmetics - Checkout') {  
+  
+  $(document).ready(function() {
+  	$('#append-dropdown').insertAfter('[data-address-field="province"]');
+    $('#append-dropdown').show();
+  });
+     
+  $(document).ready(function() {
+  	$('#capturedata').insertAfter('[data-address-field="address2"]');
+  });   
+
+
+     
+     
+  $(document).ready(function(){
+     $('<div class="field field--show-floating-label" id="below-notes"> <div class="radio-wrapper"> <div class="radio__input"><input class="input-radio" data-backup="home" data-trekkie-id="home" type="radio" value="home" name="checkout[attributes][Address Type]" id="checkout_home"> </div><label class="radio__label" for="checkout_home">Home</label> </div><div class="radio-wrapper"> <div class="radio__input"> <input class="input-radio" data-backup="office" data-trekkie-id="office" type="radio" value="office" name="checkout[attributes][Address Type]" id="checkout_office"> </div><label class="radio__label" for="checkout_office">Office</label> </div></div>').insertBefore('.field[data-address-field="address1"]');
+  })
+
+  /*  $(document).ready(function() {  
+   	$('<div class="field field--show-floating-label"><div class="field__input-wrapper"><input id="prov" type="hidden" name="checkout[attributes][Delivery Date]" value=""><label class="field__label field__label--visible" for="datedelivery">Best date/time to deliver (subject to courier route/schedule)</label><input type="text" class="field__input field__input--select" name="checkout[attributes][Delivery Date]"  value=""></div></div>').insertAfter('#below-notes');
+   });   
+     
+
+    
+     
+  $(document).ready(function(){
+     $('<div class="field field--show-floating-label" id="below-notes"> <div class="radio-wrapper"> <div class="radio__input"><input class="input-radio" data-backup="home" data-trekkie-id="home" type="radio" value="home" name="checkout[attributes][Address Type]" id="checkout_home"> </div><label class="radio__label" for="checkout_home">Home</label> </div><div class="radio-wrapper"> <div class="radio__input"> <input class="input-radio" data-backup="office" data-trekkie-id="office" type="radio" value="office" name="checkout[attributes][Address Type]" id="checkout_office"> </div><label class="radio__label" for="checkout_office">Office</label> </div></div>').insertAfter('.field[data-address-field="address1"]');
+  })
+
+   $(document).ready(function() {  
+   	$('<div class="field field--show-floating-label"><div class="field__input-wrapper"><input id="prov" type="hidden" name="checkout[attributes][Delivery Date]" value=""><label class="field__label field__label--visible" for="datedelivery">Best date/time to deliver (subject to courier route/schedule)</label><input type="text" class="field__input field__input--select" name="checkout[attributes][Delivery Date]"  value=""></div></div>').insertAfter('#below-notes');
+   });   
+     
+    */
+    
+   $(document).ready(function() {  
+   	$('<div id="besttimetodeliver" class="field field--show-floating-label"><div class="field__input-wrapper"><input id="prov" type="hidden" name="checkout[attributes][Delivery Date]" value=""><label class="field__label field__label--visible" for="datedelivery">Best date/time to deliver (subject to courier route/schedule)</label><input type="text" class="field__input field__input--select" name="checkout[attributes][Delivery Date]"  value=""></div></div>').insertAfter('#below-notes');
+   });   
+     
+     $(".order-summary__section--discount").hide();
+     
+  $(document).ready(function(){
+      $("select#checkout_shipping_address_province").change(function(){
+          var selectedCountry = $(this).children("option:selected").text();
+         localStorage.setItem('myPostal', selectedCountry);
+       $("#prov").val(selectedCountry);
+       $("#checkout_shipping_address_province").val(selectedCountry);
+     });
+      $("select#city").change(function(){
+          var selectedCity = $(this).children("option:selected").text();
+        localStorage.setItem('myCity', selectedCity);
+        $("#cit").val(selectedCity);
+        $("#city").val(selectedCity);
+        $("#checkout_shipping_address_city").val(selectedCity);
+      });
+
+  });
+  $('[data-address-field="city"]').hide();  
+$('.edit_checkout').removeAttr('novalidate');
+
+   
+//   $('[data-address-field="city"]').hide();
+  
+//   } else {
+//     $('#append-dropdown').hide();
+//   }
+  
+//var citiness = $("#city").val();
+//$("input#checkout_shipping_address_city").val(citiness);
+
+$(document).ready(function(){  
+  var steps = document.title;
+  if (steps == "Shipping - Ellana Cosmetics - Checkout" || steps == "Payment - Ellana Cosmetics - Checkout") {
+    if (localStorage.getItem("myPostal") === null) {
+      window.location.replace('?step=contact_information');
+    }
+  }
+});
+
+$(document).ready(function() {
+  	$('.trust-badge').insertAfter('.policy-list');
+});  
+   }
+</script>
+
+
+
+<style>
+  div[data-select-gateway="87457415"] {
+    display: block;
+  }
+  
+  .importantDisplay {
+    display: block;
+  }
+  
+  .importantNone {
+    display: none!important;
+  }
+  
+  [for="checkout_payment_gateway_128657735"] span {
+    display: contents!important;
+  }
+  [for="checkout_payment_gateway_128657735"]  {
+  	content: url('https://cdn.shopify.com/s/files/1/1307/5383/files/grabpayviadrag.png?v=1600325238');
+    width: 200px!important;
+  }
+  /** [for="checkout_payment_gateway_37465751639"]  {
+  	content: url('https://cdn.shopify.com/s/files/1/1307/5383/files/gcash.png?v=1585789872');
+    width: 100px!important;
+    position: absolute;
+    top: 16%;
+  } */
+  
+  [for="checkout_payment_gateway_37465751639"]:after {
+  	content: url('//cdn.shopify.com/s/assets/payment_icons/gcash-bf77f3d4f7896d286920aa41cbb7a1050fa4090a8e8932474d1e1272a1581236.svg');
+    position: absolute;
+    right: 15px;
+    top: 13px;
+  }
+  [data-select-gateway="87458247"]:after {
+    content: url('https://cdn.shopify.com/s/files/1/1307/5383/files/bdobpi.png?v=1585791726');
+    width: 100px!important;
+    position: absolute;
+    top: -15px;
+    right: 97px;
+    opacity: 1;
+    transform: scale(.35);
+ }
+  
+  
+  
+  #payment-gateway-subfields-87458247 {
+    text-align: center;
+  }
+  #payment-gateway-subfields-128657735 {
+    text-align: center;
+  }
+  
+  #payment-gateway-subfields-128657735 i {
+    display: none;
+  }
+  .trust-badge {
+    display: flex;
+    justify-content: left;
+    width: 100%;
+  }
+  .trust-badge img {
+    width: 350px;
+  }
+</style>
+
+
+
+<script>
+$(function(){ 
+  		let checkduplicate = [];
+		/* $("#checkout_shipping_address_zip").addClass("hidden");
+        $('#checkout_shipping_address_zip').parent(".field__input-wrapper").append('<select placeholder="Postal code" autocomplete="shipping postal-code" autocorrect="off" data-backup="zip" data-trekkie-id="shipping_zip_google_autocomplete_field" data-autocomplete-trigger="true" data-autocomplete-title="Suggestions" data-autocomplete-single-item="1 item available" data-autocomplete-multi-item="{{number}} items available" data-autocomplete-item-selection="{{number}} of {{total}}" data-autocomplete-close="Close suggestions" class="field__input field__input--zip" aria-required="true" name="checkout[shipping_address][zip]" id="checkout_shipping_address_zip_select">' +
+                                                  '<option disabled="" selected="" value="">' + 'Select Postal' + '</option>'
+                                                + '</select>');		
+        $("select#city").change(function(){
+                    checkduplicate = [];
+          			$('#checkout_shipping_address_zip_select').replaceWith('<select placeholder="Postal code" autocomplete="shipping postal-code" autocorrect="off" data-backup="zip" data-trekkie-id="shipping_zip_google_autocomplete_field" data-autocomplete-trigger="true" data-autocomplete-title="Suggestions" data-autocomplete-single-item="1 item available" data-autocomplete-multi-item="{{number}} items available" data-autocomplete-item-selection="{{number}} of {{total}}" data-autocomplete-close="Close suggestions" class="field__input field__input--zip" aria-required="true" name="checkout[shipping_address][zip]" id="checkout_shipping_address_zip_select">' +
+                                                  '<option disabled="" selected="" value="">' + 'Select Postal' + '</option>'
+                                                + '</select>');
+					$citydropdown = $(this).val().toLowerCase();					
+				    $.getJSON( "https://cdn.shopify.com/s/files/1/1307/5383/files/postaljson_e9fe6898-3842-4358-817b-639a89269aa1.json?v=1585575487", function( data ) {					  
+                      $.each( data, function( key, val ) {
+                
+                              if($citydropdown == val.Municipality.toLowerCase()){
+                                if($.inArray(val["Zip Code"], checkduplicate) > -1){
+
+                                }else{
+                                    checkduplicate.push(val["Zip Code"]);
+                                }
+                              }					
+                       }) // for each
+                    }).done(function(){
+                          
+                          if(checkduplicate.length > 0){
+                              for(var i=0; i<checkduplicate.length; i++){
+                                var name = checkduplicate[i];                                
+                                $('#checkout_shipping_address_zip_select').append($('<option value="' + name + '">', name).text(name));
+                              }	
+                          }else{
+                              $('#checkout_shipping_address_zip_select').replaceWith('<input placeholder="Postal code" autocomplete="shipping postal-code" autocorrect="off" data-backup="zip" data-trekkie-id="shipping_zip_google_autocomplete_field" data-autocomplete-trigger="true" data-autocomplete-title="Suggestions" data-autocomplete-single-item="1 item available" data-autocomplete-multi-item="{{number}} items available" data-autocomplete-item-selection="{{number}} of {{total}}" data-autocomplete-close="Close suggestions" class="field__input field__input--zip" aria-required="true" type="text" name="checkout[shipping_address][zip]" id="checkout_shipping_address_zip_select">')
+                          }
+                    }); // json ajax  
+	 	})
+      $("#checkout_shipping_address_zip_select").change(function(){
+          var selectedpost = $(this).children("option:selected").val();
+          
+          console.log(selectedpost)
+          $("#checkout_shipping_address_zip").val(selectedpost);
+      });
+$("#checkout_shipping_address_zip_select").editableSelect();
+       */               
+  
+  $('[for="checkout_shipping_address_phone"]').html('Enter your 11-digit mobile number e.g 09170000000')
+  
+  $("#checkout_shipping_address_phone").replaceWith('<input placeholder="Enter your 11-digit mobile number e.g 09170000000" autocomplete="off" autocorrect="off" data-backup="phone" data-trekkie-id="shipping_phone_field" data-phone-formatter="false" aria-describedby="tooltip-for-phone" aria-required="true" class="field__input field__input--numeric" size="30" type="string" name="checkout[shipping_address][phone]" id="checkout_shipping_address_phone">');
+  var pm = $('.payment-method-list__item__info').text();
+  if (pm == "GCASH") {
+  $('.os-step__special-description').prepend('<img src="https://cdn.shopify.com/s/files/1/1307/5383/files/qrgcash.jpg?v=1588836113" />')
+  }
+  if (pm == "Bank Deposit") {
+    $('.os-step__special-description').prepend('<button id="append-pop" class="btn">SUBMIT PROOF OF PAYMENT</button>')
+  }
+  if (pm == "GCASH") {
+    $('.os-step__special-description').prepend('<button id="append-pop" class="btn">SUBMIT PROOF OF PAYMENT</button>')
+  }
+});
+          
+$(document).ready(function(){
+
+  $('[for="city"]').append(" <span style='color:red'> *</span>");
+  $('[for="barangay"]').append(" <span style='color:red'> *</span>");
+  $('[for="checkout_shipping_address_country"]').append(" <span style='color:red'> *</span>");
+  $('[for="checkout_shipping_address_address1"]').append(" <span style='color:red'> *</span>");
+  $('[for="checkout_shipping_address_first_name"]').append(" <span style='color:red'> *</span>");
+  $('[for="checkout_shipping_address_last_name"]').append(" <span style='color:red'> *</span>");
+  $('[for="checkout_shipping_address_province"]').append(" <span style='color:red'> *</span>");
+  
+  $('[for="checkout_shipping_address_phone"]').append(" <span style='color:red'> *</span>");
+  $('[for="checkout_shipping_address_zip"]').append(" <span style='color:red'> *</span>");
+  
+ 
+  
+  
+  
+  $("#checkout_shipping_address_address2").change(function(){
+  	$checkoutaddress = $(this).val()
+  })
+  
+  $('body').on('click', '#checkout_shipping_address_zip_select option', function() {
+      $("#checkout_shipping_address_zip").val($(this).val()) 
+  });
+  /*
+  $("#checkout_shipping_address_phone").on("keyup",function(){
+    	$digits = parseInt($("#checkout_shipping_address_phone").val().length)
+        if(($digits > 0) && ($digits < 11) ){
+        	$("#continue_button").replaceWith('<div name="button" type="submit" id="continue_button" class="step__footer__continue-btn btn disable" aria-busy="false"><span class="btn__content" data-continue-button-content="true">Continue to shipping</span><svg class="icon-svg icon-svg--size-18 btn__spinner icon-svg--spinner-button" aria-hidden="true" focusable="false"> <use xlink:href="#spinner-button"></use> </svg></div>')
+        }else{        	
+            $("#continue_button").replaceWith('<button name="button" type="submit" id="continue_button" class="step__footer__continue-btn btn" aria-busy="false"><span class="btn__content" data-continue-button-content="true">Continue to shipping</span><svg class="icon-svg icon-svg--size-18 btn__spinner icon-svg--spinner-button" aria-hidden="true" focusable="false"> <use xlink:href="#spinner-button"></use> </svg></button>')
+        }
+  }) */
+  
+  $('.step .edit_checkout ').submit(function() {
+	
+    	let checkoutvalue = $("#checkout_shipping_address_phone").val();
+    	checkoutvalue = checkoutvalue.replace(/\D/g,'');
+    	$digits = parseInt(checkoutvalue.length)
+        
+    	let checker = checkoutvalue.slice(0,3);
+       	if((checker.includes("63")) || (checker.includes("+"))){
+        		alert("Please use 0 as country code instead of +63")
+                return false;
+        }else{
+          if(($digits == 11)){
+				return true;
+          }else{
+              alert("Please enter 11 digit mobile number")
+              return false;           
+          }
+        } 
+
+    
+   });
+  
+  $(document.body).on('click','.disable',function() 
+  {
+		$digits = parseInt($("#checkout_shipping_address_phone").val().length)
+        if($digits == 11){
+          	
+        }else{
+        	//alert("Please enter 11 digit phone number")
+        }
+    	
+  })
+  
+  console.log("testing2")
+  let brgy = "";
+  
+  setTimeout(function(){
+  	$('#checkout_shipping_address_address2').val("");
+  }, 500);
+  $(document.body).on('change','#barangay',function() 
+  {
+    brgy = $(this).val();
+    brgy = brgy.toLowerCase();
+    if(brgy.includes("others")){
+      $('#checkout_shipping_address_address2').val($checkoutaddress);	
+    }else{
+        if((brgy.includes("barangay")) || (brgy.includes("brgy"))){
+          $('#checkout_shipping_address_address2').val($checkoutaddress + ' ' + $(this).val());	
+        }else{
+          $('#checkout_shipping_address_address2').val($checkoutaddress + ' Barangay ' + $(this).val());	
+        }
+    }    	
+    
+  })
+  
+})
+
+$('<option value="Others">Others</option>').appendTo("#barangay");
+  $('<option value="Others">Others</option>').appendTo("#city");
+</script>
+
+
+
+<script>
+   $('#payment-gateway-subfields-128657735').prepend('<img src="https://cdn.shopify.com/s/files/1/1307/5383/files/dragonpaymerchants.png?v=1585791099" width="50%" />')
+   $( '[for="checkout_payment_gateway_87458247"]' ).text( "Bank Deposit / Online Transfer" );
+  $('#payment-gateway-subfields-37465751639').prepend('<img src="https://cdn.shopify.com/s/files/1/1307/5383/files/qrgcash.jpg?v=1588836113" />')
+</script>
+
+
+
+
+
+
+  
+  
+  
+  
+  <!-- DOnt touch below Product Upsell  -->
+
+<script>
+  $(document).on('click', '.ajax-submit', function(e) {
+      e.preventDefault();
+      var $addToCartForm = $(this).closest('form');
+      var $addToCartBtn = $addToCartForm.find('.add_to_cart');
+
+      $.ajax({
+        url: '/cart/add.js',
+        dataType: 'json',
+        cache: false,
+        type: 'post',
+        data: $addToCartForm.serialize(),
+        beforeSend: function() {
+          $addToCartBtn.attr('disabled', 'disabled').addClass('disabled');
+          $addToCartBtn.find('span').removeClass("fadeInDown").addClass('animated zoomOut');
+        },
+        success: function(itemData) {
+          setTimeout(function() {
+              
+                window.location.reload();
+              }, 500);
+        },
+        error: function(XMLHttpRequest) {
+          var response = eval('(' + XMLHttpRequest.responseText + ')');
+          response = response.description;
+          $('.warning').remove();
+
+          var warning = '<p class="warning animated bounceIn">' + response.replace('All 1 ', 'All ') + '</p>';
+          $addToCartForm.after(warning);
+          $addToCartBtn.removeAttr('disabled').removeClass('disabled');
+          $addToCartBtn.find('span').text(Shopify.translation.add_to_cart).removeClass('zoomOut').addClass('zoomIn');
+        }
+      });
+
+      return false;
+    });
+</script>
+
+
+<div class="product-recommendations__list" style="margin-bottom: 25px;">
+
+<div class="section__header"><h2 class="section__title thankyou">YOU MAY ALSO LIKE</h2></div>
+
+  <table class="product-table">
+    
+    	<tbody class="insertreco"></tbody>
+    
+  </table>
+
+</div>
+
+
+
+<script>
+  
+  
+var steps = document.title;
+  if(steps === "Information - Ellana Cosmetics - Checkout" ) {  
+  
+$(document).ready(function(){  
+  $('.order-summary-toggle__text--show').click()
+  $('.product-recommendations__list').insertAfter('.order-summary__section--total-lines');  
+
+  jQuery.getJSON("/collections/product-recommendations/products.json?&limit=3", function(
+   response
+  ) {
+   var recommendedProducts = response.products;
+   if (recommendedProducts.length > 0) {
+
+     for (let i = 0; i < recommendedProducts.length; ++i) {
+
+       jQuery.getJSON('/products/' + recommendedProducts[i].handle + '.js', function(product) {
+
+         var productID = product.variants[0].id;
+         var priceMoney = Shopify.formatMoney(product.variants[0].price).replace('$', '');  
+         $string = product.handle;
+         if ($string.indexOf('gift') > -1 || $string.indexOf('*') > -1 || $string.indexOf('@') > -1){
+          }else{
+            $(".insertreco").append('<tr class="product">' + '<td class="product__image">' + '<div class="product-thumbnail">' + '<div class="product-thumbnail__wrapper">' + '<img alt="" class="product-thumbnail__image" src="' + product.images + '" >' + '</div>' + '</div>' + '</td>' + '<td class="product__description">' + '<span class="product__description__name order-summary__emphasis">' + product.title + '</span>' + '<span class="product__description__variant order-summary__small-text">' + '</span>' + '</td>' + '<td class="product__price priceformatting">' + '<span class="order-summary__emphasis">' + '₱' + priceMoney + '</span>' + '</td>' + '<td class="product__price">' + '<form method="post" action="/cart/add">'+ '<input type="hidden" name="id" value="' + productID + '" />' + '<input min="1" type="number" id="quantity" name="quantity" value="1" style="display: none" />' + '<button type="button" value="Add" name="add" class=" ajax-submit add_to_cart action_button">' + 'Add' +'</button>' + '</form>' + '</td>' + '</tr>')
+          } 
+       });
+       
+      
+      }
+   }
+  });  
+});  
+  } else {
+    $('.thankyou').hide();
+  }
+    
+</script>
+
+
+  <div class="trust-badge">
+    <img src="https://cdn.shopify.com/s/files/1/1307/5383/files/norton.png?v=1589188945" />
+  </div>
+
+
+
+<script>
+$(document).ready(function(){
+  var pm = $('.payment-method-list__item__info').text();
+  if (pm == "GCASH" || pm == "Bank Deposit") {
+        $('.close').on("click", function(e) {
+          e.preventDefault();
+        $('#popup, #overlay').hide();
+        $.cookie('choosen-Accept', 'yes', {
+           expires: 1
+        });
+      }); 
+    $('#append-pop').on("click", function(e) {
+          e.preventDefault();
+     	  $("#overlay").fadeIn(500).show();
+          $("#popup").fadeIn(500).show();
+      });
+       if (document.cookie.indexOf("choosen-Accept") < 0) {
+
+        $("<div>",{ id : "overlay" }).insertBefore("#popup");
+        setTimeout(
+         function() 
+          {
+          $("#overlay").fadeIn(500).show();
+          $("#popup").fadeIn(500).show();
+          }, 2500);
+       }
+  }
+      $('#below-notes').on("click",function(){
+      if($("#checkout_office").is(':checked')) { 
+        $("#besttimetodeliver").show() 
+	  }else{
+      	$("#besttimetodeliver").hide()
+      }
+  })
+      
+});
+</script>
+     
+
+
+<script>    
+function copyToClipboard(element) {
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val($(element).text()).select();
+  document.execCommand("copy");
+  $temp.remove();
+  $('.coppied').show().delay(3000).fadeOut();
+}
+</script>
+
+<div id="popup">
+    <div class="close">X</div>
+    <h2 class="pop-header"> Submit Your Proof of Payment</h2>
+  <div class="pop-sub">
+	Upload your screenshot to confirm your order. <br />
+    Tap to copy your order number:<br><button id="p1" onclick="copyToClipboard('#p1')">#{{ checkout.order_number }}</button><span class="coppied">copied!</span>
+  	<br />
+  
+	Paste below to confirm
+  </div>
+    <div class="pop-container">
+      <iframe src="https://formbuilder.hulkapps.com/corepage/customform?id=jHwOQ2ZpSD2-CSK9gVBVuQ" data-form-name="Price Match" title="Form Builder - jHwOQ2ZpSD2-CSK9gVBVuQ" class="pop" id="frame_jHwOQ2ZpSD2-CSK9gVBVuQ" frameborder="0" width="100%" style="height: 420px;">
+      </iframe>
+    </div>
+</div>
+
+<style>
+  .coppied {
+    display: none;
+  }
+  #p1 {
+    color: #000;
+    font-weight: bold;
+    border: 1px solid;
+    padding: 5px;
+    margin: 5px 0;
+    background: whitesmoke;
+  }
+  .pop-header {
+    font-family: Poppins, sans-serif;
+    text-transform: uppercase;
+    padding: 25px 25px 5px 25px;
+    font-weight: bold;
+  }
+  .pop-sub {
+    padding-bottom: 25px;
+  }
+    #overlay {
+      display: none;
+      
+      position: fixed;
+      top: 0%;
+      left: 0%;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      z-index: 0;
+      -moz-opacity: 0.75;
+      opacity: .75;
+      filter: alpha(opacity=75);
+      z-index: 9;
+    }
+    
+    #popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 676px;
+      height: 400px;
+      max-width: 100%;
+      max-height: 100%;
+      padding: 0px 0px 0px 0px;
+      box-shadow: 0px 1px 10px rgba(0,0,0,0.5);
+      background-color: white;
+      z-index: 0;
+      text-align: center;
+      z-index: 9999999;
+      font-family: Poppins, sans-serif;
+	  border-radius: 10px;
+      padding: 15px 0 100px;
+      
+    }
+
+
+
+    #popup .close {
+      cursor: pointer;
+      color: #000;
+      font: normal 20px 'Open Sans';
+      font-weight: bold;
+      float: right;
+      margin: 5px 10px 0px 0px;
+      border-radius: 5px;
+      width: 20px;
+      padding: 1px 0px 8px 8px;
+      height: 20px;
+    }
+
+    #popup .pop-title {
+      font-family: 'helvetica';
+      color: #EF614F;
+      text-align: center;
+      padding: 0;
+      margin-top: 40px;
+      font-weight: bold;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+      font-size: 66px;
+      font-weight: 900;
+        
+    }
+    
+    @media only screen and (max-width:480px) {
+      #popup .pop-title {
+          font-size: 42px;
+      }
+      ::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+::-webkit-scrollbar:vertical {
+    width: 12px;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 10px;
+    border: 2px solid #ffffff;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;  
+    background-color: #ffffff; 
+}
+    }
+    #popup p {
+      font-size: 28px;
+      line-height: 1.3em;
+      font-weight: 100;
+      
+    }
+    
+    @media only screen and (max-width:480px){
+      #popup p {
+          font-size: 18px;
+      }
+      #popup {
+        height: 75%;
+        margin: auto 10px;
+        width: 95%;
+        top: -0;
+        padding: 0!important;
+        overflow-y: scroll;
+    }
+   
+    .pop-sub {
+      padding-bottom: 2px!important;
+    }
+    #popup button {
+      text-align: center;
+    }
+      
+      .pop-container {
+        margin: 5px 0 0 10px;
+      }
+      #messenger-button {
+        right: 10px!important;
+        top: 20px!important;
+      }
+      
+    }
+  #append-pop {
+        margin: 20px 0;
+        padding: 20px;
+      }
+.product-added-info {
+  	
+	 padding: 14px 0 10px;
+	 
+}
+ .product-added-info .container {
+	 padding-top: 0;
+}
+ .product-added-info .row {
+	 margin-bottom: 0;
+}
+ .product-added-info h1 {
+	 text-align: left;
+	 display: none;
+	 text-transform: none;
+}
+ .product-added-info h2 {
+	 text-align: left;
+	 font-size: 24px;
+	 text-transform: none;
+	 padding: 7px 0 0;
+}
+ @media only screen and (max-width: 480px) {
+	 .product-added-info h2 {
+		 font-size: 19px;
+		 line-height: 1.4em;
+	}
+}
+ .product-added-info p {
+	 color: #6b6b6b;
+	 text-align: left;
+	 font-size: 14px;
+	 text-transform: none;
+	 margin-bottom: 0;
+}
+ .product-added-info p .added-info-logo {
+	 display: inline-block;
+	 height: 18px;
+	 position: relative;
+	 top: 3px;
+	 padding-right: 12px;
+}
+ .product-added-info h5 {
+	 text-align: left;
+	 padding-bottom: 0;
+	 margin-bottom: 0;
+	 font-size: 15px;
+	 text-transform: none;
+}
+   #besttimetodeliver{display:none;} 
+ @media only screen and (max-width: 480px) {
+	 .product-added-info h5 {
+		 font-size: 11px;
+		 line-height: 1.3em;
+	}
+}
+</style>
+
+<script type="text/javascript">
+var gorgiasChatInterval = window.setInterval(function () {
+  var iframe = document.querySelector('#gorgias-web-messenger-container');
+    if (iframe) { 
+      var head = iframe.contentWindow.document.querySelector('head')
+      if (head.children.length) {
+        window.clearInterval(gorgiasChatInterval); // this line breaks out of the loop - make sure it's not deleted.        
+        var styles = document.createElement('style');
+        styles.textContent = '#messenger-button  {right: 10px!important; top: 20px!important;}'  // the custom CSS you want to inject
+        head.appendChild(styles)
+      }
+    }    
+}, 100);
+</script>
+
+
+<input type="text" name="ordernumber" value="{{ checkout.order_number }}" data-ordernumber="{{ checkout.order_number }}" class="hidden"> 
+
+<script>
+  
+window.addEventListener('message', function(event) {
+    
+        $("input[name='Product Title'].hidden").val(event.data.product_fill);
+        $("input[name='Product URL'].hidden").val(event.data.productUrl);
+        $("input[name='ordernumber'].hidden").val(event.data.ordernumber);
+    
+});  
+  
+  
+  var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  function convertDate(date_str) {
+    temp_date = date_str.split("-");
+    return months[Number(temp_date[1]) - 1] + " " + temp_date[2];
+  }
+  	
+    
+    var deliveryDate = new Date();
+  	var deliveryDate2 = new Date();
+    var numberOfDaysToAdd = 3; 
+    deliveryDate.setDate(deliveryDate.getDate() + numberOfDaysToAdd); 
+  
+    var dd = deliveryDate.getDate();
+    var mm = deliveryDate.getMonth() + 1;
+    var y = deliveryDate.getFullYear();
+	var someFormattedDate = y + '-' +  mm + '-' + dd;
+  	
+  	someFormattedDate = convertDate(someFormattedDate)
+    
+    deliveryDate2.setDate(deliveryDate2.getDate() + 15); 
+  
+       	dd = deliveryDate2.getDate();
+     	mm = deliveryDate2.getMonth() + 1;
+    	y = deliveryDate2.getFullYear();
+  
+    var someFormattedDate2 = y + '-' +  mm + '-' + dd;
+  	
+   	someFormattedDate2 = convertDate(someFormattedDate2)
+  
+$(".step[data-step='payment_method'] .step__sections").prepend("<div class=''><section class='product-added-info' style='padding-bottom:0px'> <div class='container'> <div class='row'> <div class='sixteen columns'> <p class='insider-hook'></p> <p><img src='https://cdn.shopify.com/s/files/1/1307/5383/files/Shop_Risk_Icon.svg?v=1601537151' class='added-info-logo .step__sections'>Shop-risk free <span id='tooltip' data-info=''><i class='fa fa-question-circle' aria-hidden='true'></i></span></p></div></div></div></section></div>")
+
+$("<div class='d-added-info' style=''><section class='product-added-info' style='padding-bottom:0px'> <div class='container'> <div class='row'> <div class='sixteen columns'> <p class='insider-hook'></p> <p><img src='https://cdn.shopify.com/s/files/1/1307/5383/files/120105402_1215224615526794_4613987621654237398_n.png?v=1600912340' class='added-info-logo'>Get this by <span class='min-date'>" + someFormattedDate + "</span> - <span class='max-date'>" + someFormattedDate2 + "</span> <span id='tooltip3' data-info=''><i class='fa fa-question-circle' aria-hidden='true'></i></span></p> </div></div></div></section></div>").insertAfter(".step[data-step='shipping_method'] #continue_button"); 
+
+/*  $("<div class='d-added-info' style=''><section class='product-added-info' style='padding-bottom:0px'> <div class='container'> <div class='row'> <div class='sixteen columns'> <p class='insider-hook'></p> <p><img src='https://cdn.shopify.com/s/files/1/1307/5383/files/120105402_1215224615526794_4613987621654237398_n.png?v=1600912340' class='added-info-logo'>See our order processing schedule for the holidays. <span id='tooltip3' data-info=''><i class='fa fa-question-circle' aria-hidden='true'></i></span></p> </div></div></div></section></div>").insertAfter(".step[data-step='shipping_method'] #continue_button"); */
+
+
+  /* $("<div class='m-added-info' style='display:none'><section class='product-added-info' style='padding-bottom:0px'> <div class='container'> <div class='row'> <div class='sixteen columns'> <p class='insider-hook'></p> <p><img src='https://cdn.shopify.com/s/files/1/1307/5383/files/120105402_1215224615526794_4613987621654237398_n.png?v=1600912340' class='added-info-logo'>Get this by <span class='min-date'>" + someFormattedDate + "</span> - <span class='max-date'>" + someFormattedDate2 + "</span> <span id='tooltip3' data-info=''><i class='fa fa-question-circle' aria-hidden='true'></i></span></p> </div></div></div></section></div>").insertBefore(".step[data-step='shipping_method'] #continue_button"); */
+  /* $("<div class='m-added-info' style='display:none'><section class='product-added-info' style='padding-bottom:0px'> <div class='container'> <div class='row'> <div class='sixteen columns'> <p class='insider-hook'></p> <p><img src='https://cdn.shopify.com/s/files/1/1307/5383/files/120105402_1215224615526794_4613987621654237398_n.png?v=1600912340' class='added-info-logo'>Get this by <span class='min-date'>" + someFormattedDate + "</span> - <span class='max-date'>" + someFormattedDate2 + "</span> <span id='tooltip3' data-info=''><i class='fa fa-question-circle' aria-hidden='true'></i></span></p> </div></div></div></section></div>").insertBefore(".step[data-step='shipping_method'] #continue_button"); */
+  
+  
+
+   $(".step[data-step='contact_information'] .section--shipping-address .checkbox__label").append("<div class='checkout-addedinfo' style=''><section class='product-added-info' style='padding-bottom:0px;padding-top:0;'> <div class='container'> <div class='row'> <div class='sixteen columns'> <p class='insider-hook'></p> <p><img src='https://cdn.shopify.com/s/files/1/1307/5383/files/120105402_1215224615526794_4613987621654237398_n_8e029497-51ec-46c2-b6a9-cda1e837c97f.svg?v=1600923150' class='added-info-logo'>Get this by <span class='min-date'>" + someFormattedDate + "</span> - <span class='max-date'>" + someFormattedDate2 + "</span> <span id='tooltip3' data-info=''><i class='fa fa-question-circle' aria-hidden='true'></i></span></p>")  
+  
+  
+  /* $(".step[data-step='contact_information'] .section--shipping-address .checkbox__label").append("<div class='checkout-addedinfo' style=''><section class='product-added-info' style='padding-bottom:0px;padding-top:0;'> <div class='container'> <div class='row'> <div class='sixteen columns'> <p class='insider-hook'></p> <p><img src='https://cdn.shopify.com/s/files/1/1307/5383/files/120105402_1215224615526794_4613987621654237398_n_8e029497-51ec-46c2-b6a9-cda1e837c97f.svg?v=1600923150' class='added-info-logo'>See our order processing schedule for the holidays. <span id='tooltip3' data-info=''><i class='fa fa-question-circle' aria-hidden='true'></i></span></p> </div></div></div></section></div>")  */
+
+  
+  
+  
+  
+  
+</script>
+
+<script>
+
+    $(document).ready(function() {
+            var productUrl = "{{ product.url }}";
+            var proTitle = "{{product.title}}";
+            var orderNumber = "{{ checkout.order_number }}";
+            var refreshIntervalId_priceMatchform = setInterval(function() {
+            var new_frame = document.getElementById('frame_jHwOQ2ZpSD2-CSK9gVBVuQ');
+              
+                  new_frame.contentWindow.postMessage({
+                   product_fill: proTitle,
+                   productUrl: productUrl,
+                   ordernumber: orderNumber,  
+                   form_name: "Price Match"
+                            }, 'https://formbuilder.hulkapps.com/corepage/customform?id=jHwOQ2ZpSD2-CSK9gVBVuQ');  clearInterval(refreshIntervalId_priceMatchform); 
+                $('#order-id').val(orderNumber);
+              
+              
+
+     
+  });
+
+  
+</script>
+<style>
+  .checkout-addedinfo{
+  		display: block;
+      text-align: left;
+
+      margin-top: 14px;
+      position: relative;
+      left: -28px;
+  }
+  
+
+  @media only screen and (max-width:480px){
+    .checkout-addedinfo{text-align:left;
+    margin-top:12px;}
+    .d-added-info{
+		display:none;
+    }
+    .m-added-info{
+		display:block !important;
+      	position:relative;
+      	top:-12px;
+    }
+  }
+  	.section--payment-method{padding-top:10px !important;}
+  	.section {padding-top:40px !important}
+  	.step__sections > .section:nth-of-type(2) {padding-top:10px !important;}
+  	
+  label[for="checkout_payment_gateway_87388743"]:after {
+    content: url('https://cdn.shopify.com/s/files/1/1307/5383/files/paypalicon.PNG?v=1607327186');
+    position: absolute;
+    right: 20px;
+    top: 10px;
+  }
+  
+</style> 
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+	<script src="https://unpkg.com/tippy.js@6"></script>
+<script>
+      tippy('#tooltip', {
+        content: 'In the unlikely event that our products fall short of your expectations, reach out to us and let us know.You may take advantage of our Shop Risk Free 30-Day Guarantee where we work with you until we can come up with an agreeable arrangement. Contact our Customer Support for more info.',
+      });
+      tippy('#tooltip2', {
+        content: 'We offer a Risk-Free 30 Day Guarantee when you purchase any of our products.',
+      });
+  
+          tippy('#tooltip3', {
+        content: '3-10 days for Metro Manila <br/>5-15 days Luzon, <br/>Visayas, & Mindanao',
+            allowHTML: true,
+  
+        /*     tippy('#tooltip3', {
+        content: 'Orders placed from<br/> Dec 23-27 will be processed & dispatched Dec 28-29.<br/> Dec 28-Jan 3 will be processed & dispatched Jan 4-7.',
+            allowHTML: true,
+      });*/
+
+            tippy('#tooltip12', {
+        content: 'Make sure your gifts arrive in time! Order before:<br/>- Dec 15 for Greater Metro Manila area including areas of Laguna, Cavite, Bulacan, & Pampanga<br/>- Dec 20 for Metro Manila',
+            allowHTML: true, 
+      });
+  
+            tippy('#tooltip5', {
+        content: "<a href='https://www.ellanacosmetics.com/pages/bulk-gifting'>We can assist you - from helping you choose the best gifts, to placing your orders, and ensuring they're delivered to each of your loved ones.</a>",
+            allowHTML: true,
+      });
+  
+  
+  
+ 
+</script>
+
+
+<script>
+$('.product__description__name:contains("*")').text(function(i, txt) {
+  // iterate over them, replace and update 
+  return txt.replace('*', '');
+})
+
+$('.product__description__name:contains("@")').text(function(i, txt) {
+  // iterate over them, replace and update 
+  return txt.replace('@', '');
+})
+
+$("input").attr("autocomplete", "off");
+  
+$.each($('label[for="checkout_payment_gateway_87388743"] img'), function(){
+  $(this).replaceWith('<span>'+$(this).attr('alt')+'</span>');
+});
+
+
+$.each($('label[for="checkout_payment_gateway_61245849773"] img'), function(){
+  $(this).replaceWith('<span>'+$(this).attr('alt')+'</span>');
+});
+  
+$.each($('label[for="checkout_payment_gateway_61392060589"] img'), function(){
+  $(this).replaceWith('<span>'+$(this).attr('alt')+  ' Installment' +'</span>');
+});
+  
+/* REMOVE BYB PRICE */
+$('[data-product-id="6211262021805"] ul, [data-product-id="6211262021805"] .product__price').hide();
+  
+$('[data-product-id="6211262021805"]').each(function() {
+    $(this).parent().prepend(this);
+});
+$('[for="checkout_shipping_address_id"]').parent().hide();
+</script>
+
+
+<style>
+  .ui-accordion-header:focus {
+  	outline: none!important;
+  }  
+</style>
+
+
+
+
+
+
+<div class="content-box__row" id="accordion">
+  <div style="font-weight: 500; cursor: pointer;">Alternate Payment Methods<div class="fa fa-chevron-down rotate" style="right: 30px;
+    position: absolute;
+    top: 17px;"></div></div>
+  <div id="appendpayment" style="    margin: 20px 0px;
+    border: 1px solid rgb(217, 217, 217);
+    border-radius: 10px;
+"></div>
+  
+</div>
+
+<style>
+  .rotate{
+    -moz-transition: all .2s linear;
+    -webkit-transition: all .2s linear;
+    transition: all .2s linear;
+}
+
+.rotate.down{
+    -moz-transform:rotate(180deg);
+    -webkit-transform:rotate(180deg);
+    transform:rotate(180deg);
+}
+/*  
+div[data-select-gateway="37465751639"] {
+    display:none !important;
+}
+  */
+</style>

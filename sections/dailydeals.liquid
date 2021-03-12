@@ -1,0 +1,379 @@
+<!-- filename: sections/dailydeals.liquid -->
+{% comment %}
+** Collections - default view **
+- Collection template
+- Uses blocks
+{% endcomment %} 
+ 
+
+<a name="pagecontent" id="pagecontent"></a> 
+{% if section.settings.marquee_text_enable == true %}
+<div style="width: 100%; background-color: #fff; padding: 5px 5px 5px 5px;">
+  <span style="font-size: 12px; letter-spacing: .2em;"><center><marquee style="vertical-align: middle; line-height: 1.2;">{{ section.settings.marquee_text }}</marquee></center></span>
+</div>
+{% endif %}
+
+{% if section.settings.featured_collection_image %}
+		<style>
+          .breadcrumb-collection{
+          		display:none;
+          }
+		</style> 
+        
+        
+  		<div class="container countdown">
+			{% include 'newdailycountdown',
+                      title: "Special Offer End In",
+                      reset_in: "1 day",
+                      end_date: "Sep 30, 2020" 
+          %}
+		</div>
+ {% include 'infobar' %}
+
+<style>
+  .infobar {
+    margin-top: -44px;    
+}
+  @media only screen and (max-width:480px){
+ .infobar {
+margin-top: -5px;
+margin-bottom: 20px;
+} 
+  }
+</style>
+          <div class="container banner-row"> 
+            {% paginate collections.dailydeals.products by section.settings.pagination_limit %}
+                  {% for product in collections[section.settings.collection].products limit: 6 %}   
+                      {% if product.object_type == 'product' %}
+                        {% if product.available %}
+                           
+                                {% unless product.tags contains 'hiddenoncollections' %}
+                                     {% capture itemDup %}
+                                     <p>dd{{ product.title }}dd</p>
+                                     {% endcapture %} 
+                                    {% if product.id != skip_product.id %}
+                                      {% include 'product-thumbnail-without-thumbnail', sidebar: sidebar %}
+                                    {% endif %}
+                                {% endunless %}
+            				
+                        {% else %}
+
+                        {% endif %}
+                      {% endif %}
+                  {% endfor %}
+            
+          </div>
+          <div class="container">
+          		<hr class="countdown-hr"/>
+          </div>
+        
+{% endpaginate %}
+
+{% endif %}
+ 
+
+<a name="pagecontent" id="pagecontent"></a>
+<hr class="countdownhr" />
+
+   
+<div id="custom-login">
+	{% include 'custom-login' %}
+</div>
+
+  
+  <style>
+    @media only screen and (max-width:480px){
+      .eight.columns.medium-down--one-half.small-down--one-half.thumbnail.even{
+              float:right;
+          }
+          .eight.columns.medium-down--one-half.small-down--one-half.thumbnail{
+              height:auto;
+          }
+    }
+    
+  .aj-custom-left-grid {  
+    display: flex;
+    flex-flow: row wrap;
+    // justify-content: space-between;    
+  }
+    @media only screen and (max-width:480px){
+         .aj-custom-left-grid {
+          justify-content: space-between;    
+        } 
+    }
+  </style>
+
+<style>
+  .one-fourth {
+      min-height: 370px;
+  }
+  @media only screen and (min-width:481px){
+    .one-fourth {
+      min-height: 445px;
+  	}	
+  }
+</style>
+{% schema %}
+
+{
+  "name": "Collection",
+  "class": "collection-template-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "display_collection_title",
+      "label": "Show collection title"
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_breadcrumb",
+      "label": "Show breadcrumb links",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "marquee_text_enable",
+      "label": "Show marquee text",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "marquee_text",
+      "label": "Marquee Text", 
+	  "default": "FLASH SALE ALERT! Use code MOUTH and get P300 off all orders P1500 and up. Use code EYES and get P700 off all orders P2200 and up. Use code NOSE and get P850 off all orders P3000 and up.<strong>FREE SHIPPING</strong> for Metro Manila! FREE Shipping outside Metro Manila for orders above P1500!",
+      "info": "Maximum character limit is 170"
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_tags",
+      "label": "Enable filtering by product tag"
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_sort",
+      "label": "Enable collection sorting"
+    },
+    {
+      "type": "header", 
+      "content": "Daily Deals"
+    },
+    {
+      "type": "checkbox",
+      "id": "featured_collection_image",
+      "label": "Show top daily deals",
+      "info": "Enable daily deals section"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "enddate",
+      "label": "Deal End date",
+  	  "default": "Jul 22, 2020 21:00:00"
+    },
+  	{
+      "type": "text",
+      "id": "subheader",
+      "label": "Deal End date",
+  	  "default": "NEW DEALS IN"
+    },
+    {
+      "type": "checkbox",
+      "id": "image_darken",
+      "label": "Darken banner image",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "range",
+      "id": "products_per_row",
+      "label": "Products per row",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "pagination_limit",
+      "label": "Products per page",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Sidebar"
+    },
+    {
+      "type": "paragraph",
+      "content": "Create a sidebar by adding content blocks."
+    },
+    {
+      "type": "checkbox",
+      "id": "toggle",
+      "label": "Toggle sidebar content",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "filter_by_collection",
+      "name": "Collection list",
+      "limit": 1
+    },
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "custom_menu_linklist",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "name": "Page",
+      "settings": [
+        {
+          "type": "page",
+          "id": "content_page",
+          "label": "Page"
+        }
+      ]
+    },
+    {
+      "type": "recently_viewed",
+      "name": "Recently viewed products",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "To test the recently viewed products, view your online store outside of the Editor and visit multiple product pages. [Learn more](https:\/\/help.outofthesandbox.com\/hc\/en-us\/articles\/115008765228)"
+        },
+        {
+          "type": "text",
+          "id": "sidebar_rv_title",
+          "label": "Title",
+          "default": "Recently Viewed"
+        },
+        {
+          "type": "range",
+          "id": "sidebar_rv_per",
+          "label": "Products limit",
+          "min": 1,
+          "max": 4,
+          "step": 1,
+          "default": 3
+        }
+      ]
+    },
+  {
+      "type": "best-sellers",
+      "name": "Best Sellers",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "To test the recently viewed products, view your online store outside of the Editor and visit multiple product pages. [Learn more](https:\/\/help.outofthesandbox.com\/hc\/en-us\/articles\/115008765228)"
+        },
+        {
+          "type": "text",
+          "id": "sidebar_rv_title2",
+          "label": "Title",
+          "default": "Recently Viewed"
+        },
+        {
+          "type": "range",
+          "id": "sidebar_rv_per2",
+          "label": "Products limit",
+          "min": 1,
+          "max": 4,
+          "step": 1,
+          "default": 3
+        }
+      ]
+    },
+    {
+      "type": "filter",
+      "name": "Tag filter",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "filter_name",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "filter_tags",
+          "label": "Filter tags",
+          "info": "Add a comma-separated list of product tags. Only the tags found in the collection will be displayed as filters. [Learn more](https://help.outofthesandbox.com/hc/en-us/articles/115008642047)"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_filter_swatches",
+          "label": "Display color swatches"
+        }
+      ]
+    },
+    {
+      "type": "filter_by_tag",
+      "name": "Tag list",
+      "limit": 1
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Text area can be used for special announcements or general information.</p>"
+        }
+      ]
+    },
+    {
+      "type": "filter_by_type",
+      "name": "Type list",
+      "limit": 1
+    },
+    {
+      "type": "filter_by_vendor",
+      "name": "Vendor list",
+      "limit": 1
+    }
+  ]
+}
+
+{% endschema %}
+<style>
+  #shopify-section-footer{
+  	margin-top:50px;
+  }
+  @media only screen and (max-width:480px){
+    .one-fourth{margin-top:20px;}
+  }
+  .days {
+  display: none;
+  }
+  .product-details {
+  text-align:center;
+  }
+</style>

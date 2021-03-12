@@ -1,0 +1,141 @@
+<!-- filename: splash-page-select-country.liquid -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script>
+  
+$(document).ready(function() {
+    $('#close').on('click', function(e) { 
+        $('#myModal').remove(); 
+    });
+});
+  
+  $.ajax({
+  url: "https://geolocation-db.com/jsonp",
+  jsonpCallback: "callback",
+  dataType: "jsonp",
+  success: function(location) {
+    if (location.country_code !== 'PH') {
+     
+ 
+      $( ".modal" ).fadeIn();
+    }
+    
+  }
+});
+
+
+  
+
+  
+</script>
+
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    
+    <div class="container">
+      <span class="close" id="close">&times;</span>
+      <div class="sixteen columns medium-down--one-whole">
+      <h1><img src="//cdn.shopify.com/s/files/1/1307/5383/files/LOGO3_410x.png?v=1577310945" width="150px" alt="{{ shop.name | escape }}" /></h1>
+      <p>
+      Ellana Cosmetics is the #1 Mineral Makeup Brand in Asia.
+      We ship worldwide in 3 days for major cities, and up to 15 days.
+      </p>
+
+      <p>Choose your country and currency. </p>
+        <div class="eight columns medium-down--one-whole">
+          <b>ASIA & THE PACIFIC</b>
+          <ul>
+            <li><a href="https://us.ellanacosmetics.com">Australia (AUD)</a></li>
+            <li><a href="https://us.ellanacosmetics.com">Hong Kong (HKD)</a></li>
+            <li><a href="https://us.ellanacosmetics.com">Indonesia </a></li>
+            <li><a href="https://us.ellanacosmetics.com">Japan</a></li>
+            <li><a href="https://us.ellanacosmetics.com">Korea</a></li>
+            <li><a href="https://us.ellanacosmetics.com">Malaysia</a></li>
+            <li><a href="https://ellanacosmetics.com">Philippines</a></li>
+            <li><a href="https://us.ellanacosmetics.com">New Zealand</a></li>
+            <li><a href="https://us.ellanacosmetics.com">Singapore</a></li>
+            <li><a href="https://us.ellanacosmetics.com">Thailand</a></li>
+            <li><a href="https://us.ellanacosmetics.com">Vietnam</a></li>
+
+          </ul>
+          <p></p>
+         </div>
+          <div class="eight columns medium-down--one-whole">
+          <b>EUROPE</b>
+          <ul>
+            <li><a href="https://us.ellanacosmetics.com">European Union (Euro)</a></li>
+            <li><a href="https://us.ellanacosmetics.com">England (GBP)</a></li>
+            <li><a href="https://us.ellanacosmetics.com">Switzerland (Franc)</a></li>
+          </ul>
+          <p></p>
+          <b>NORTH AMERICA</b>
+          <ul>
+            <li><a href="https://us.ellanacosmetics.com">United States of America</a></li>
+            <li><a href="https://us.ellanacosmetics.com">Canada</a></li>
+          </ul>
+          <p></p>
+
+           <b>THE REST OF THE WORLD (USD)</b>
+           <p>*currency upon checkout converted to USD."</p>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+<style>
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 99999;
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: transparent;
+  margin-top: 0!important;
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    width: 768px;
+    margin-top: 5%;
+  z-index: 99999;/* Sit on top */
+      border: solid 1px #e4e4e4;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+  
+@media only screen and (max-width: 480px) {
+  .modal-content {
+	width: 100%;
+  }
+}
+  
+</style>

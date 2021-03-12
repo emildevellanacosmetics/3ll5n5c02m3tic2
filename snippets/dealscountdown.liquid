@@ -1,0 +1,198 @@
+<!-- filename: dealscountdown.liquid -->
+<div class="container countdown">
+  <div class="vertical-container">
+    <div class="countdown-title vertical">
+      <h2>NEW DEALS IN</h2>
+      
+    </div>
+    <div class="countdown-timer vertical">
+      <ul>
+       <li class="time" style="display:none;"><span id="days"></span>days</li>
+        <li class="time"><span id="hours"></span>Hours</li>
+    	<li class="time"><span id="minutes"></span>Minutes</li> 
+        <li class="time"><span id="seconds"></span>Seconds</li>
+      </ul>
+    </div>
+  </div>
+  <hr class="countdown-hr"/> 
+</div>
+
+<style>
+  .vertical-container{ width: 80%; margin: 0 auto; align-items: center; }  
+  .countdown-title {width: 100%;float:left}  
+  .countdown-botton {width: 100%;float:left;text-align: center;}  
+  .countdown-timer {width: 100%;} 
+  .countdown-timer ul {margin-bottom:0;}
+  
+.vertical-container .vertical {
+  vertical-align: middle!important;  
+}
+  
+.time {
+  display: inline-block;
+  font-size: 16px;
+  list-style-type: none;
+  padding: 0 1em;
+  text-transform: uppercase;
+  text-align: center
+  margin-bottom: 0;
+}
+
+.time span {
+  display: block;
+  font-size: 34px;
+  line-height: 1;
+  text-align: center;
+}
+
+.countdown h1 {
+  color: #506a28;
+  font-weight: bold;
+  text-transform: capitilize;
+}
+  
+  
+@media only screen and (max-width: 480px) {
+  .time {
+    font-size: 12px;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding: 5px;
+  }
+  
+  .time span {
+    display: block;
+    font-size: 22px;
+    line-height: 1;
+    text-align: center;
+  }
+  .vertical-container {
+    width: 100%;
+  }
+  .countdown-timer ul {
+    padding: 0;
+    text-align: center;
+  }
+  .dropbtn {
+    font-size: 12px!important;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 0;
+    left: -77px!important;
+    margin: 0 20px;
+}
+}
+  
+</style>
+
+<script>
+const second = 1000,
+      minute = second * 60,
+      hour = minute * 60,
+      day = hour * 24;
+
+  let countDown = new Date('{{ section.settings.enddate }}').getTime(),
+    x = setInterval(function() {    
+
+      let now = new Date().getTime(),
+          distance = countDown - now;
+
+      document.getElementById('days').innerText = Math.floor(distance / (day)),
+        document.getElementById('hours').innerText = Math.floor((distance % (day)) / (hour)),
+        document.getElementById('minutes').innerText = Math.floor((distance % (hour)) / (minute)),
+        document.getElementById('seconds').innerText = Math.floor((distance % (minute)) / second);
+
+      //do something later when date is reached
+      //if (distance < 0) {
+      //  clearInterval(x);
+      //  'IT'S MY BIRTHDAY!;
+      //}
+
+    }, second)
+</script>
+
+
+
+
+
+
+<style>
+.dropbtn {
+  background-color: #506a28;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  opacity: 0.7;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  right: 0;
+    left: 0;
+    margin: 0 20px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+</style>
+
+
+
+
+<script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
+
+
+
+

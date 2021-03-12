@@ -1,0 +1,34 @@
+<p class="h5--body">{{ customer.name }}</p>
+
+{% if customer.default_address != nil %}
+<p>
+{{ customer.default_address.address1 }}<br>
+
+{% if customer.default_address.address2 != "" %}
+    {{ customer.default_address.address2 }}<br>
+{% endif %}
+
+{% if customer.default_address.city != "" %}
+    {{ customer.default_address.city }}<br>
+{% endif %}
+
+{% if customer.default_address.province_code != "" %}
+    {{ customer.default_address.province_code | upcase }}<br>
+{% endif %}
+
+{% if customer.default_address.zip != "" %}
+    {{ customer.default_address.zip | upcase }}<br>
+{% endif %}
+
+{% if customer.default_address.country != "" %}
+    {{ customer.default_address.country }}<br>
+{% endif %}
+
+{% if customer.default_address.phone != "" %}
+    {{ customer.default_address.phone }}
+{% endif %}
+</p>
+
+{% endif %}
+
+<p><a href="/account/addresses">Edit Address ({{ customer.addresses_count }})</a></p>

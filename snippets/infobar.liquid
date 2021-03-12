@@ -1,0 +1,38 @@
+<!-- filename: infobar.liquid -->
+<div class="container ff" style="">
+  <div class="infobar">
+    {% unless title == blank %}<p style="margin-bottom:6px;font-size:15px;"><b>{{ title }}</b></p>{% endunless %}
+    {% unless text1 == blank %}<p>{{ text1 }}{% endunless %}
+	{% unless text2 == blank %}<br>{{ text2 }}{% endunless %}
+    {% unless text3 == blank %}<br>{{ text3 }}{% endunless %}
+    {% unless text4 == blank %}<br>{{ text4 }}{% endunless %}
+    {% unless text5 == blank %}<br>{{ text5 }}</p>{% endunless %}
+  </div> 
+</div>
+
+<style>  
+    .ff{
+      width:100%;
+    }
+    .infobar{
+      width: 100%;
+      margin-top:{{ top }}px;
+      margin-bottom:{{ bottom }}px;
+      border: 1px solid {{ border }} !important;	  
+  	  background-color: {{ bcolor }} !important;
+    }  
+  	.infobar p{
+      color: {{ tcolor }} !important;
+      text-align: {% if lalign %}left{% else %}center{% endif %} !important;;
+  	}
+    
+    @media only screen and (max-width:480px){
+      .infobar{
+          width:93%;
+          display:block;
+          margin-left:auto;
+          margin-right:auto;
+      }
+    }
+
+</style>

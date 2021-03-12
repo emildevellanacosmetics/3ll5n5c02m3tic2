@@ -1,0 +1,172 @@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<div class="wrapper">
+  <header class="account-header clearfix">
+    <div class="eight columns account-header-title">
+      <h1>{{ 'customer.account.details' | t }}</h1>
+    </div>
+    <div class="eight columns account-header-logout">
+      <span>{{ 'layout.customer.log_out' | t | customer_logout_link }}</span>
+    </div>
+  </header>
+  <div class="feature_divider"></div>
+
+{{ 'account-tabs.js' | asset_url | script_tag }}
+
+
+
+ <div class="tabs-account">
+    <ul class="tab-account-links desktop">
+      <li class="active"><a data-href="#tab1">Account Details</a></li>
+      <li><a data-href="#tab2" style="display: none;">Beauty Profile</a></li>
+      <li><a data-href="#tab3">Order History</a></li>
+      <li><a data-href="#tab4">Wishlist</a></li>
+      <li><a data-href="#tab5">Beauty Profile</a></li>
+      
+    </ul>
+    <select class="tab-account-links mobile" id="tab-mobile">
+      <option value="tab1">Account Details</option>
+      <option value="tab2" style="display: none;">Beauty Profile</option>
+      <option value="tab3">Order History</option>
+      <option value="tab4">Wishlist</option>
+      <option value="tab5">Beauty Profile</option>
+    </select>
+
+    <div class="tab-account-content">
+      <div id="tab1" class="tab-account active">
+        <h4 class="name"><a href="/account" title="{{ 'layout.customer.my_account' | t }}">{{ customer.name }}</a></h4>
+      	<p class="email note">{{ customer.email }}</p>
+        <h4>{{ 'customer.addresses.primary' | t }}</h4>
+        <div class="address note">
+          {% if customer.default_address != nil %}
+            <p>{{ customer.default_address.address1 }}</p>
+            {% if customer.default_address.address2 != "" %}
+              <p>{{ customer.default_address.address2 }}</p>
+            {% endif %}
+            <p>{{ customer.default_address.city}}{% if customer.default_address.province_code %}, {{customer.default_address.province_code}}{% endif %} {{ customer.default_address.zip}}</p>
+            <p>{{customer.default_address.country}}</p>
+            <p>{{ customer.default_address.phone }}</p>
+          {% else %}
+            <p>{{ 'customer.addresses.no_addresses' | t }}</p>
+          {% endif %}
+            <p><a href="/account/addresses">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a></p>
+        </div>
+      </div>
+
+      <div id="tab2" class="tab-account" style="display: none;">
+        <div class="profile-form-alerts">
+          <span>Saved!</span>
+        </div>
+        <form action="/a/custmeta" method="POST" class="custmeta">
+          <input type="hidden" name="customer[id]" value="{{ customer.id }}" />
+          <div class="grid grid-profile-outer">
+            {% include 'beauty-profile' %}
+          </div>
+          <input type="submit" value="Save" class="save-btn" />
+        </form>
+      </div>
+
+      <div id="tab3" class="tab-account">
+        {% include 'order-history' %}
+      </div>
+
+      <div id="tab4" class="tab-account tab-wishlist">
+        {% include 'wishlist-page' %}
+      </div>
+      <div id="tab5" class="tab-account tab-beauty">
+        {% include 'beauty-quiz' %}
+      </div>
+    </div>
+  </div>
+   </div>
+
+<script>
+$(document).ready(function(){
+
+  $('.skin-type input').click(function(){
+    var skin_types = [];
+    $.each($('input[name="skin_type"]:checked'), function(){
+      skin_types.push($(this).val());
+    });
+    $('.skin-type-meta').attr('value', skin_types.join(", "));
+  });
+
+  $('.skin-concern input').click(function(){
+    var skin_concerns = [];
+    $.each($('input[name="skin_concern"]:checked'), function(){
+      skin_concerns.push($(this).val());
+    });
+    $('.skin-concern-meta').attr('value', skin_concerns.join(", "));
+  });
+
+});
+</script>
+
+<script>
+  $('form.custmeta').submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      dataType: "json",
+      data: $(this).serialize(),
+      url: $(this).attr('action'),
+      success: function (data) {
+        var formValid = (data.status === 'OK');
+        if (formValid) {
+          var msgs = '';
+          for (var i=0;i<data.messages.length;i++) {
+            msgs += '-- ' + data.messages[i] + '\n';
+          }
+          if (msgs > '') {
+            alert('SUCCESS WITH MESSAGES:\n\n' + msgs);
+          }
+          else {
+            //alert('SUCCESS!');
+            $(window).scrollTop(0);
+            $('.profile-form-alerts').show().delay(2000).fadeOut('slow');
+          }
+        }
+        else {
+            alert('Status: ' + data.status + '\nMessage: ' + data.message);
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert('AJAX or Server 500 error occurred');
+      }
+    });
+    return false;
+  });
+
+  $('form.custmeta_wish').submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      dataType: "json",
+      data: $(this).serialize(),
+      url: $(this).attr('action'),
+      success: function (data) {
+        var formValid = (data.status === 'OK');
+        if (formValid) {
+          var msgs = '';
+          for (var i=0;i<data.messages.length;i++) {
+            msgs += '-- ' + data.messages[i] + '\n';
+          }
+          if (msgs > '') {
+            alert('SUCCESS WITH MESSAGES:\n\n' + msgs);
+          }
+          else {
+            //alert('SUCCESS!');
+            location.reload();
+          }
+        }
+        else {
+            alert('Status: ' + data.status + '\nMessage: ' + data.message);
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert('AJAX or Server 500 error occurred');
+      }
+    });
+    return false;
+  });
+</script>

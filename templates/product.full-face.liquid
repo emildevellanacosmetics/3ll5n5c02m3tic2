@@ -1,0 +1,27 @@
+<style>
+  .product { width: 100%; }
+  .product_gallery_nav.product_gallery_nav--bottom-thumbnails img {
+    height: auto;
+    width: auto;
+  }
+</style>
+
+{% comment %}
+  The contents of the product.liquid template can be found in /sections/product-template.liquid
+{% endcomment %}
+
+<section class="section has-padding-top">
+  <div class="container">
+
+    {% render 'product__structured-data' %}
+
+
+    <section class="section--has-sidebar-option is-flex is-flex-wrap has-padding-top">
+      {% section 'product-sidebar' %}
+      {% section 'product-template-skin-series-set' %}
+      {% section 'product-recommendations' %}
+    </section>
+  </div>
+</section>
+
+

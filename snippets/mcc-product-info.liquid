@@ -1,0 +1,63 @@
+<!-- filename: mcc-product-info.liquid -->
+{% if product.available %}
+{% if product.variants.size > 1 %}
+{% if product.id == 4463233040471 or product.id == 4455742963799  or product.id == 4485346820183 or product.id == 4494726037591 or product.id == 4521889071191 %}
+	<a href="{{ product.url }}" class="showswatch action_button add_to_cart custom-button"> Select Option </a>
+{% else %}
+	<a href="{{ product.url }}" class="showswatch action_button add_to_cart custom-button {% if product.id == 4530133762135 or product.id == 4488330379351 %} notbundles {% elsif product.type == 'Special Bundle' or product.title contains 'Brush' or product.title contains 'Pouches' or product.title contains 'Ellana Cosmetics Gift E-Card' or product.title contains 'Sanitizing Spray' or product.title contains 'Beauty Balm' or product.title contains 'All Surface Anti-Bad Things Spray' %}bundles {% else %} notbundles {% endif %}">  {% if product.id == 4530133762135 or product.id == 4488330379351 %} Select Shade {% elsif product.type == 'Special Bundle' or product.title contains 'Brush' or product.title contains 'Pouches' or product.title contains 'Ellana Cosmetics Gift E-Card' or product.title contains 'Sanitizing Spray' or product.title contains 'Beauty Balm' or product.title contains 'All Surface Anti-Bad Things Spray' %}Select Option {% else %}Select Shade {% endif %} </a>
+{% endif %} 
+
+<div class="ajaxbuynow">
+{% form 'product', product %}
+  <input type="checkbox" class="img-checkbox" name="id" id="vid" value="{{ product.variants.first.id }}" />
+  <input type="hidden" min="1" type="number" id="quantity" name="quantity" value="1"/>
+  <label class="image__container css-label" for="id">
+  {% include 'image-element-variant', image: product.featured_image, alt: alt_text, object_fit: settings.align_height, max_height: section.settings.collection_height %}
+  </label>
+  <button style="display:none" type="{% if settings.cart_action == 'ajax' %}button{% else %}submit{% endif %}" name="add" class="custom-button {% if settings.cart_action == 'ajax' %} ajax-submit {% endif %}action_button add_to_cart {% if show_payment_button %} action_button--secondary {% endif %} {% if product.available == false %}disabled{% endif %}" data-label={{ add_to_cart_label | json }}>
+          <span class="text" style="color: #fff;">
+            {% if product.available %}Add to Bag{% else %}{{ settings.sold_out_text }}{% endif %}
+          </span>
+          <svg x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32" class="checkmark">
+            <path fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M9,17l3.9,3.9c0.1,0.1,0.2,0.1,0.3,0L23,11"/>
+          </svg>
+  </button>
+</div>
+{% endform %}
+
+
+{% else %}
+
+
+
+
+{% form 'product', product %}
+  
+  <label class="image__container css-label" for="id">
+    <input type="checkbox"  name="id" id="vid" value="{{ product.variants.first.id }}" />
+    <input type="hidden" min="1" type="number" id="quantity" name="quantity" value="1"/>
+             <img src="{{ product.featured_image.src | product_img_url: 'grande' }}">
+  </label>
+  <button type="{% if settings.cart_action == 'ajax' %}button{% else %}submit{% endif %}" name="add" class="custom-button {% if settings.cart_action == 'ajax' %} ajax-submit {% endif %}action_button add_to_cart {% if show_payment_button %} action_button--secondary {% endif %} {% if product.available == false %}disabled{% endif %}" data-label={{ add_to_cart_label | json }}>
+          <span class="text" style="color: #fff;">
+            {% if product.available %}Add to Bag{% else %}{{ settings.sold_out_text }}{% endif %}
+          </span>
+          <svg x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32" class="checkmark">
+            <path fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M9,17l3.9,3.9c0.1,0.1,0.2,0.1,0.3,0L23,11"/>
+          </svg>
+  </button>
+{% endform %}
+
+{% endif %}
+{% else %}
+
+<a href="{{ product.url }}" class="action_button add_to_cart soldout" style="margin-bottom: 10px; min-height: 30px;
+      font-size: 12px; width: 75%;     background: gray;
+    border: gray; font-family: Poppins, sans-serif;">{{ settings.sold_out_text }}</a>
+
+
+{% endif %}
+
+
+
+

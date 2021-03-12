@@ -1,0 +1,31 @@
+
+   <div class="col-md-6 offset-md-3 mt-5">
+        <form action="https://mailthis.to/jo@ellanacosmetics.com" method="POST" encType="multipart/form-data" target="_blank">
+        
+          <div class="form-group">
+            <label for="exampleInputName">Full Name</label>
+            <input type="text" name="fullname" class="form-control" id="exampleInputName" placeholder="Enter your First Name and Last Name" required="required">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1" required="required">Enter the Email Address you used to order</label>
+            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          </div>
+          
+          <div class="form-group">
+            <label for="OrderNumber">Your Order Number</label>
+            <input type="text" name="ordernum" class="form-control" id="ordernumber" placeholder="Enter your Order Number">
+          </div>
+          <hr>
+          <div class="form-group mt-3">
+            <label class="mr-2">Upload your Deposit Slip or Transfer Screenshot:</label>
+            <input type="file" name="file">
+          </div>
+          <input type="hidden" name="_subject" value="Proof of Payment">
+          <input type="hidden" name="_after" value="https://www.ellanacosmetics.com/">
+          <input type="hidden" name="_honeypot" value="">
+          <input type="hidden" name="_confirmation" value="">
+          <hr>
+          <input type="submit" class="btn btn-primary" value="Submit">
+        </form>
+    </div> 
+    
